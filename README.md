@@ -8,10 +8,12 @@
 
 ## 四个入口
 
-- `$agent-workflow-kit:design`：调查真实仓库，持续记录 Design；问题清零后自动进入 Plan。
-- `$agent-workflow-kit:plan`：建立 `Success Criterion → Task → Evidence` 追踪并等待明确授权。
-- `$agent-workflow-kit:act`：执行已授权 Plan；调查后仍有疑问立即停止询问。
-- `$agent-workflow-kit:review`：独立 subagent 在同一工作区只读反查真实调用链。
+- `$agent-workflow-kit:design`：调查真实仓库，持续记录 Design；Ready 后停止。
+- `$agent-workflow-kit:plan`：显式调用后建立 `Success Criterion → Task → Evidence` 追踪并等待明确授权。
+- `$agent-workflow-kit:act`：显式调用后执行已授权 Plan；调查后仍有疑问立即停止询问。
+- `$agent-workflow-kit:review`：显式调用后派独立 subagent，在同一工作区只读反查真实调用链。
+
+四个阶段都只在用户显式调用对应 skill 时进入；Ready、授权或前一阶段完成都不会自动触发下一阶段。
 
 Claude Code 的交互式命令使用 `/agent-workflow-kit:design` 等同名 namespaced skill。没有 `$workflow-*` 兼容入口，也没有 kit 自建的 doctor；宿主环境分别使用 `codex doctor` 与 `claude doctor`。
 
