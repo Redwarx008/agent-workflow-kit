@@ -1,6 +1,6 @@
 {
   "name": "agent-workflow-kit",
-  "version": "0.2.3",
+  "version": "0.2.4",
   "private": true,
   "description": "Lightweight contract and safety checks for Agent Workflow Kit",
   "type": "module",
