@@ -10,7 +10,9 @@
 
 ## Superpowers Brainstorming
 
-采用先探索项目、比较 2-3 个有效方案、定义 Design Ready gate，以及 Visual Companion 的 just-in-time 原则。没有采用“所有微小改动都必须完整 Design”、机械 TDD 或自动提交 Design 文档。
+采用先探索项目、在确有多个有效方向时比较 2-3 个方案、逐项讨论架构/组件/接口/数据流/错误处理、定义 Design Ready gate，以及 Visual Companion 的 just-in-time 原则。方案数量不是仪式：仓库证据唯一确定方向时不制造伪选项。没有采用“所有微小改动都必须完整 Design”、机械 TDD 或自动提交 Design 文档。
+
+Design 的“实现方案”指 Plan 前必须确定的机制、所有权、状态转换、依赖和生产集成点；文件级任务拆分、顺序与命令仍属于 Plan。这样既避免 Plan 重新发明架构，也不让 Design 退化成执行清单。
 
 Visual Companion 保留上游已加固的 session key、同源 WebSocket、路径 containment、token fallback、断线恢复、空闲退出和 PID 所有权语义。浏览器只辅助视觉选择；终端对话仍是最终反馈和授权通道。
 

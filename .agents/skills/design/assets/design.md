@@ -16,17 +16,38 @@
 
 ## Constraints
 
+## Design Coverage
+
+| Dimension | Status | Evidence / Decision |
+| --- | --- | --- |
+| Purpose and success | Unresolved | |
+| Scope and non-goals | Unresolved | |
+| Current implementation and references | Unresolved | |
+| Architecture and boundaries | Unresolved | |
+| Components and responsibilities | Unresolved | |
+| Interfaces and contracts | Unresolved | |
+| Data ownership and flow | Unresolved | |
+| Implementation mechanics and integration points | Unresolved | |
+| Failure modes, edge cases, and compatibility | Unresolved | |
+| Validation and success evidence | Unresolved | |
+
+<!-- Use only Resolved, Unresolved, or N/A. N/A requires a reason. -->
+
 ## Options Considered
 
 ## Chosen Design
 
 ### Architecture and Boundaries
 
+### Components and Responsibilities
+
 ### Interfaces and Contracts
 
-### Data Flow
+### Data Ownership and Flow
 
-### Failure Modes and Edge Cases
+### Implementation Mechanics and Integration Points
+
+### Failure Modes, Edge Cases, and Compatibility
 
 ## Validation and Success Criteria
 
