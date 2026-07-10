@@ -45,42 +45,27 @@ claude plugin update agent-workflow-kit@agent-workflow-kit
 
 标准安装、升级、禁用和卸载由宿主原生命令负责；本仓库不复制平台包管理器。
 
+如果项目里仍有手工复制的旧 `$workflow-*` skills，请先人工确认这些目录没有用户修改，再自行删除。插件不会扫描、认领或清理消费项目文件。
+
 ## 项目接入
 
 把 [AGENTS.md](AGENTS.md) 中适用的触发与门禁合并进项目规则。项目规则和用户明确要求始终优先。
 
-Design 开始前会运行 bundled preflight：在 Git 项目的 repo-local `.git/info/exclude` 中幂等确保 `/workflow/` 被忽略，然后才允许创建记录。Design、Plan、Visual Companion 状态、真实行为评测输出和 Review 临时材料全部进入本地 `workflow/`，不会要求修改项目的 tracked `.gitignore`。
+Design 开始前会运行 bundled preflight：在 Git 项目的 repo-local `.git/info/exclude` 中幂等确保 `/workflow/` 被忽略，然后才允许创建记录。Design、Plan、Visual Companion 状态和 Review 临时材料全部进入本地 `workflow/`，不会要求修改项目的 tracked `.gitignore`。
 
-## 行为评测（eval）
+## 维护与验证
 
-行为评测用于检查 skill 是否真的改变 agent 行为，而不只是比较 prompt 文本。仓库跟踪 case、fixture、schema 与 deterministic grader；模型原始输出只写入忽略的 `workflow/.local/evals/`。
-
-先运行无模型检查：
+仓库只维护直接保护插件契约与 bundled 工具安全边界的检查：
 
 ```powershell
 npm ci
 npm test
-npm run eval:validate
 npm run check
+npm run test:visual
+npm run test:visual:powershell
 ```
 
-检查消费项目的本地安装、遗留副本和所有权风险：
-
-```powershell
-node scripts/check.mjs --project-root <project-path> --json
-```
-
-输出区分规范仓库版本/commit、Codex/Claude cache、陈旧版本、已知遗留发布、用户修改、未知所有权、malformed 副本和重复加载风险。检查命令只报告；不会删除或覆盖项目文件。
-
-维护者显式运行真实 Claude/Codex batch：
-
-```powershell
-npm run eval:run -- --runner all
-```
-
-默认 batch 是一个 old/new paired case 在每个 runner 各 3 次，加五个 new-only restraint/smoke case各 1 次，共约 22 次模型调用。真实模型 eval 不在 GitHub Actions 中运行，不读取 CI secrets；安全门禁要求 paired new arm 在每个 runner 上 3/3，通过追加重跑不能覆盖失败。
-
-本地发布还应运行 `npm run test:lifecycle`；需要证明 Codex 新 task 实际加载 cache 中的 namespaced skill 时，运行 `npm run test:fresh:codex`。后者会临时安装唯一命名的本地 marketplace，并在 `finally` 中清理。
+`npm test` 覆盖 manifest/skill 契约和 Design preflight；`npm run check` 只检查当前仓库，不探测宿主 CLI、cache 或消费项目。Visual Companion 保留独立的鉴权、文件边界和进程生命周期回归。真实插件安装与升级使用宿主原生命令，发布时另开 fresh task 做针对性 smoke test。
 
 ## Visual Companion
 

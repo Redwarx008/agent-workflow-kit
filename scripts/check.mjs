@@ -3,9 +3,6 @@
 import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath, pathToFileURL } from 'node:url';
-import { discoverCli } from './lib/cli-discovery.mjs';
-import { diagnoseInstallations } from './lib/install-diagnostics.mjs';
-import { inspectWorkflowIgnore } from '../.agents/skills/design/scripts/preflight.mjs';
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const SKILLS = ['design', 'plan', 'act', 'review'];
@@ -29,7 +26,7 @@ function checkReferences(skill, failures) {
   }
 }
 
-export function inspectRepository(options = {}) {
+export function inspectRepository() {
   const failures = [];
   const codex = json('.codex-plugin/plugin.json');
   const claude = json('.claude-plugin/plugin.json');
@@ -58,44 +55,26 @@ export function inspectRepository(options = {}) {
   const source = SKILLS.map(skill => fs.readFileSync(path.join(skillsRoot, skill, 'SKILL.md'), 'utf8')).join('\n');
   if (/\$workflow-(?:design|plan|act|review)/.test(source)) failures.push('legacy workflow-* invocation remains');
 
-  const runners = options.skipRunners ? {} : {
-    codex: discoverCli('codex'),
-    claude: discoverCli('claude'),
-  };
-  let project = null;
-  if (options.projectRoot) {
-    const root = path.resolve(options.projectRoot);
-    project = {
-      preflight: inspectWorkflowIgnore(root),
-      installation: diagnoseInstallations({ repoRoot: ROOT, projectRoot: root }),
-    };
-  }
-  return { ok: failures.length === 0, failures, plugin: { name: codex.name, version: codex.version }, inventory, runners, project };
+  return { ok: failures.length === 0, failures, plugin: { name: codex.name, version: codex.version }, inventory };
 }
 
 function parse(argv) {
   let jsonOutput = false;
-  let projectRoot;
-  let skipRunners = false;
   for (let index = 0; index < argv.length; index += 1) {
     if (argv[index] === '--json') jsonOutput = true;
-    else if (argv[index] === '--project-root') projectRoot = argv[++index];
-    else if (argv[index] === '--skip-runners') skipRunners = true;
     else throw new Error(`Unknown argument: ${argv[index]}`);
   }
-  return { jsonOutput, projectRoot, skipRunners };
+  return { jsonOutput };
 }
 
 function main() {
 try {
   const args = parse(process.argv.slice(2));
-  const result = inspectRepository(args);
+  const result = inspectRepository();
   if (args.jsonOutput) console.log(JSON.stringify(result, null, 2));
   else {
     console.log(`${result.ok ? 'PASS' : 'FAIL'} agent-workflow-kit ${result.plugin.version}`);
     console.log(`skills: ${result.inventory.join(', ')}`);
-    for (const [name, runner] of Object.entries(result.runners)) console.log(`${name}: ${runner.available ? runner.version : 'unavailable'}`);
-    if (result.project) console.log(`project: ${result.project.preflight.status}; installation: ${result.project.installation.status}`);
     for (const failure of result.failures) console.error(`- ${failure}`);
   }
   if (!result.ok) process.exitCode = 1;

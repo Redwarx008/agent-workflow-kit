@@ -18,8 +18,7 @@ jobs:
           cache: npm
       - run: npm ci
       - run: npm test
-      - run: npm run eval:validate
-      - run: npm run check -- --skip-runners
+      - run: npm run check
       - run: npm --prefix .agents/skills/design/scripts/visual-companion/tests ci
       - run: npm --prefix .agents/skills/design/scripts/visual-companion test
       - if: runner.os == 'Windows'

@@ -1,18 +1,14 @@
 {
   "name": "agent-workflow-kit",
-  "version": "0.1.1",
+  "version": "0.2.0",
   "private": true,
-  "description": "Deterministic checks and behavior eval harness for Agent Workflow Kit",
+  "description": "Lightweight contract and safety checks for Agent Workflow Kit",
   "type": "module",
   "scripts": {
     "check": "node scripts/check.mjs",
     "test": "node --test tests/*.test.mjs",
     "test:visual": "npm --prefix .agents/skills/design/scripts/visual-companion/tests ci && npm --prefix .agents/skills/design/scripts/visual-companion test",
-    "test:visual:powershell": "npm --prefix .agents/skills/design/scripts/visual-companion run test:powershell",
-    "test:lifecycle": "node scripts/test-plugin-lifecycle.mjs",
-    "test:fresh:codex": "node scripts/test-codex-fresh-invocation.mjs",
-    "eval:validate": "node scripts/eval.mjs validate",
-    "eval:run": "node scripts/eval.mjs run"
+    "test:visual:powershell": "npm --prefix .agents/skills/design/scripts/visual-companion run test:powershell"
   },
   "engines": {
     "node": ">=20"
