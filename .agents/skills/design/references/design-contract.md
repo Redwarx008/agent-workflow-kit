@@ -19,7 +19,7 @@ Design is Ready only when all are true:
 - Relevant current implementation and references have been inspected.
 - Every Design Coverage row is `Resolved` or a justified `N/A`; none is merely inferred from a filled heading.
 - Architecture boundaries, components and responsibilities, interfaces/contracts, data ownership and flow, implementation mechanics and integration points, failure/edge/compatibility behavior, and validation are defined or explicitly not applicable.
-- The implementation approach fixes the mechanisms and production integration path strongly enough that Plan does not need to invent architecture, ownership, contracts, algorithms, or compatibility policy. Plan may still choose task decomposition and execution order.
+- The implementation approach fixes the mechanisms and production integration path strongly enough that Act does not need to invent architecture, ownership, contracts, algorithms, or compatibility policy. Act may choose only mechanical execution order from repository facts.
 - Every design choice with multiple viable approaches records the compared approaches, causal tradeoffs, recommendation, and user decision. Do not manufacture alternatives when repository evidence leaves only one valid approach.
 - Success criteria are observable and testable with the chosen evidence type.
 - Every implementation-shaping decision is recorded and no such question remains open.

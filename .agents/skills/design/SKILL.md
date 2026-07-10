@@ -1,11 +1,11 @@
 ---
 name: design
-description: Explores a change against the real repository and maintains a living, decision-complete Design before implementation planning. Use only when the user explicitly invokes $agent-workflow-kit:design; never start the workflow automatically from task complexity, risk, or ambiguity.
+description: Explores a change against the real repository and maintains a living, decision-complete Design before authorized implementation. Use only when the user explicitly invokes $agent-workflow-kit:design; never start the workflow automatically from task complexity, risk, or ambiguity.
 ---
 
 # Workflow Design
 
-Turn an emerging change into a Ready Design through repository-grounded discussion. Do not plan implementation tasks or modify product code in this phase.
+Turn an emerging change into a Ready Design through repository-grounded discussion. Do not create an implementation task sequence or modify product code in this phase.
 
 ## Start
 
@@ -26,7 +26,7 @@ Work through the unresolved Design Coverage dimensions in dependency order. Do n
 4. Ask only for the remaining choice, one question at a time. A technical recommendation is not permission to choose for the user.
 5. Immediately update the affected Design section, `Decisions`, `Open Questions`, and Design Coverage status after each material resolution.
 
-Design-level implementation mechanics include algorithms, state transitions, ownership, dependencies, integration points, and how existing production paths will consume the change. Decide these before Plan; leave file-by-file task sequencing and command execution to Plan.
+Design-level implementation mechanics include algorithms, state transitions, ownership, dependencies, integration points, and how existing production paths will consume the change. Decide these before Act. Do not prescribe a file-by-file task sequence; Act may choose mechanical execution order from the current repository.
 
 Reject unrelated refactors and speculative requirements. If a question is inherently visual, follow [references/visual-companion.md](references/visual-companion.md). Offer the companion just in time and start it only after explicit consent.
 
@@ -38,6 +38,7 @@ When the gate passes:
 
 1. Set Design status to `Ready` and write `Open Questions: None`.
 2. Briefly tell the user why discussion is complete.
-3. Invoke `$agent-workflow-kit:plan` directly. There is no separate Design approval gate.
+3. Ask for explicit implementation authorization. Do not modify product code while waiting.
+4. After the user authorizes implementation, set `Implementation Authorization: Approved` in `design.md` and invoke `$agent-workflow-kit:act` directly.
 
-The only terminal state is transition to Workflow Plan.
+The only terminal state is transition to Workflow Act after explicit authorization.

@@ -1,7 +1,7 @@
 {
   "name": "agent-workflow-kit",
-  "version": "0.2.5",
-  "description": "A decision-complete Design, Plan, Act, and independent Review workflow for coding agents.",
+  "version": "0.3.0",
+  "description": "A decision-complete Design, adaptive Act, and independent Review workflow for coding agents.",
   "author": {
     "name": "Redwarx008",
     "url": "https://github.com/Redwarx008"
@@ -12,13 +12,13 @@
   "keywords": [
     "agent-workflow",
     "design",
-    "planning",
+    "implementation",
     "review"
   ],
   "skills": "./.agents/skills/",
   "interface": {
     "displayName": "Agent Workflow Kit",
-    "shortDescription": "Design, plan, execute, and independently review changes",
+    "shortDescription": "Design, implement, and independently review changes",
     "longDescription": "A repository-grounded workflow that records decisions, requires explicit execution authorization, stops on unresolved implementation doubt, and independently verifies real production paths.",
     "developerName": "Redwarx008",
     "category": "Coding",
@@ -29,8 +29,8 @@
     ],
     "defaultPrompt": [
       "Design a repository-grounded change with me",
-      "Turn the Ready Design into an implementation plan",
-      "Review this implementation against its Design and Plan"
+      "Implement the authorized Ready Design",
+      "Review this implementation against its Design"
     ]
   }
 }

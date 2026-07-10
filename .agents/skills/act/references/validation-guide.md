@@ -6,6 +6,6 @@
 - Editor/UI interaction: existing deterministic checks where useful, plus explicit manual interaction/appearance checks; create test coverage only when explicitly requested.
 - Resource/version-control changes: follow the target project's ownership rules and record the relevant revision/signature.
 
-If planned evidence cannot be obtained, do not silently substitute a weaker check. Stop and ask the user.
+If Design-required evidence cannot be obtained, do not silently substitute a weaker check. Stop and ask the user.
 
-Before modifying implementation files, verify that every Plan-required validation command, script, tool, fixture, and required external input is present and invocable. This availability preflight does not replace the post-change validation. If availability cannot be established, stop before mutation.
+Before modifying implementation files, verify that every Design-required validation command, script, tool, fixture, and required external input is present and invocable. This availability preflight does not replace the post-change validation. If availability cannot be established, stop before mutation.

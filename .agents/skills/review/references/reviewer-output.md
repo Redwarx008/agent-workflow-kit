@@ -17,6 +17,6 @@ Separate implementation gaps from external/manual acceptance explicitly delegate
 
 Return exactly one of:
 
-- `PASS` — complete against Design and Plan; no P0/P1.
+- `PASS` — complete against the authorized Design; no P0/P1.
 - `FAIL` — actionable implementation or evidence gaps exist.
 - `BLOCKED` — required truth cannot be obtained without user/external action or an unresolved decision.

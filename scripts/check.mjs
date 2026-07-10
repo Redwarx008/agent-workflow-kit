@@ -5,7 +5,7 @@ import path from 'node:path';
 import { fileURLToPath, pathToFileURL } from 'node:url';
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
-const SKILLS = ['design', 'plan', 'act', 'review'];
+const SKILLS = ['design', 'act', 'review'];
 
 function json(relative) {
   return JSON.parse(fs.readFileSync(path.join(ROOT, relative), 'utf8'));

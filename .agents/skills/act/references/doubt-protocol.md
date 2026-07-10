@@ -6,7 +6,7 @@ Use read-only inspection to resolve discoverable facts: repository code and docs
 
 ## Stop when uncertainty remains
 
-Stop before further mutation whenever there are multiple reasonable implementations or uncertainty about Design/Plan conflict, scope, API/format, compatibility, persistence, dependency choice, fallback behavior, validation substitution, failure handling, task ordering, or a reviewer finding.
+Stop before further mutation whenever there are multiple reasonable implementations or uncertainty about a Design conflict or omission, scope, API/format, compatibility, persistence, dependency choice, fallback behavior, validation substitution, failure handling, non-mechanical task ordering, or a reviewer finding.
 
 Tell the user:
 
@@ -17,4 +17,4 @@ Tell the user:
 
 Wait for the response. Until then, continue only safe read-only investigation. Do not implement the recommendation first.
 
-Mechanical details may proceed only when Design, Plan, and existing project patterns admit one safe interpretation. If you doubt uniqueness, stop.
+Mechanical details may proceed only when Design and existing project patterns admit one safe interpretation. If you doubt uniqueness, stop.

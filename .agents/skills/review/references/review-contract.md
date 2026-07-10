@@ -1,13 +1,13 @@
 # Independent Review Contract
 
-Determine whether the shared working tree fully implements the approved Design and Plan. Review outcomes and production behavior, not the main agent's confidence or summary.
+Determine whether the shared working tree fully implements the authorized Design. Treat `execution.md` as an index to claims and evidence, not as authority. Review outcomes and production behavior, not the main agent's confidence or summary.
 
 ## Rules
 
 - Work read-only in the current shared working tree. Do not create a worktree and do not fix files.
 - Reconstruct requirement-to-production-call-path relationships independently.
 - Treat declarations, selectors, tests, or registration as insufficient unless the real runtime/editor/tooling path consumes them.
-- Verify every success criterion and every checked Plan task has evidence.
+- Verify every Design success criterion, constraint, contract, failure behavior, and required production integration path has evidence.
 - Distinguish implementation completeness from external/manual acceptance explicitly delegated by Design.
 - Report only evidence-backed findings; style preferences do not block completion.
 

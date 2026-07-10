@@ -1,7 +1,7 @@
 interface:
   display_name: "Workflow Review"
   short_description: "Independently verify implementation completeness in place"
-  default_prompt: "Use $review to inspect the shared working tree against its Design and Plan."
+  default_prompt: "Use $review to inspect the shared working tree and execution evidence against its authorized Design."
 
 policy:
   allow_implicit_invocation: true

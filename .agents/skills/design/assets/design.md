@@ -1,6 +1,7 @@
 # <change-name> Design
 
 **Status:** Exploring
+**Implementation Authorization:** Pending
 
 ## Summary
 

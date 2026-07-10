@@ -2,18 +2,17 @@
 
 面向 Codex 与 Claude Code 的轻量原生插件工作流：
 
-`Design 讨论与记录 → Plan → 用户授权 → Act → 独立 Review → 归档`
+`Design 讨论与记录 → 用户授权 → Act 动态执行 → 独立 Review → 归档`
 
 它解决三个常见问题：意图和边界尚未清楚就开始实现；实施遇到歧义时 agent 静默替用户选择；声明、文件或测试存在，却没有接入真实生产调用链。
 
-## 四个入口
+## 三个入口
 
 - `$agent-workflow-kit:design`：唯一显式入口；调查真实仓库并持续记录 Design。
-- `$agent-workflow-kit:plan`：Design Ready 后自动进入，建立 `Success Criterion → Task → Evidence` 追踪并等待明确授权。
-- `$agent-workflow-kit:act`：授权后自动进入；调查后仍有疑问立即停止询问。
+- `$agent-workflow-kit:act`：Design 获得明确授权后自动进入；动态选择机械执行顺序并记录已发生的工作与证据。
 - `$agent-workflow-kit:review`：Act 完成后自动派独立 subagent，在同一工作区只读反查真实调用链。
 
-工作流不得按任务特征自动启动；只有用户显式调用 `$agent-workflow-kit:design` 才进入。进入后按 `Design → Plan → 授权 → Act → Review` 自动推进。
+工作流不得按任务特征自动启动；只有用户显式调用 `$agent-workflow-kit:design` 才进入。进入后按 `Design → 授权 → Act → Review` 推进。没有 Plan skill 或兼容入口。
 
 Claude Code 的交互式命令使用 `/agent-workflow-kit:design` 等同名 namespaced skill。没有 `$workflow-*` 兼容入口，也没有 kit 自建的 doctor；宿主环境分别使用 `codex doctor` 与 `claude doctor`。
 
@@ -53,7 +52,7 @@ claude plugin update agent-workflow-kit@agent-workflow-kit
 
 把 [AGENTS.md](AGENTS.md) 中适用的触发与门禁合并进项目规则。项目规则和用户明确要求始终优先。
 
-Design 开始前会运行 bundled preflight：在 Git 项目的 repo-local `.git/info/exclude` 中幂等确保 `/workflow/` 被忽略，然后才允许创建记录。Design、Plan、Visual Companion 状态和 Review 临时材料全部进入本地 `workflow/`，不会要求修改项目的 tracked `.gitignore`。
+Design 开始前会运行 bundled preflight：在 Git 项目的 repo-local `.git/info/exclude` 中幂等确保 `/workflow/` 被忽略，然后才允许创建记录。Design、执行账本、Visual Companion 状态和 Review 临时材料全部进入本地 `workflow/`，不会要求修改项目的 tracked `.gitignore`。
 
 ## 维护与验证
 

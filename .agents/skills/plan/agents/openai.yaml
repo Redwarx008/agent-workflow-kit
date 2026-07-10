@@ -1,7 +1,0 @@
-interface:
-  display_name: "Workflow Plan"
-  short_description: "Turn a ready Design into an authorized execution plan"
-  default_prompt: "Use $plan to create a traceable implementation plan from the Ready Design."
-
-policy:
-  allow_implicit_invocation: true

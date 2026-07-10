@@ -1,7 +1,7 @@
 interface:
   display_name: "Workflow Design"
   short_description: "Explore and record a decision-complete change design"
-  default_prompt: "Use $design to explore this change and maintain its living Design before planning."
+  default_prompt: "Use $design to explore this change and maintain its living Design before authorized implementation."
 
 policy:
   allow_implicit_invocation: false
