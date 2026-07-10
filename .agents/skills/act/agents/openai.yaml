@@ -4,4 +4,4 @@ interface:
   default_prompt: "Use $act to execute the authorized plan with evidence and stop-on-doubt discipline."
 
 policy:
-  allow_implicit_invocation: false
+  allow_implicit_invocation: true

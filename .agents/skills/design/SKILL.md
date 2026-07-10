@@ -1,6 +1,6 @@
 ---
 name: design
-description: Explores a change against the real repository and maintains a living, decision-complete Design before implementation planning. Use only when the user explicitly invokes $agent-workflow-kit:design; never trigger it automatically from task complexity, risk, or ambiguity.
+description: Explores a change against the real repository and maintains a living, decision-complete Design before implementation planning. Use only when the user explicitly invokes $agent-workflow-kit:design; never start the workflow automatically from task complexity, risk, or ambiguity.
 ---
 
 # Workflow Design
@@ -31,6 +31,6 @@ When the gate passes:
 
 1. Set Design status to `Ready` and write `Open Questions: None`.
 2. Briefly tell the user why discussion is complete.
-3. Stop and wait for the user to explicitly invoke `$agent-workflow-kit:plan`. Do not invoke or enter Plan automatically.
+3. Invoke `$agent-workflow-kit:plan` directly. There is no separate Design approval gate.
 
-The terminal state is a Ready Design awaiting the user's explicit Plan invocation.
+The only terminal state is transition to Workflow Plan.

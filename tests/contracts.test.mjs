@@ -12,21 +12,19 @@ test('repository manifests and canonical skills satisfy the contract', () => {
   assert.deepEqual(result.inventory, ['act', 'design', 'plan', 'review']);
 });
 
-test('every workflow phase requires explicit user invocation and forbids automatic transitions', () => {
+test('workflow requires an explicit Design entry and then advances through gated phases', () => {
   const read = skill => fs.readFileSync(path.join(root, '.agents', 'skills', skill, 'SKILL.md'), 'utf8');
   const design = read('design');
   const plan = read('plan');
   const act = read('act');
   const review = read('review');
 
-  for (const [skill, text] of Object.entries({ design, plan, act, review })) {
-    assert.match(text, /user explicitly invokes \$agent-workflow-kit:/, `${skill} lacks an explicit invocation gate`);
-    const metadata = fs.readFileSync(path.join(root, '.agents', 'skills', skill, 'agents', 'openai.yaml'), 'utf8');
-    assert.match(metadata, /allow_implicit_invocation:\s*false/, `${skill} still permits implicit invocation`);
-  }
-  assert.match(design, /Do not invoke or enter Plan automatically/);
-  assert.match(plan, /Do not invoke or enter Design automatically/);
-  assert.match(plan, /Authorization does not invoke Act/);
-  assert.match(act, /Do not launch a reviewer or enter Review automatically/);
-  assert.match(review, /only after the user's explicit invocation/);
+  const metadata = skill => fs.readFileSync(path.join(root, '.agents', 'skills', skill, 'agents', 'openai.yaml'), 'utf8');
+  assert.match(design, /user explicitly invokes \$agent-workflow-kit:design/);
+  assert.match(metadata('design'), /allow_implicit_invocation:\s*false/);
+  for (const skill of ['plan', 'act', 'review']) assert.match(metadata(skill), /allow_implicit_invocation:\s*true/);
+  assert.match(design, /Invoke `\$agent-workflow-kit:plan` directly/);
+  assert.match(plan, /After that response, invoke `\$agent-workflow-kit:act` directly/);
+  assert.match(act, /Launch an independent subagent with `\$agent-workflow-kit:review`/);
+  assert.match(review, /after Act completes/);
 });

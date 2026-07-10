@@ -1,13 +1,13 @@
 ---
 name: review
-description: Independently verifies an implementation against its Ready Design, authorized Plan, shared working tree, real production call paths, and raw validation evidence. Use only when the user explicitly invokes $agent-workflow-kit:review; never infer invocation from Act completion. Run the audit through an independent subagent in the existing workspace.
+description: Independently verifies an implementation against its Ready Design, authorized Plan, shared working tree, real production call paths, and raw validation evidence. Use automatically through an independent subagent after Act completes or requests follow-up review; run read-only in the existing workspace.
 ---
 
 # Workflow Review
 
 Perform an independent completion audit, not implementation and not generic style review.
 
-The main agent must launch an independent subagent for this skill only after the user's explicit invocation. Pass only the active record, repository root, and raw validation entrypoints; do not pass the main agent's conclusions or suspected gaps.
+The main agent must launch an independent subagent for this skill after Act completes. Pass only the active record, repository root, and raw validation entrypoints; do not pass the main agent's conclusions or suspected gaps.
 
 ## Setup
 

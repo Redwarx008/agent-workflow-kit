@@ -4,4 +4,4 @@ interface:
   default_prompt: "Use $review to inspect the shared working tree against its Design and Plan."
 
 policy:
-  allow_implicit_invocation: false
+  allow_implicit_invocation: true

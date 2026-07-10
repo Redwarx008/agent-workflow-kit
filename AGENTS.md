@@ -7,9 +7,9 @@
 
 ## 项目工作流
 
-- 四个工作流阶段只在用户显式调用对应 skill 时进入；不得根据任务特征自动触发，也不得自动进入下一阶段。
-- Plan 获得用户明确授权后，仍须等待用户显式调用 `$agent-workflow-kit:act`。
-- 用户显式调用 `$agent-workflow-kit:review` 后，必须派独立 subagent 在同一工作区只读验收。
+- 只有用户显式调用 `$agent-workflow-kit:design` 才启动工作流；不得根据任务特征自动触发。
+- 启动后自动推进：Design Ready 后进入 Plan；Plan 获得用户明确授权后进入 Act。
+- Act 完成后必须派独立 subagent 使用 `$agent-workflow-kit:review`，在同一工作区只读验收。
 - runtime Design/Plan、Visual Companion 状态和临时 review 材料写入 `workflow/`，不得提交 Git。
 - 项目自身规则与用户明确要求优先于本工作流。
 

@@ -1,6 +1,6 @@
 ---
 name: act
-description: Executes an explicitly authorized workflow Plan and gathers criterion-matched evidence while stopping on every unresolved implementation doubt. Use only when the user explicitly invokes $agent-workflow-kit:act and the Plan records authorization; never infer invocation from authorization or enter Review automatically.
+description: Executes an explicitly authorized workflow Plan, gathers criterion-matched evidence, stops on every unresolved implementation doubt, and launches independent review before completion. Use automatically after the active workflow's Plan records user authorization, or when continuing implementation or closing review findings.
 ---
 
 # Workflow Act
@@ -27,13 +27,14 @@ For each unchecked task in order:
 
 Do not silently add dependencies, change APIs or formats, broaden scope, choose compatibility policy, introduce fallback behavior, skip evidence, or replace validation. Use required domain skills and follow the target project's version-control ownership rules.
 
-## Handoff to Review
+## Review and closure
 
 After all tasks and agent-accessible validation finish:
 
-1. Reconcile the provisional Completion Record, final Design behavior, validation results, and deviations.
-2. Report that implementation and agent-accessible validation are complete but independent acceptance is still pending.
-3. Stop and wait for the user to explicitly invoke `$agent-workflow-kit:review`. Do not launch a reviewer or enter Review automatically.
-4. Leave the change folder in `workflow/active/`; archival and final completion remain blocked until an explicit Review returns `PASS`.
+1. Launch an independent subagent with `$agent-workflow-kit:review`, passing only the active record, repository root, and raw validation entrypoints. Do not pass your conclusions or suspected gaps.
+2. If review returns P0/P1 or an unmet criterion, fix only when the required correction is uniquely determined. Otherwise ask the user before editing.
+3. Ask the reviewer to re-check fixes until it returns `PASS`, or report a genuine `BLOCKED` decision/evidence dependency.
+4. Reconcile the Completion Record, final Design behavior, validation results, deviations, and review verdict.
+5. Apply required session log/ADR/architecture/feature updates. Move the entire change folder from `workflow/active/` to `workflow/completed/` only after `PASS`.
 
 Never claim completion before independent `PASS`.

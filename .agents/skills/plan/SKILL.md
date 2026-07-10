@@ -1,6 +1,6 @@
 ---
 name: plan
-description: Converts a Ready workflow Design into a traceable, decision-complete implementation Plan. Use only when the user explicitly invokes $agent-workflow-kit:plan; never enter it automatically after Design or infer invocation from a Ready Design.
+description: Converts a Ready workflow Design into a traceable, decision-complete implementation Plan and waits for explicit execution authorization. Use automatically after an explicitly started Design reaches Ready, or when continuing that active workflow's Plan phase.
 ---
 
 # Workflow Plan
@@ -9,7 +9,7 @@ Build an actionable execution contract from a Ready Design. Do not modify produc
 
 ## Inputs
 
-Read the active `design.md`, [assets/plan.md](assets/plan.md), related repository code/docs, and any existing `plan.md`. If Design is missing, not Ready, contradictory, or still contains an implementation-shaping question, stop and tell the user that `$agent-workflow-kit:design` must be invoked explicitly. Do not invoke or enter Design automatically.
+Read the active `design.md`, [assets/plan.md](assets/plan.md), related repository code/docs, and any existing `plan.md`. If Design is missing, not Ready, contradictory, or still contains an implementation-shaping question, return to `$agent-workflow-kit:design` within the already active workflow.
 
 ## Plan
 
@@ -25,6 +25,6 @@ Read the active `design.md`, [assets/plan.md](assets/plan.md), related repositor
 
 Planning is complete only when no product or technical decision is left to the implementer, task order is safe, evidence is obtainable, and risks have explicit handling.
 
-Summarize the Plan and ask for explicit implementation authorization. Set `Authorization: Approved` only after the user authorizes it. Authorization does not invoke Act: after approval, stop and wait for the user to explicitly invoke `$agent-workflow-kit:act`.
+Summarize the Plan and ask for explicit implementation authorization. Set `Authorization: Approved` only after the user authorizes it. After that response, invoke `$agent-workflow-kit:act` directly.
 
-The terminal state is an authorized Plan awaiting the user's explicit Act invocation.
+The only terminal state is transition to Workflow Act after explicit authorization.
