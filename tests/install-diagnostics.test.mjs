@@ -7,6 +7,7 @@ import { execFileSync } from 'node:child_process';
 import { diagnoseInstallations, hashTree } from '../scripts/lib/install-diagnostics.mjs';
 
 const REPO = path.resolve(import.meta.dirname, '..');
+const VERSION = JSON.parse(fs.readFileSync(path.join(REPO, 'package.json'), 'utf8')).version;
 
 function temp(name) { return fs.mkdtempSync(path.join(os.tmpdir(), `awk-diagnostics-${name}-`)); }
 
@@ -26,7 +27,7 @@ function diagnose(project, codexHome, claudeHome, known = { revision: 'test', pa
 
 test('clean native install and stale version are distinguished', () => {
   const project = temp('project'); const codex = temp('codex'); const claude = temp('claude');
-  nativeInstall(codex, 'codex', '0.1.0');
+  nativeInstall(codex, 'codex', VERSION);
   assert.equal(diagnose(project, codex, claude).status, 'clean_native');
   const staleHome = temp('stale'); nativeInstall(staleHome, 'codex', '0.0.9');
   assert.equal(diagnose(project, staleHome, claude).status, 'stale_native');
@@ -53,7 +54,7 @@ test('known, modified, unknown, and malformed legacy ownership are classified', 
 
 test('native plus legacy reports duplicate loading risk and ownership risk', () => {
   const project = temp('coexist'); const codex = temp('codex'); const claude = temp('claude');
-  nativeInstall(codex, 'codex', '0.1.0');
+  nativeInstall(codex, 'codex', VERSION);
   const legacy = path.join(project, '.agents', 'skills', 'workflow-plan');
   fs.mkdirSync(legacy, { recursive: true }); fs.writeFileSync(path.join(legacy, 'SKILL.md'), 'user change');
   const result = diagnose(project, codex, claude, { revision: 'x', paths: { '.agents/skills/workflow-plan': 'not-a-match' } });
@@ -89,4 +90,17 @@ test('bundled known-legacy ledger matches its declared Git revision', () => {
     }
     assert.equal(hashTree(destination), expected, legacyPath);
   }
+});
+
+test('repository-declared CRLF checkout is the same known text release', () => {
+  const root = temp('eol');
+  const file = path.join(root, 'script.ps1');
+  fs.writeFileSync(file, 'line one\nline two\n');
+  const lf = hashTree(root);
+  fs.writeFileSync(file, 'line one\r\nline two\r\n');
+  assert.equal(hashTree(root), lf);
+  fs.writeFileSync(file, Buffer.from([0, 10]));
+  const binaryLf = hashTree(root);
+  fs.writeFileSync(file, Buffer.from([0, 13, 10]));
+  assert.notEqual(hashTree(root), binaryLf);
 });

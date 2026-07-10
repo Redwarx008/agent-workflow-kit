@@ -20,7 +20,10 @@ export function hashTree(root) {
     hash.update(path.relative(root, item.file).replaceAll('\\', '/'));
     hash.update('\0');
     if (item.link !== null) hash.update(`symlink:${item.link}`);
-    else hash.update(fs.readFileSync(item.file));
+    else {
+      const contents = fs.readFileSync(item.file);
+      hash.update(contents.includes(0) ? contents : Buffer.from(contents.toString('utf8').replaceAll('\r\n', '\n'), 'utf8'));
+    }
     hash.update('\0');
   }
   return hash.digest('hex');
