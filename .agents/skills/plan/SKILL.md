@@ -18,7 +18,7 @@ Read the active `design.md`, [assets/plan.md](assets/plan.md), related repositor
 3. Create or update `plan.md` from the template.
 4. Define approach, execution constraints, ordered coherent tasks, task-specific validation, risks, and follow-ups.
 5. Complete the traceability table so every success criterion maps to tasks and required evidence; every task must support a criterion or reduce a named risk.
-6. Use [references/validation-guide.md](references/validation-guide.md). Do not substitute unit tests for visual/GPU evidence or silently weaken unavailable validation.
+6. Use [references/validation-guide.md](references/validation-guide.md). Do not plan new or modified tests unless the user explicitly requested them. Do not substitute unit tests for visual/GPU evidence or silently weaken unavailable validation.
 7. Include preservation of unrelated dirty files, project-specific version-control ownership, required domain skills, and session documentation where applicable.
 
 ## Completion gate

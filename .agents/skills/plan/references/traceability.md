@@ -4,7 +4,7 @@ For each Design success criterion, name the exact task or tasks that realize it 
 
 Good evidence examples:
 
-- parser behavior -> named regression test and expected observable result
+- parser behavior -> existing check or direct observable result; name a new regression test only when the user explicitly requested tests
 - SDSL registration -> asset registration inspection plus forced asset/effect build
 - render-path behavior -> runtime smoke or RenderDoc event/resource evidence
 - editor UX -> deterministic view-model/service checks plus explicit manual interaction steps

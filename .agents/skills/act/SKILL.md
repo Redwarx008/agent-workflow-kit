@@ -27,6 +27,8 @@ For each unchecked task in order:
 
 Do not silently add dependencies, change APIs or formats, broaden scope, choose compatibility policy, introduce fallback behavior, skip evidence, or replace validation. Use required domain skills and follow the target project's version-control ownership rules.
 
+Do not add or modify tests unless the user explicitly requested test work. Existing tests may be run when the authorized Plan names them as validation.
+
 ## Review and closure
 
 After all tasks and agent-accessible validation finish:
