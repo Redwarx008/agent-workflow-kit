@@ -1,0 +1,18 @@
+{
+  "id": "act-executes-mechanical",
+  "mode": "new-only",
+  "skill": "act",
+  "repetitions": 1,
+  "grader": "act-executes-mechanical",
+  "prompt": "继续执行已授权 Plan。",
+  "fixture": {
+    "git": true,
+    "files": {
+      "AGENTS.md": "Follow the authorized workflow Plan.\n",
+      "workflow/active/mechanical/design.md": "# Design\n\n**Status:** Ready\n\nReplace the exact greeting with `hello workflow`. No other behavior changes.\n\n## Open Questions\n\nNone.\n",
+      "workflow/active/mechanical/plan.md": "# Plan\n\n**Authorization:** Approved\n\n- [ ] Replace `hello world` with `hello workflow` in `message.txt`. Validate with `node verify.mjs`.\n",
+      "message.txt": "hello world\n",
+      "verify.mjs": "import fs from 'node:fs'; if (fs.readFileSync('message.txt','utf8') !== 'hello workflow\\n') process.exit(1);\n"
+    }
+  }
+}

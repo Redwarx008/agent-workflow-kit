@@ -1,0 +1,13 @@
+{
+  "revision": "aff019f",
+  "paths": {
+    ".agents/skills/workflow-design": "ea753b0c0d2b5d27d2a8c0e919bce6c06734d7e0d2385ab43a014e3df611e640",
+    ".agents/skills/workflow-plan": "f72c5a107fc9b39368acc06ce9bb59be0a5a95a482af25b093ab495a26b37119",
+    ".agents/skills/workflow-act": "e98514e40f51416aa021c932cc93358fe4ec87de34cfbfb2de41bedca33ec0a2",
+    ".agents/skills/workflow-review": "406994cf63d8ae24e1e2b0b3f533d139d708c2d8ee61f880afbac802f8f9ec4f",
+    ".claude/skills/workflow-design": "bb84a7effe5e3944ba80fc5fcccd956908e67d36a5dd1daf22f2617e82808a5a",
+    ".claude/skills/workflow-plan": "6d4362a4c678ca07d84d379209deb35451f29633b6b8d1d50536d5aa88f33481",
+    ".claude/skills/workflow-act": "46dc51f6f66c162ea3df33ae1264ff645ac841f4aebc9f8e7893a6313ca6e5c1",
+    ".claude/skills/workflow-review": "4bcf44e7fe3e4010650938be04d06968cfe3e1cba31530dca83ee8cb0d49a350"
+  }
+}

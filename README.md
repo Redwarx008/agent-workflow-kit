@@ -1,72 +1,109 @@
 # Agent Workflow Kit
 
-一套从真实项目协作中提炼的、面向 Codex 与 Claude Code 的轻量工作流：
+面向 Codex 与 Claude Code 的轻量原生插件工作流：
 
 `Design 讨论与记录 → Plan → 用户授权 → Act → 独立 Review → 归档`
 
-它借鉴了 [Grilling](https://github.com/mattpocock/skills/tree/main/skills/productivity/grilling)、[SPAR-kit](https://github.com/Jed-Tech/spar-kit) 与 [Superpowers Brainstorming](https://github.com/obra/superpowers/tree/main/skills/brainstorming)，重点解决三个问题：
+它解决三个常见问题：意图和边界尚未清楚就开始实现；实施遇到歧义时 agent 静默替用户选择；声明、文件或测试存在，却没有接入真实生产调用链。
 
-- agent 在意图和边界尚未清楚时过早实现；
-- 实施中遇到歧义却自行选择方案；
-- “文件写了、测试有了”被误当成生产链路完整实现。
+## 四个入口
 
-## 核心规则
+- `$agent-workflow-kit:design`：调查真实仓库，持续记录 Design；问题清零后自动进入 Plan。
+- `$agent-workflow-kit:plan`：建立 `Success Criterion → Task → Evidence` 追踪并等待明确授权。
+- `$agent-workflow-kit:act`：执行已授权 Plan；调查后仍有疑问立即停止询问。
+- `$agent-workflow-kit:review`：独立 subagent 在同一工作区只读反查真实调用链。
 
-- 可从仓库查到的事实由 agent 调查，真正的取舍才询问用户。
-- Design 是讨论期间持续维护的活文档，不是最后凭记忆补写的总结。
-- Design 无阻塞问题后自动进入 Plan；Plan 必须获得用户授权才能实施。
-- 实施阶段调查后仍有任何疑问，立即停止并询问用户，不得静默 fallback、扩 scope 或替换验证。
-- 实现完成后必须由独立 subagent 在同一工作区从成功标准反查真实调用链。
-- 测试形式服从因果机制：确定性逻辑用自动化回归，视觉/GPU 行为用真实运行、截图或截帧证据。
+Claude Code 的交互式命令使用 `/agent-workflow-kit:design` 等同名 namespaced skill。没有 `$workflow-*` 兼容入口，也没有 kit 自建的 doctor；宿主环境分别使用 `codex doctor` 与 `claude doctor`。
 
-## 内容
+## 安装
 
-- `.agents/skills/workflow-design` — 探索、讨论、持续记录 Design，并按需启动 Visual Companion。
-- `.agents/skills/workflow-plan` — 把 Ready Design 转成可追踪、可验证的执行 Plan。
-- `.agents/skills/workflow-act` — 按授权 Plan 实施，执行 stop-on-doubt 门禁并发起 Review。
-- `.agents/skills/workflow-review` — 只读独立验收真实实现完整性。
-- `.claude/skills` — 指向 canonical skills 的 Claude Code 薄入口。
-- `docs/` — 从项目实践提炼的工作流哲学、会话记忆、验证和 Review 原则。
+Codex：
 
-运行时的 Design、Plan、Visual Companion 状态与临时 Review 材料统一写入项目的 `workflow/`，该目录默认不进入 Git。
+```powershell
+codex plugin marketplace add Redwarx008/agent-workflow-kit --ref main
+codex plugin add agent-workflow-kit@agent-workflow-kit
+```
 
-## 接入项目
+Claude Code：
 
-1. 将四个 `.agents/skills/workflow-*` 目录复制到目标项目相同位置。
-2. Claude Code 用户同时复制 `.claude/skills/workflow-*`。
-3. 将 [AGENTS.md](AGENTS.md) 中的工作流规则合并进目标项目现有规则；项目规则优先。
-4. 在目标项目 `.gitignore` 中忽略 `workflow/`。
-5. 显式调用 `$workflow-design`，或让项目规则对多文件、架构/API、持久化格式、用户可见行为和高风险变更自动触发它。
+```powershell
+claude plugin marketplace add Redwarx008/agent-workflow-kit
+claude plugin install agent-workflow-kit@agent-workflow-kit
+```
+
+插件安装进入宿主版本化 cache。安装、升级或修改插件后，请开启一个新 task/session，避免旧上下文继续使用先前 skill。
+
+更新：
+
+```powershell
+codex plugin marketplace upgrade agent-workflow-kit
+codex plugin add agent-workflow-kit@agent-workflow-kit
+
+claude plugin marketplace update agent-workflow-kit
+claude plugin update agent-workflow-kit@agent-workflow-kit
+```
+
+标准安装、升级、禁用和卸载由宿主原生命令负责；本仓库不复制平台包管理器。
+
+## 项目接入
+
+把 [AGENTS.md](AGENTS.md) 中适用的触发与门禁合并进项目规则。项目规则和用户明确要求始终优先。
+
+Design 开始前会运行 bundled preflight：在 Git 项目的 repo-local `.git/info/exclude` 中幂等确保 `/workflow/` 被忽略，然后才允许创建记录。Design、Plan、Visual Companion 状态、真实行为评测输出和 Review 临时材料全部进入本地 `workflow/`，不会要求修改项目的 tracked `.gitignore`。
+
+## 行为评测（eval）
+
+行为评测用于检查 skill 是否真的改变 agent 行为，而不只是比较 prompt 文本。仓库跟踪 case、fixture、schema 与 deterministic grader；模型原始输出只写入忽略的 `workflow/.local/evals/`。
+
+先运行无模型检查：
+
+```powershell
+npm ci
+npm test
+npm run eval:validate
+npm run check
+```
+
+检查消费项目的本地安装、遗留副本和所有权风险：
+
+```powershell
+node scripts/check.mjs --project-root <project-path> --json
+```
+
+输出区分规范仓库版本/commit、Codex/Claude cache、陈旧版本、已知遗留发布、用户修改、未知所有权、malformed 副本和重复加载风险。检查命令只报告；不会删除或覆盖项目文件。
+
+维护者显式运行真实 Claude/Codex batch：
+
+```powershell
+npm run eval:run -- --runner all
+```
+
+默认 batch 是一个 old/new paired case 在每个 runner 各 3 次，加五个 new-only restraint/smoke case各 1 次，共约 22 次模型调用。真实模型 eval 不在 GitHub Actions 中运行，不读取 CI secrets；安全门禁要求 paired new arm 在每个 runner 上 3/3，通过追加重跑不能覆盖失败。
+
+本地发布还应运行 `npm run test:lifecycle`；需要证明 Codex 新 task 实际加载 cache 中的 namespaced skill 时，运行 `npm run test:fresh:codex`。后者会临时安装唯一命名的本地 marketplace，并在 `finally` 中清理。
 
 ## Visual Companion
 
-`workflow-design` 包含一个 MIT 派生的本地浏览器 Visual Companion。它只在视觉问题真正受益且用户同意后启动；浏览器展示和记录选择，终端对话仍是最终反馈与授权通道。
-
-Visual Companion 派生自 `obra/superpowers` v6.1.1，保留上游 MIT 许可证和来源记录。
-
-### 验证 Visual Companion
+`design` skill 包含一个 MIT 派生的本地浏览器 Visual Companion。它只在视觉问题真正受益且用户同意后启动；浏览器展示和记录选择，终端对话仍负责最终确认和授权。
 
 ```powershell
-cd .agents/skills/workflow-design/scripts/visual-companion
+cd .agents/skills/design/scripts/visual-companion
 npm --prefix tests ci
 npm test
 npm run test:powershell
 ```
 
-Windows Git Bash 的完整 watchdog 探针约需 150 秒：
+它派生自 `obra/superpowers` v6.1.1，保留上游 MIT 许可证与来源记录。
 
-```bash
-bash tests/windows-lifecycle.test.sh
-```
+## 设计原则
 
-## 文档
+- 可从仓库、历史或官方资料查到的事实由 agent 调查，真正的取舍才询问用户。
+- Design 是讨论过程中持续维护的记录，不是最后凭记忆补写。
+- 不把 TDD 机械套到视觉、GPU、shader 或探索性原型；证据形式服从真实因果链。
+- Reviewer 不接受主 agent 的完成结论，从成功标准反向检查生产路径。
 
-- [工作流哲学](docs/workflow-philosophy.md)
-- [会话记忆与经验沉淀](docs/session-memory.md)
-- [验证策略](docs/validation-strategy.md)
-- [独立 Review 门禁](docs/independent-review.md)
-- [参考实现取舍](docs/reference-lessons.md)
+进一步说明见 [工作流哲学](docs/workflow-philosophy.md)、[验证策略](docs/validation-strategy.md)、[独立 Review](docs/independent-review.md)、[会话记忆](docs/session-memory.md) 和 [参考实现取舍](docs/reference-lessons.md)。
 
 ## License
 
-本仓库主体使用 MIT License。Visual Companion 的上游版权与许可证见其 bundled source 目录。
+仓库主体使用 MIT License。Visual Companion 的上游版权和许可证位于其 bundled source 目录。

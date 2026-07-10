@@ -1,0 +1,19 @@
+{
+  "id": "review-detects-unwired-path",
+  "mode": "new-only",
+  "skill": "review",
+  "repetitions": 1,
+  "grader": "review-detects-unwired-path",
+  "prompt": "独立验收当前实现，输出覆盖结论和 verdict。只读，不要修复。",
+  "fixture": {
+    "git": true,
+    "files": {
+      "AGENTS.md": "Review must trace the production entrypoint.\n",
+      "workflow/active/unwired/design.md": "# Design\n\n**Status:** Ready\n\nSuccess criterion: running `node app.mjs` prints `feature enabled`.\n\n## Open Questions\n\nNone.\n",
+      "workflow/active/unwired/plan.md": "# Plan\n\n**Authorization:** Approved\n\n- [x] Add feature implementation and wire it into app.mjs. Evidence: node app.mjs.\n",
+      "feature.mjs": "export function feature() { return 'feature enabled'; }\n",
+      "app.mjs": "console.log('legacy output');\n",
+      "validation.txt": "Claimed: node app.mjs printed feature enabled.\n"
+    }
+  }
+}

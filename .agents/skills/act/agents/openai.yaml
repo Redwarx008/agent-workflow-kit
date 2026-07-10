@@ -1,0 +1,4 @@
+interface:
+  display_name: "Workflow Act"
+  short_description: "Execute an authorized plan and stop on unresolved doubt"
+  default_prompt: "Use $act to execute the authorized plan with evidence and stop-on-doubt discipline."

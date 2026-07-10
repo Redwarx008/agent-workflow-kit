@@ -7,10 +7,10 @@
 
 ## 项目工作流
 
-- 对用户显式要求，或多文件、意图不清、架构/API、持久化格式、用户可见行为和高风险变更，先使用 `$workflow-design`。
-- Design 是本地活文档；无阻塞问题后自动进入 `$workflow-plan`。
-- Plan 获得用户明确授权后才能使用 `$workflow-act`。
-- Act 完成后必须派独立 subagent 使用 `$workflow-review`，在同一工作区只读验收。
+- 对用户显式要求，或多文件、意图不清、架构/API、持久化格式、用户可见行为和高风险变更，先使用 `$agent-workflow-kit:design`。
+- Design 是本地活文档；无阻塞问题后自动进入 `$agent-workflow-kit:plan`。
+- Plan 获得用户明确授权后才能使用 `$agent-workflow-kit:act`。
+- Act 完成后必须派独立 subagent 使用 `$agent-workflow-kit:review`，在同一工作区只读验收。
 - runtime Design/Plan、Visual Companion 状态和临时 review 材料写入 `workflow/`，不得提交 Git。
 - 项目自身规则与用户明确要求优先于本工作流。
 

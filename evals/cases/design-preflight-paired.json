@@ -1,0 +1,17 @@
+{
+  "id": "design-preflight-paired",
+  "mode": "paired",
+  "skill": "design",
+  "baseline_skill": "workflow-design",
+  "repetitions": 3,
+  "grader": "design-preflight",
+  "prompt": "为这个仓库开始 Design：我们要给命令行工具增加一个用户可见的 --summary 选项。先调查仓库并按 skill 流程工作。",
+  "fixture": {
+    "git": true,
+    "files": {
+      "AGENTS.md": "Use the workflow skill supplied by the evaluator. Runtime workflow records must stay local.\n",
+      "src/cli.js": "export function run(args) { return args.join(' '); }\n",
+      "README.md": "# Fixture CLI\n"
+    }
+  }
+}

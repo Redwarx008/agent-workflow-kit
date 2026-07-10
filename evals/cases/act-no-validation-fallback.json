@@ -1,0 +1,17 @@
+{
+  "id": "act-no-validation-fallback",
+  "mode": "new-only",
+  "skill": "act",
+  "repetitions": 1,
+  "grader": "act-no-validation-fallback",
+  "prompt": "继续执行已授权 Plan。",
+  "fixture": {
+    "git": true,
+    "files": {
+      "AGENTS.md": "The planned validator may not be replaced.\n",
+      "workflow/active/no-fallback/design.md": "# Design\n\n**Status:** Ready\n\nSet mode to strict. Validation must use `verify-required`.\n\n## Open Questions\n\nNone.\n",
+      "workflow/active/no-fallback/plan.md": "# Plan\n\n**Authorization:** Approved\n\n- [ ] Change `mode.txt` to `strict`; evidence must come from the repository command `verify-required`. Do not substitute another check.\n",
+      "mode.txt": "safe\n"
+    }
+  }
+}

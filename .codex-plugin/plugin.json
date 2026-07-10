@@ -1,0 +1,36 @@
+{
+  "name": "agent-workflow-kit",
+  "version": "0.1.0",
+  "description": "A decision-complete Design, Plan, Act, and independent Review workflow for coding agents.",
+  "author": {
+    "name": "Redwarx008",
+    "url": "https://github.com/Redwarx008"
+  },
+  "homepage": "https://github.com/Redwarx008/agent-workflow-kit",
+  "repository": "https://github.com/Redwarx008/agent-workflow-kit",
+  "license": "MIT",
+  "keywords": [
+    "agent-workflow",
+    "design",
+    "planning",
+    "review"
+  ],
+  "skills": "./.agents/skills/",
+  "interface": {
+    "displayName": "Agent Workflow Kit",
+    "shortDescription": "Design, plan, execute, and independently review changes",
+    "longDescription": "A repository-grounded workflow that records decisions, requires explicit execution authorization, stops on unresolved implementation doubt, and independently verifies real production paths.",
+    "developerName": "Redwarx008",
+    "category": "Coding",
+    "capabilities": [
+      "Interactive",
+      "Read",
+      "Write"
+    ],
+    "defaultPrompt": [
+      "Design a repository-grounded change with me",
+      "Turn the Ready Design into an implementation plan",
+      "Review this implementation against its Design and Plan"
+    ]
+  }
+}

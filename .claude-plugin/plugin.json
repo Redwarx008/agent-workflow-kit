@@ -1,0 +1,19 @@
+{
+  "name": "agent-workflow-kit",
+  "version": "0.1.0",
+  "description": "A decision-complete Design, Plan, Act, and independent Review workflow for coding agents.",
+  "author": {
+    "name": "Redwarx008",
+    "url": "https://github.com/Redwarx008"
+  },
+  "homepage": "https://github.com/Redwarx008/agent-workflow-kit",
+  "repository": "https://github.com/Redwarx008/agent-workflow-kit",
+  "license": "MIT",
+  "keywords": [
+    "agent-workflow",
+    "design",
+    "planning",
+    "review"
+  ],
+  "skills": "./.agents/skills/"
+}

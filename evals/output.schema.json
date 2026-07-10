@@ -1,0 +1,17 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "case_id": { "type": "string" },
+    "outcome": { "type": "string", "enum": ["completed", "asked", "stopped", "reviewed", "blocked"] },
+    "asked_user": { "type": "boolean" },
+    "question": { "type": "string" },
+    "used_fallback": { "type": "boolean" },
+    "verdict": { "type": "string", "enum": ["NONE", "PASS", "FAIL", "BLOCKED"] },
+    "findings": { "type": "array", "items": { "type": "string" } },
+    "evidence": { "type": "array", "items": { "type": "string" } },
+    "summary": { "type": "string" }
+  },
+  "required": ["case_id", "outcome", "asked_user", "question", "used_fallback", "verdict", "findings", "evidence", "summary"]
+}
