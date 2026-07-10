@@ -1,0 +1,4 @@
+interface:
+  display_name: "Workflow Design"
+  short_description: "Explore and record a decision-complete change design"
+  default_prompt: "Use $workflow-design to explore this change and maintain its living Design before planning."

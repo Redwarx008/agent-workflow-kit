@@ -1,0 +1,13 @@
+{
+  "name": "agent-workflow-visual-companion",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Local zero-dependency visual companion for agent workflow design discussions",
+  "scripts": {
+    "test": "npm --prefix tests test",
+    "test:powershell": "pwsh -NoProfile -File tests/powershell-lifecycle.test.ps1"
+  },
+  "engines": {
+    "node": ">=18"
+  }
+}
