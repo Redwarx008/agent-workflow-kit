@@ -20,13 +20,14 @@ Turn an emerging change into a Ready Design through repository-grounded discussi
 
 Work through the unresolved Design Coverage dimensions in dependency order. Do not treat their headings as a form to fill silently.
 
-1. Select the next unresolved dimension: purpose and success, scope, current implementation and references, architecture and boundaries, components and responsibilities, interfaces and contracts, data ownership and flow, implementation mechanics and integration points, failure/edge/compatibility behavior, or validation.
+1. Select the next unresolved dimension: purpose and success, scope, current implementation and references, architecture and boundaries, components and responsibilities, interfaces and contracts, data model/state/structure, data ownership and flow, implementation mechanics and integration points, failure/edge/compatibility behavior, or validation.
 2. Investigate discoverable facts before asking the user. Inspect existing project patterns and relevant upstream/vendor source; add concrete findings and rejected hypotheses to `Evidence`.
 3. Determine whether the evidence uniquely fixes the design. If two or more valid approaches remain, present 2-3 genuinely viable approaches with causal tradeoffs and a recommendation. Never invent weak alternatives just to reach a count.
 4. Ask only for the remaining choice, one question at a time. A technical recommendation is not permission to choose for the user.
-5. Immediately update the affected Design section, `Decisions`, `Open Questions`, and Design Coverage status after each material resolution.
+5. For every non-trivial new or changed data model, state, collection, key/index, cache, or persisted payload, explicitly describe its representation, invariants, ownership, lifecycle, mutation path, and compatibility implications. If repository evidence does not uniquely determine those choices, present viable alternatives and ask the user to decide before resolving the dimension.
+6. Immediately update the affected Design section, `Decisions`, `Open Questions`, and Design Coverage status after each material resolution.
 
-Design-level implementation mechanics include algorithms, state transitions, ownership, dependencies, integration points, and how existing production paths will consume the change. Decide these before Act. Do not prescribe a file-by-file task sequence; Act may choose mechanical execution order from the current repository.
+Design-level implementation mechanics include algorithms, state transitions, ownership, dependencies, integration points, and how existing production paths will consume the change. Data structure selection is a Design decision, not an Act detail: only a representation uniquely fixed by inspected project patterns and requirements may be recorded without a user choice. Decide these before Act. Do not prescribe a file-by-file task sequence; Act may choose mechanical execution order from the current repository.
 
 Reject unrelated refactors and speculative requirements. If a question is inherently visual, follow [references/visual-companion.md](references/visual-companion.md). Offer the companion just in time and start it only after explicit consent.
 

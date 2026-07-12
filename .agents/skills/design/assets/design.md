@@ -27,6 +27,7 @@
 | Architecture and boundaries | Unresolved | |
 | Components and responsibilities | Unresolved | |
 | Interfaces and contracts | Unresolved | |
+| Data model, state, and structures | Unresolved | |
 | Data ownership and flow | Unresolved | |
 | Implementation mechanics and integration points | Unresolved | |
 | Failure modes, edge cases, and compatibility | Unresolved | |
@@ -43,6 +44,10 @@
 ### Components and Responsibilities
 
 ### Interfaces and Contracts
+
+### Data Model, State, and Structures
+
+<!-- Record representation, invariants, keys/indexes, lifetime, mutation path, and persistence/compatibility implications. -->
 
 ### Data Ownership and Flow
 

@@ -18,7 +18,8 @@ Design is Ready only when all are true:
 - Problem, success picture, scope, and out-of-scope boundaries are explicit.
 - Relevant current implementation and references have been inspected.
 - Every Design Coverage row is `Resolved` or a justified `N/A`; none is merely inferred from a filled heading.
-- Architecture boundaries, components and responsibilities, interfaces/contracts, data ownership and flow, implementation mechanics and integration points, failure/edge/compatibility behavior, and validation are defined or explicitly not applicable.
+- Architecture boundaries, components and responsibilities, interfaces/contracts, data model/state/structures, data ownership and flow, implementation mechanics and integration points, failure/edge/compatibility behavior, and validation are defined or explicitly not applicable.
+- Every non-trivial new or changed data representation records its structure, invariants, ownership, lifecycle, mutation path, and persistence/compatibility implications. When more than one viable representation remains, it records alternatives, causal tradeoffs, recommendation, and the user's decision.
 - The implementation approach fixes the mechanisms and production integration path strongly enough that Act does not need to invent architecture, ownership, contracts, algorithms, or compatibility policy. Act may choose only mechanical execution order from repository facts.
 - Every design choice with multiple viable approaches records the compared approaches, causal tradeoffs, recommendation, and user decision. Do not manufacture alternatives when repository evidence leaves only one valid approach.
 - Success criteria are observable and testable with the chosen evidence type.

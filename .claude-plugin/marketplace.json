@@ -4,13 +4,13 @@
     "name": "Redwarx008"
   },
   "description": "Agent Workflow Kit marketplace for Claude Code.",
-  "version": "0.3.0",
+  "version": "0.3.0+codex.20260712054310",
   "plugins": [
     {
       "name": "agent-workflow-kit",
       "source": "./",
       "description": "A decision-complete Design, adaptive Act, and independent Review workflow for coding agents.",
-      "version": "0.3.0",
+      "version": "0.3.0+codex.20260712054310",
       "author": {
         "name": "Redwarx008"
       }
