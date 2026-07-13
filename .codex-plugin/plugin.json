@@ -1,6 +1,6 @@
 {
   "name": "agent-workflow-kit",
-  "version": "0.3.0+codex.20260713170052",
+  "version": "0.3.0+codex.20260713183613",
   "description": "A decision-complete Design, adaptive Act, and independent Review workflow for coding agents.",
   "author": {
     "name": "Redwarx008",

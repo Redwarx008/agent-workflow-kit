@@ -9,7 +9,7 @@ Turn an emerging change into a Ready Design through repository-grounded discussi
 
 ## Start
 
-1. Before creating a workflow record, run `node scripts/preflight.mjs ensure --project-root <project-root>` from this skill directory. If it fails, stop without creating `workflow/`; never substitute a tracked ignore file.
+1. Resolve the directory containing this `SKILL.md` as `<design-skill-dir>`, then run `node <design-skill-dir>/scripts/preflight.mjs ensure --project-root <project-root>` using that absolute script path. Do not resolve `scripts/preflight.mjs` relative to the project root or the shell's current directory. If the resolved script is missing or the command fails, stop without creating `workflow/`; never substitute a tracked ignore file.
 2. Restore project context required by `AGENTS.md` and inspect relevant code, docs, recent changes, engine source, and existing active workflow records.
 3. If the request contains independent subsystems, decompose it before detailed discussion.
 4. Choose a folder-safe change name from the established intent. Create `workflow/active/<change-name>/design.md` from [assets/design.md](assets/design.md) early; do not wait until discussion ends.
