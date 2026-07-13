@@ -15,7 +15,7 @@ The transcript format is:
   "turns": [
     {
       "role": "agent",
-      "kind": "decision-card",
+      "kind": "architecture-decision",
       "content": "## Domain decision\n..."
     }
   ]
@@ -24,4 +24,6 @@ The transcript format is:
 
 After the user replies, append their `{ "role": "user", "content": "..." }` turn and run the command again without `--allow-pending` before resolving the Decision Map entry. If the evaluator fails, correct the message or stop; do not send or advance it.
 
-The evaluator rejects missing card sections, recommendation after alternatives, internal `D-xxx` IDs, references that make the card depend on `design.md`, anything other than one direct question, and any agent turn after an unanswered card. It proves only these structural and turn-order properties. It cannot prove that repository facts, recommendation quality, or user intent are correct; those remain Design responsibilities.
+Use `architecture-decision`, `data-structure-decision`, or `data-flow-decision` for the corresponding Design chapters; use `decision-card` for every other decision. The first three kinds additionally require their fenced tree or flow tree and illustrative-code sections.
+
+The evaluator rejects missing card sections, recommendation after alternatives, missing required design illustrations, internal `D-xxx` IDs, references that make the card depend on `design.md`, anything other than one direct question, and any agent turn after an unanswered card. It proves only these structural and turn-order properties. It cannot prove that repository facts, recommendation quality, or user intent are correct; those remain Design responsibilities.

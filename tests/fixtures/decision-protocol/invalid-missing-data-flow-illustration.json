@@ -1,0 +1,13 @@
+{
+  "turns": [
+    {
+      "role": "agent",
+      "kind": "data-flow-decision",
+      "content": "## Save-data flow\n\n### Why this must be decided now\n\nThe writer and runtime loader need one canonical transformation boundary.\n\n### Recommended: A - versioned canonical snapshot\n\nWrite a versioned snapshot and migrate it on read.\n\n### Your decision\n\nUse A?"
+    },
+    {
+      "role": "user",
+      "content": "A"
+    }
+  ]
+}

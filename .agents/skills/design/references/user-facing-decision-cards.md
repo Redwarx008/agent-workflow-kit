@@ -25,3 +25,5 @@ Ask exactly one decision per message. Use the domain language of the change and 
 ```
 
 Put the recommendation before alternatives. Include only real alternatives; when evidence leaves one viable proposal, omit the alternative section and ask the user to confirm or adjust that proposal. Prefer finite A/B/C choices over a vague “confirm?” question. The agent must still inspect facts itself and must not ask the user to read `design.md` to reconstruct context.
+
+For an architecture, data-structure, or data-flow card, add the required fenced `Structure tree` or `Flow tree` and fenced `Illustrative code` after the why-now facts. Mark its transient evaluator turn as `architecture-decision`, `data-structure-decision`, or `data-flow-decision` so omission fails the mechanical gate.

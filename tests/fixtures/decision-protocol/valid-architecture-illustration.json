@@ -1,0 +1,13 @@
+{
+  "turns": [
+    {
+      "role": "agent",
+      "kind": "architecture-decision",
+      "content": "## Runtime feature ownership\n\n### Why this must be decided now\n\nThe editor and runtime both need the same feature snapshot, so ownership must be fixed before either path changes.\n\n### Structure tree\n\n```text\nFeatureCoordinator\n|- IFeatureSource\n|  `- SavedFeatureSource\n`- RuntimeRenderer\n```\n\n### Illustrative code\n\n```csharp\n// Illustrative contract, not final file placement.\npublic interface IFeatureSource\n{\n    FeatureSnapshot Read();\n}\n```\n\n### Recommended: A - coordinator owns lifecycle\n\nKeep construction and cleanup in FeatureCoordinator while consumers depend only on IFeatureSource.\n\n### Alternative: B - renderer owns source\n\nThis reduces one component but couples rendering to persistence.\n\n### Your decision\n\nUse A, or choose B?"
+    },
+    {
+      "role": "user",
+      "content": "A"
+    }
+  ]
+}

@@ -19,6 +19,39 @@ function sectionHasContent(lines, start) {
   return false;
 }
 
+function sectionHasFencedBlock(lines, start) {
+  if (start < 0) return false;
+  let opened = false;
+  let content = false;
+  for (let index = start + 1; index < lines.length; index += 1) {
+    if (/^#{2,3}\s+/.test(lines[index].trim())) break;
+    if (/^```/.test(lines[index].trim())) {
+      if (opened) return content;
+      opened = true;
+    } else if (opened && lines[index].trim()) {
+      content = true;
+    }
+  }
+  return false;
+}
+
+const illustrationKinds = {
+  'architecture-decision': { tree: /^###\s+Structure tree\s*$/i, treeCode: 'missing-structure-tree', label: 'structure tree' },
+  'data-structure-decision': { tree: /^###\s+Structure tree\s*$/i, treeCode: 'missing-structure-tree', label: 'structure tree' },
+  'data-flow-decision': { tree: /^###\s+Flow tree\s*$/i, treeCode: 'missing-flow-tree', label: 'flow tree' }
+};
+
+function evaluateIllustrations(turn, index, lines) {
+  const requirement = illustrationKinds[turn.kind];
+  if (!requirement) return [];
+  const failures = [];
+  const tree = headingIndex(lines, requirement.tree);
+  const code = headingIndex(lines, /^###\s+Illustrative code\s*$/i);
+  if (!sectionHasFencedBlock(lines, tree)) failures.push(failure(requirement.treeCode, index, `Decision card needs a fenced ${requirement.label}.`));
+  if (!sectionHasFencedBlock(lines, code)) failures.push(failure('missing-illustrative-code', index, 'Decision card needs fenced illustrative code.'));
+  return failures;
+}
+
 export function evaluateDecisionCard(content, turn) {
   const failures = [];
   const lines = content.replace(/\r\n/g, '\n').split('\n');
@@ -45,7 +78,7 @@ export function evaluateDecisionCard(content, turn) {
 }
 
 function isDecisionCard(turn) {
-  return turn.kind === 'decision-card' || /^###\s+Your decision\s*$/im.test(turn.content);
+  return turn.kind === 'decision-card' || Object.hasOwn(illustrationKinds, turn.kind) || /^###\s+Your decision\s*$/im.test(turn.content);
 }
 
 export function evaluateTranscript(transcript, { allowPending = false } = {}) {
@@ -71,6 +104,7 @@ export function evaluateTranscript(transcript, { allowPending = false } = {}) {
     }
     if (isDecisionCard(turn)) {
       failures.push(...evaluateDecisionCard(turn.content, index));
+      failures.push(...evaluateIllustrations(turn, index, turn.content.replace(/\r\n/g, '\n').split('\n')));
       pendingDecisionTurn = index;
     }
   });

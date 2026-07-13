@@ -15,6 +15,19 @@ test('decision-protocol evaluator accepts a self-contained recommendation-first 
   assert.equal(result.ok, true, JSON.stringify(result.failures));
 });
 
+test('decision-protocol evaluator requires trees and illustrative code for architecture decisions', () => {
+  const result = evaluateTranscript(readFixture('valid-architecture-illustration.json'));
+  assert.equal(result.ok, true, JSON.stringify(result.failures));
+});
+
+test('decision-protocol evaluator rejects data-flow decisions without their flow tree and illustrative code', () => {
+  const result = evaluateTranscript(readFixture('invalid-missing-data-flow-illustration.json'));
+  assert.equal(result.ok, false);
+  for (const code of ['missing-flow-tree', 'missing-illustrative-code']) {
+    assert.ok(result.failures.some(item => item.code === code), `missing ${code}`);
+  }
+});
+
 test('decision-protocol evaluator rejects recommendation after alternatives', () => {
   const result = evaluateTranscript(readFixture('invalid-recommendation-order.json'));
   assert.equal(result.ok, false);

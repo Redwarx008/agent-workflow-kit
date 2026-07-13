@@ -48,6 +48,7 @@
 | Interfaces and contracts | Unresolved | |
 | Data model, state, and structures | Unresolved | |
 | Data ownership and flow | Unresolved | |
+| Architecture, data, and flow illustrations | Unresolved | |
 | Implementation mechanics and integration points | Unresolved | |
 | Failure modes, edge cases, and compatibility | Unresolved | |
 | Validation and success evidence | Unresolved | |
@@ -76,6 +77,14 @@
 
 ### Architecture and Boundaries
 
+#### Structure Tree
+
+<!-- Required when architecture is affected. Show component ownership and stable boundaries in a fenced text or Mermaid tree. -->
+
+#### Illustrative Code
+
+<!-- Required when architecture is affected. Show the pivotal interface or composition contract in the target language. -->
+
 ### Components and Responsibilities
 
 <!-- For each affected component: one purpose, consumers/use, dependencies, stable contract, replaceable internals. -->
@@ -94,7 +103,23 @@
 
 <!-- Record representation, invariants, keys/indexes, lifetime, mutation path, and persistence/compatibility implications. -->
 
+#### Structure Tree
+
+<!-- Required when data structures are affected. Show aggregates, containment, keys, and ownership in a fenced tree. -->
+
+#### Illustrative Code
+
+<!-- Required when data structures are affected. Show the representative type, invariants, and mutation boundary in the target language. -->
+
 ### Data Ownership and Flow
+
+#### Flow Tree
+
+<!-- Required when data flow is affected. Show producer, transform, canonical state or transport, consumers, persistence, and failure branches where applicable. -->
+
+#### Illustrative Code
+
+<!-- Required when data flow is affected. Show the representative read/write or transformation path in the target language. -->
 
 ### Implementation Mechanics and Integration Points
 
