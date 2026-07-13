@@ -26,6 +26,7 @@
 | Current implementation and references | Unresolved | |
 | Architecture and boundaries | Unresolved | |
 | Components and responsibilities | Unresolved | |
+| Production integration and call path | Unresolved | |
 | Interfaces and contracts | Unresolved | |
 | Data model, state, and structures | Unresolved | |
 | Data ownership and flow | Unresolved | |
@@ -42,6 +43,10 @@
 ### Architecture and Boundaries
 
 ### Components and Responsibilities
+
+### Production Integration and Call Path
+
+<!-- Record the real producer-to-consumer path, insertion point, ordering, lifecycle/cleanup, and the user's confirmation. -->
 
 ### Interfaces and Contracts
 
