@@ -29,7 +29,7 @@
 | ID | Decision | Depends on | Proposal / alternatives | Status |
 | --- | --- | --- | --- | --- |
 
-<!-- Status: Evidence pending, Awaiting user, Confirmed, Delegated, Rejected, or N/A. -->
+<!-- Status: Evidence pending, Awaiting user, Confirmed, Delegated, Rejected, or N/A. Internal traceability only: do not expose D-xxx IDs as user-facing titles. -->
 
 ## Design Coverage
 
@@ -51,7 +51,9 @@
 
 <!-- Use only Resolved, Unresolved, or N/A. N/A requires a reason. -->
 
-## Options Considered
+## Overall Approaches Considered
+
+<!-- Compare genuinely viable end-to-end architecture approaches before local decisions. Lead with the recommended approach. -->
 
 ## Chosen Design
 
@@ -84,6 +86,10 @@
 ## Integrated Design Walkthrough
 
 <!-- Record the connected design summary and the user's final correction response before implementation authorization. -->
+
+## Written Design Review
+
+<!-- Record the self-review result, the user's review of this local design.md, and any correction loop before marking Ready. -->
 
 ## Validation and Success Criteria
 
