@@ -28,4 +28,11 @@
 
 <!-- Record every post-authorization Design Amendment before implementing it. -->
 
+## Durable Decision Handoff
+
+| Design decision / amendment | Classification | Project documentation target / local-only reason | Evidence |
+| --- | --- | --- | --- |
+
+<!-- Classify every confirmed decision and authorized amendment as Durable or Local. Durable items require a project-documentation path and heading, not a workflow path. -->
+
 ## Independent Review

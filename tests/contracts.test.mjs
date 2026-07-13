@@ -34,8 +34,10 @@ test('design discussion and authorization contracts remain aligned', () => {
   const template = read('.agents/skills/design/assets/design.md');
   const contract = read('.agents/skills/design/references/design-contract.md');
   const cards = read('.agents/skills/design/references/user-facing-decision-cards.md');
+  const evaluation = read('.agents/skills/design/references/decision-protocol-evaluation.md');
   const act = read('.agents/skills/act/SKILL.md');
   const execution = read('.agents/skills/act/assets/execution.md');
+  const handoff = read('.agents/skills/act/references/durable-decision-handoff.md');
   const review = read('.agents/skills/review/SKILL.md');
   const reviewContract = read('.agents/skills/review/references/review-contract.md');
 
@@ -52,10 +54,16 @@ test('design discussion and authorization contracts remain aligned', () => {
   assert.match(cards, /^### Why this must be decided now$/m);
   assert.match(cards, /^### Recommended: A/m);
   assert.match(cards, /^### Your decision$/m);
+  assert.match(design, /decision-protocol evaluator/);
+  assert.match(evaluation, /--allow-pending/);
   assert.match(act, /Authorized Design Revision/);
   assert.match(act, /Design Amendment/);
+  assert.match(act, /references\/durable-decision-handoff\.md/);
   assert.match(execution, /Authorized Design Revision/);
   assert.match(execution, /^## Authorized Amendments$/m);
+  assert.match(execution, /^## Durable Decision Handoff$/m);
+  assert.match(handoff, /Classify every confirmed Design decision/);
   assert.match(review, /Design Amendment/);
+  assert.match(review, /Durable Decision Handoff/);
   assert.match(reviewContract, /current authorized Design Revision/);
 });

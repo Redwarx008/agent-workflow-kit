@@ -6,6 +6,7 @@
   "type": "module",
   "scripts": {
     "check": "node scripts/check.mjs",
+    "evaluate:decision": "node .agents/skills/design/scripts/evaluate-decision-protocol.mjs",
     "test": "node --test tests/*.test.mjs",
     "test:visual": "npm --prefix .agents/skills/design/scripts/visual-companion/tests ci && npm --prefix .agents/skills/design/scripts/visual-companion test",
     "test:visual:powershell": "npm --prefix .agents/skills/design/scripts/visual-companion run test:powershell"

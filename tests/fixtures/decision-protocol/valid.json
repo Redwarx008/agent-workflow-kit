@@ -1,0 +1,13 @@
+{
+  "turns": [
+    {
+      "role": "agent",
+      "kind": "decision-card",
+      "content": "## Save-file compatibility policy\n\n### Why this must be decided now\n\nExisting player saves contain the old schema, so the release path determines whether users can load them.\n\n### Recommended: A - versioned migration\n\nRead the saved version and transform it to the current schema before gameplay starts. This preserves existing saves while keeping one runtime representation.\n\n### Alternative: B - breaking replacement\n\nDiscard old saves at upgrade time. This reduces migration code but loses player progress.\n\n### Your decision\n\nUse A, or choose B?"
+    },
+    {
+      "role": "user",
+      "content": "A"
+    }
+  ]
+}

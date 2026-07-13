@@ -43,7 +43,7 @@ After all tasks and agent-accessible validation finish:
 2. If review returns P0/P1 or an unmet criterion, fix only when the required correction is uniquely determined. Otherwise ask the user before editing.
 3. Ask the reviewer to re-check fixes until it returns `PASS`, or report a genuine `BLOCKED` decision/evidence dependency.
 4. Reconcile `execution.md`, final Design behavior, validation results, deviations, and review verdict.
-5. Apply required session log/ADR/architecture/feature updates. A `PASS` means the change is ready to commit, not yet archived.
+5. Read [references/durable-decision-handoff.md](references/durable-decision-handoff.md). Classify every confirmed Design decision and authorized amendment in `execution.md`. Update the target project's required session log, ADR, architecture, or feature document for every Durable item, recording the exact target in the handoff table. A `PASS` means the change is ready to commit only after this handoff is complete.
 6. At the change's next user-authorized commit boundary, commit the approved project artifacts according to the repository's ownership rules. Never stage `workflow/**` merely to archive it.
 7. Only after that commit succeeds, move the entire change folder from `workflow/active/` to `workflow/completed/`. If the commit fails or has not been authorized, leave it active and report it as ready to commit. Never create an empty commit solely to trigger archival.
 

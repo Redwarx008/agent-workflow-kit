@@ -1,0 +1,13 @@
+{
+  "turns": [
+    {
+      "role": "agent",
+      "kind": "decision-card",
+      "content": "## Save-file compatibility policy\n\n### Why this must be decided now\n\nExisting player saves contain the old schema.\n\n### Recommended: A - versioned migration\n\nTransform old data before gameplay starts.\n\n### Your decision\n\nUse A, or choose another policy?"
+    },
+    {
+      "role": "agent",
+      "content": "I will implement the migration now."
+    }
+  ]
+}
