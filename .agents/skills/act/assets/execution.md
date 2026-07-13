@@ -2,6 +2,7 @@
 
 **Status:** Active
 **Authorized Design:** `<exact workflow/active/<change-name>/design.md path>`
+**Authorized Design Revision:** `<n>`
 
 ## Design Success Criteria Coverage
 
@@ -19,5 +20,12 @@
 ## Deviations from Design
 
 <!-- Write "None" only when implementation is complete and no deviation occurred. -->
+
+## Authorized Amendments
+
+| Design revision | Amendment / decision | Evidence and user authorization | Execution effect |
+| --- | --- | --- | --- |
+
+<!-- Record every post-authorization Design Amendment before implementing it. -->
 
 ## Independent Review

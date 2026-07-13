@@ -13,9 +13,9 @@ Require the exact `design.md` path supplied by the invoking Design, or recover t
 
 If no exact current-workflow Design is identified, Act is not applicable. Return control to normal task handling without creating or modifying workflow records and without blocking the underlying non-workflow task.
 
-Read that exact `design.md`. Confirm Design is Ready, every coverage dimension is resolved or justified `N/A`, and `Implementation Authorization` is `Approved`. Inspect repository status and preserve unrelated user changes. If any precondition is false, stop Act without modifying the Design.
+Read that exact `design.md`. Confirm Design is Ready, every coverage dimension is resolved or justified `N/A`, the Change Impact Checklist is complete, Written Design Review accepts the current Revision, and `Implementation Authorization` explicitly approves that same Revision. Inspect repository status and preserve unrelated user changes. If any precondition is false, stop Act without modifying the Design.
 
-Create or update `execution.md` from [assets/execution.md](assets/execution.md) and bind its `Authorized Design` field to that exact `design.md` path. It records work already started or completed, evidence, doubts, and deviations; it must not become a speculative task plan.
+Create or update `execution.md` from [assets/execution.md](assets/execution.md) and bind its `Authorized Design` field to that exact `design.md` path and its `Authorized Design Revision` field to the approved Revision. It records work already started or completed, evidence, doubts, and deviations; it must not become a speculative task plan.
 
 Read [references/doubt-protocol.md](references/doubt-protocol.md) before editing and use [references/validation-guide.md](references/validation-guide.md) throughout.
 
@@ -29,7 +29,7 @@ Until every Design success criterion is evidenced:
 4. If any implementation choice is not uniquely fixed by Design and repository facts, apply the doubt protocol and wait for the user.
 5. Implement the smallest coherent change uniquely entailed by Design.
 6. Run the applicable validation and append the raw result and production-path evidence to `execution.md`.
-7. Mark a success criterion covered only after its required evidence exists. Record deviations immediately; any deviation that changes Design requires user confirmation before further mutation.
+7. Mark a success criterion covered only after its required evidence exists. Record deviations immediately. If a deviation changes Design, stop before further mutation: create an `Awaiting user` Design Amendment, use the Design decision-card protocol, update the affected Decision Map, Change Impact Checklist, and sections after the user responds, increment Revision, repeat the affected self-review and written-design review, and obtain explicit reauthorization for that Revision. Resume only after `execution.md` records the new authorized Revision.
 
 Do not silently add dependencies, change APIs or formats, broaden scope, choose compatibility policy, introduce fallback behavior, skip evidence, or replace validation. Use required domain skills and follow the target project's version-control ownership rules.
 

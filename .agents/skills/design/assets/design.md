@@ -1,6 +1,8 @@
 # <change-name> Design
 
 **Status:** Exploring
+**Revision:** 1
+**Written Design Review:** Pending
 **Implementation Authorization:** Pending
 
 ## Summary
@@ -41,6 +43,7 @@
 | Architecture and boundaries | Unresolved | |
 | Components and responsibilities | Unresolved | |
 | Targeted enabling improvements | Unresolved | |
+| Change impact and operational boundaries | Unresolved | |
 | Production integration and call path | Unresolved | |
 | Interfaces and contracts | Unresolved | |
 | Data model, state, and structures | Unresolved | |
@@ -50,6 +53,20 @@
 | Validation and success evidence | Unresolved | |
 
 <!-- Use only Resolved, Unresolved, or N/A. N/A requires a reason. -->
+
+## Change Impact Checklist
+
+| Impact area | Result | Evidence / decision |
+| --- | --- | --- |
+| API and external consumers | Pending | |
+| Persistent, serialized, or generated data | Pending | |
+| Compatibility, migration, rollout, and rollback | Pending | |
+| Failure recovery, cleanup, and resource lifetime | Pending | |
+| Observability and diagnostics | Pending | |
+| Performance, latency, memory, or cost budget | Pending | |
+| Security and privacy boundaries | Pending | |
+
+<!-- Use Affected or N/A with a reason. Resolve this before Ready. -->
 
 ## Overall Approaches Considered
 
@@ -91,9 +108,18 @@
 
 <!-- Record the self-review result, the user's review of this local design.md, and any correction loop before marking Ready. -->
 
+## Design Amendments
+
+| Revision | Trigger and evidence | Supersedes / affected decisions | User decision and written review | Implementation authorization |
+| --- | --- | --- | --- | --- |
+
+<!-- Append only after Revision 1. An amendment increments Revision and must complete the affected decision, impact, self-review, document-review, and authorization gates before Act resumes. -->
+
 ## Validation and Success Criteria
 
 ## Decisions
+
+<!-- Stable summary of confirmed Decision Map entries. Decision Map remains the lifecycle-status authority. -->
 
 ## Open Questions
 

@@ -27,3 +27,35 @@ test('workflow requires an explicit Design entry and then advances through gated
   assert.match(act, /Launch an independent subagent with `\$agent-workflow-kit:review`/);
   assert.match(review, /after Act completes/);
 });
+
+test('design discussion and authorization contracts remain aligned', () => {
+  const read = relative => fs.readFileSync(path.join(root, relative), 'utf8');
+  const design = read('.agents/skills/design/SKILL.md');
+  const template = read('.agents/skills/design/assets/design.md');
+  const contract = read('.agents/skills/design/references/design-contract.md');
+  const cards = read('.agents/skills/design/references/user-facing-decision-cards.md');
+  const act = read('.agents/skills/act/SKILL.md');
+  const execution = read('.agents/skills/act/assets/execution.md');
+  const review = read('.agents/skills/review/SKILL.md');
+  const reviewContract = read('.agents/skills/review/references/review-contract.md');
+
+  assert.match(design, /Overall Approaches Considered/);
+  assert.doesNotMatch(design, /`Options Considered`/);
+  assert.match(design, /one decision question per message/);
+  assert.match(design, /Approved for Revision <n>/);
+  assert.match(template, /^\*\*Revision:\*\* 1/m);
+  assert.match(template, /^## Change Impact Checklist$/m);
+  assert.match(template, /^## Design Amendments$/m);
+  assert.match(contract, /Decision Map.*authoritative/i);
+  assert.match(contract, /Change Impact Checklist/);
+  assert.match(contract, /Design Amendments/);
+  assert.match(cards, /^### Why this must be decided now$/m);
+  assert.match(cards, /^### Recommended: A/m);
+  assert.match(cards, /^### Your decision$/m);
+  assert.match(act, /Authorized Design Revision/);
+  assert.match(act, /Design Amendment/);
+  assert.match(execution, /Authorized Design Revision/);
+  assert.match(execution, /^## Authorized Amendments$/m);
+  assert.match(review, /Design Amendment/);
+  assert.match(reviewContract, /current authorized Design Revision/);
+});

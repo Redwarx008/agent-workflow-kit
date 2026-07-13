@@ -8,6 +8,7 @@ Determine whether the shared working tree fully implements the authorized Design
 - Reconstruct requirement-to-production-call-path relationships independently.
 - Treat declarations, selectors, tests, or registration as insufficient unless the real runtime/editor/tooling path consumes them.
 - Verify every Design success criterion, constraint, contract, failure behavior, and required production integration path has evidence.
+- Verify `execution.md` is bound to the exact current authorized Design Revision. For every Design Amendment, verify its decision, impact assessment, written-design review, and reauthorization precede the matching implementation diff.
 - Distinguish implementation completeness from external/manual acceptance explicitly delegated by Design.
 - Report only evidence-backed findings; style preferences do not block completion.
 
@@ -17,4 +18,4 @@ Determine whether the shared working tree fully implements the authorized Design
 - **P1:** Unmet success criterion, broken production integration, false validation claim, or material regression.
 - **P2:** Non-blocking maintainability or resilience issue with a concrete risk.
 
-`PASS` requires no P0/P1 and no unaccounted success criterion. If a finding admits multiple reasonable fixes or changes Design intent, state the decision needed; the main agent must ask the user.
+`PASS` requires no P0/P1, no unaccounted success criterion, and no implementation beyond the current authorized Design Revision. If a finding admits multiple reasonable fixes or changes Design intent, state the decision needed; the main agent must ask the user.
