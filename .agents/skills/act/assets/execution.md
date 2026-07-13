@@ -1,6 +1,7 @@
 # <change-name> Execution Record
 
 **Status:** Active
+**Authorized Design:** `<exact workflow/active/<change-name>/design.md path>`
 
 ## Design Success Criteria Coverage
 
@@ -20,4 +21,3 @@
 <!-- Write "None" only when implementation is complete and no deviation occurred. -->
 
 ## Independent Review
-

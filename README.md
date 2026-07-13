@@ -9,10 +9,10 @@
 ## 三个入口
 
 - `$agent-workflow-kit:design`：唯一显式入口；调查真实仓库并持续记录 Design。
-- `$agent-workflow-kit:act`：Design 获得明确授权后自动进入；动态选择机械执行顺序并记录已发生的工作与证据。
+- `$agent-workflow-kit:act`：Design 获得明确授权后携带当前 `design.md` 的确切路径直接进入，或恢复已经绑定到同一 Design 的执行记录；普通实现请求或泛化的“继续”不得触发 Act。
 - `$agent-workflow-kit:review`：Act 完成后自动派独立 subagent，在同一工作区只读反查真实调用链。
 
-工作流不得按任务特征自动启动；只有用户显式调用 `$agent-workflow-kit:design` 才进入。进入后按 `Design → 授权 → Act → Review` 推进。没有 Plan skill 或兼容入口。
+工作流不得按任务特征自动启动；只有用户显式调用 `$agent-workflow-kit:design` 才进入。进入后按 `Design → 授权 → Act → Review` 推进，每次阶段转换都传递当前变更的确切 workflow 记录路径，不得扫描其他 active 记录猜测当前工作流。没有 Plan skill 或兼容入口。
 
 Claude Code 的交互式命令使用 `/agent-workflow-kit:design` 等同名 namespaced skill。没有 `$workflow-*` 兼容入口，也没有 kit 自建的 doctor；宿主环境分别使用 `codex doctor` 与 `claude doctor`。
 

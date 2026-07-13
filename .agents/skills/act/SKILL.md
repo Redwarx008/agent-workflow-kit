@@ -1,6 +1,6 @@
 ---
 name: act
-description: Implements an explicitly authorized Ready Design, keeps a factual execution record, stops on every unresolved implementation doubt, and launches independent review before completion. Use automatically after the active Design records user authorization, or when continuing implementation or closing review findings.
+description: Use only when the current Agent Workflow Kit Design directly invokes Act with its exact design.md path after recording Ready and Implementation Authorization Approved, or when resuming execution.md already bound to that same exact Design. Never use for ordinary implementation or a generic continue request.
 ---
 
 # Workflow Act
@@ -9,9 +9,13 @@ Implement the approved Design without changing its intent. Choose mechanical exe
 
 ## Start
 
-Read active `design.md`. Confirm Design is Ready, every coverage dimension is resolved or justified `N/A`, and `Implementation Authorization` is `Approved`. Inspect repository status and preserve unrelated user changes. If any precondition is false, stop.
+Require the exact `design.md` path supplied by the invoking Design, or recover that exact path from an existing `execution.md` already bound to it. Never scan `workflow/active/` to guess a Design from recency, folder names, or unrelated active records. Never create, infer, repair, or backfill `design.md`.
 
-Create or update `execution.md` from [assets/execution.md](assets/execution.md). It records work already started or completed, evidence, doubts, and deviations; it must not become a speculative task plan.
+If no exact current-workflow Design is identified, Act is not applicable. Return control to normal task handling without creating or modifying workflow records and without blocking the underlying non-workflow task.
+
+Read that exact `design.md`. Confirm Design is Ready, every coverage dimension is resolved or justified `N/A`, and `Implementation Authorization` is `Approved`. Inspect repository status and preserve unrelated user changes. If any precondition is false, stop Act without modifying the Design.
+
+Create or update `execution.md` from [assets/execution.md](assets/execution.md) and bind its `Authorized Design` field to that exact `design.md` path. It records work already started or completed, evidence, doubts, and deviations; it must not become a speculative task plan.
 
 Read [references/doubt-protocol.md](references/doubt-protocol.md) before editing and use [references/validation-guide.md](references/validation-guide.md) throughout.
 

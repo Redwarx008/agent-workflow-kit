@@ -44,6 +44,6 @@ When the gate passes:
 1. Present a concise connected walkthrough of the confirmed architecture, production call path, interfaces, data model/state, data flow, failure behavior, and validation. Ask one final correction question; this is the last Design discussion topic, not implementation authorization.
 2. Apply any correction through the normal decision loop. Otherwise set Design status to `Ready` and write `Open Questions: None`.
 3. Briefly tell the user why discussion is complete and ask for explicit implementation authorization. Do not modify product code while waiting.
-4. After the user authorizes implementation, set `Implementation Authorization: Approved` in `design.md` and invoke `$agent-workflow-kit:act` directly.
+4. After the user authorizes implementation, set `Implementation Authorization: Approved` in `design.md` and invoke `$agent-workflow-kit:act` directly, passing the exact path of this Design. Never rely on a generic implementation or continuation request to select Act.
 
 The only terminal state is transition to Workflow Act after explicit authorization.
