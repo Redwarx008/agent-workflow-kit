@@ -1,0 +1,13 @@
+{
+  "turns": [
+    {
+      "role": "agent",
+      "kind": "architecture-decision",
+      "content": "## Runtime feature ownership\n\n### Why this must be decided now\n\nThe editor and runtime both need the same feature snapshot.\n\n### Structure tree\n\n```text\nFeatureCoordinator\n`- IFeatureSource\n```\n\n### Illustrative code\n\n```csharp\npublic interface IFeatureSource { }\n```\n\n### Recommended: A - coordinator owns lifecycle\n\nKeep construction and cleanup in FeatureCoordinator.\n\n### Your decision\n\nUse A?"
+    },
+    {
+      "role": "user",
+      "content": "A"
+    }
+  ]
+}

@@ -57,7 +57,9 @@ test('design discussion and authorization contracts remain aligned', () => {
   assert.match(cards, /^### Recommended: A/m);
   assert.match(cards, /^### Your decision$/m);
   assert.match(cards, /architecture-decision/);
+  assert.match(cards, /Target Structure Tree/);
   assert.match(illustrations, /Illustrative code/);
+  assert.match(illustrations, /Same Target Shape as Recommended/);
   assert.match(design, /illustrative code/);
   assert.match(design, /decision-protocol evaluator/);
   assert.match(evaluation, /--allow-pending/);

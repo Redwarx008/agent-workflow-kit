@@ -20,6 +20,14 @@ test('decision-protocol evaluator requires trees and illustrative code for archi
   assert.equal(result.ok, true, JSON.stringify(result.failures));
 });
 
+test('decision-protocol evaluator rejects target artifacts detached before the recommended option', () => {
+  const result = evaluateTranscript(readFixture('invalid-target-before-recommendation.json'));
+  assert.equal(result.ok, false);
+  for (const code of ['missing-structure-tree', 'missing-illustrative-code']) {
+    assert.ok(result.failures.some(item => item.code === code), `missing ${code}`);
+  }
+});
+
 test('decision-protocol evaluator rejects data-flow decisions without their flow tree and illustrative code', () => {
   const result = evaluateTranscript(readFixture('invalid-missing-data-flow-illustration.json'));
   assert.equal(result.ok, false);

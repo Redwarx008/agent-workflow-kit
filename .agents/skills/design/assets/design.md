@@ -71,7 +71,7 @@
 
 ## Overall Approaches Considered
 
-<!-- Compare genuinely viable end-to-end architecture approaches before local decisions. Lead with the recommended approach. -->
+<!-- Compare genuinely viable end-to-end architecture approaches before local decisions. Lead with the recommended approach. For affected architecture, data, or flow choices, each approach records its target tree/flow tree and illustrative code, or explicitly states how it shares the recommendation's shape. -->
 
 ## Chosen Design
 

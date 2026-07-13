@@ -19,11 +19,11 @@ function sectionHasContent(lines, start) {
   return false;
 }
 
-function sectionHasFencedBlock(lines, start) {
+function sectionHasFencedBlock(lines, start, end = lines.length) {
   if (start < 0) return false;
   let opened = false;
   let content = false;
-  for (let index = start + 1; index < lines.length; index += 1) {
+  for (let index = start + 1; index < end; index += 1) {
     if (/^#{2,3}\s+/.test(lines[index].trim())) break;
     if (/^```/.test(lines[index].trim())) {
       if (opened) return content;
@@ -41,14 +41,36 @@ const illustrationKinds = {
   'data-flow-decision': { tree: /^###\s+Flow tree\s*$/i, treeCode: 'missing-flow-tree', label: 'flow tree' }
 };
 
+function optionSections(lines) {
+  const starts = [];
+  for (let index = 0; index < lines.length; index += 1) {
+    const heading = lines[index].trim();
+    if (/^###\s+Recommended:\s+\S/i.test(heading)) starts.push({ type: 'recommended', start: index });
+    else if (/^###\s+Alternatives?:\s+\S/i.test(heading)) starts.push({ type: 'alternative', start: index });
+  }
+  return starts.map((section, index) => ({ ...section, end: starts[index + 1]?.start ?? lines.length }));
+}
+
+function headingInOption(lines, option, expression) {
+  for (let index = option.start + 1; index < option.end; index += 1) {
+    if (expression.test(lines[index].trim())) return index;
+  }
+  return -1;
+}
+
 function evaluateIllustrations(turn, index, lines) {
   const requirement = illustrationKinds[turn.kind];
   if (!requirement) return [];
   const failures = [];
-  const tree = headingIndex(lines, requirement.tree);
-  const code = headingIndex(lines, /^###\s+Illustrative code\s*$/i);
-  if (!sectionHasFencedBlock(lines, tree)) failures.push(failure(requirement.treeCode, index, `Decision card needs a fenced ${requirement.label}.`));
-  if (!sectionHasFencedBlock(lines, code)) failures.push(failure('missing-illustrative-code', index, 'Decision card needs fenced illustrative code.'));
+  for (const option of optionSections(lines)) {
+    const tree = headingInOption(lines, option, new RegExp(`^####\\s+Target ${requirement.label}\\s*$`, 'i'));
+    const code = headingInOption(lines, option, /^####\s+Illustrative code\s*$/i);
+    const sharesRecommended = option.type === 'alternative'
+      && sectionHasContent(lines, headingInOption(lines, option, /^####\s+Same target shape as recommended\s*$/i));
+    if (sharesRecommended) continue;
+    if (!sectionHasFencedBlock(lines, tree, option.end)) failures.push(failure(requirement.treeCode, index, `${option.type} option needs a fenced target ${requirement.label}.`));
+    if (!sectionHasFencedBlock(lines, code, option.end)) failures.push(failure('missing-illustrative-code', index, `${option.type} option needs fenced illustrative code.`));
+  }
   return failures;
 }
 
