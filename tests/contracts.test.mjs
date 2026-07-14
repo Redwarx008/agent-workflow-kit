@@ -39,6 +39,7 @@ test('design discussion and authorization contracts remain aligned', () => {
   const act = read('.agents/skills/act/SKILL.md');
   const execution = read('.agents/skills/act/assets/execution.md');
   const handoff = read('.agents/skills/act/references/durable-decision-handoff.md');
+  const worktree = read('.agents/skills/act/references/worktree-setup.md');
   const review = read('.agents/skills/review/SKILL.md');
   const reviewContract = read('.agents/skills/review/references/review-contract.md');
 
@@ -65,12 +66,21 @@ test('design discussion and authorization contracts remain aligned', () => {
   assert.match(evaluation, /--allow-pending/);
   assert.match(act, /Authorized Design Revision/);
   assert.match(act, /Design Amendment/);
+  assert.match(act, /Workspace isolation gate/);
+  assert.match(act, /ask the user whether to create an isolated worktree/);
+  assert.match(act, /references\/worktree-setup\.md/);
   assert.match(act, /references\/durable-decision-handoff\.md/);
   assert.match(execution, /Authorized Design Revision/);
   assert.match(execution, /^## Authorized Amendments$/m);
   assert.match(execution, /^## Durable Decision Handoff$/m);
+  assert.match(execution, /^\*\*Worktree Choice:\*\* Pending$/m);
+  assert.match(execution, /^## Workspace Isolation$/m);
   assert.match(handoff, /Classify every confirmed Design decision/);
+  assert.match(worktree, /Never default to a sibling directory/);
+  assert.match(worktree, /git check-ignore/);
+  assert.match(worktree, /codex\/<change-name>/);
   assert.match(review, /Design Amendment/);
+  assert.match(review, /Worktree Choice/);
   assert.match(review, /Durable Decision Handoff/);
   assert.match(reviewContract, /current authorized Design Revision/);
 });

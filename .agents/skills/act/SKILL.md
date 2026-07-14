@@ -15,7 +15,13 @@ If no exact current-workflow Design is identified, Act is not applicable. Return
 
 Read that exact `design.md`. Confirm Design is Ready, every coverage dimension is resolved or justified `N/A`, the Change Impact Checklist is complete, Written Design Review accepts the current Revision, and `Implementation Authorization` explicitly approves that same Revision. Inspect repository status and preserve unrelated user changes. If any precondition is false, stop Act without modifying the Design.
 
-Create or update `execution.md` from [assets/execution.md](assets/execution.md) and bind its `Authorized Design` field to that exact `design.md` path and its `Authorized Design Revision` field to the approved Revision. It records work already started or completed, evidence, doubts, and deviations; it must not become a speculative task plan.
+Create or update `execution.md` from [assets/execution.md](assets/execution.md) and bind its `Authorized Design` field to that exact `design.md` path and its `Authorized Design Revision` field to the approved Revision. It records work already started or completed, evidence, doubts, deviations, and workspace choice; it must not become a speculative task plan.
+
+## Workspace isolation gate
+
+Before any product mutation, ask the user whether to create an isolated worktree for this authorized execution. Recommend isolation and state that it uses an available native mechanism first, otherwise the project's `.worktrees/` or `worktrees/` location in the order defined by [references/worktree-setup.md](references/worktree-setup.md), never a sibling default. State the proposed branch under the project's rule or Codex's `codex/<change-name>` default, and that a missing ignore rule may require a small setup commit.
+
+Wait for the answer. If the user declines, record `Worktree Choice: Declined` and the current implementation workspace. If they accept, read the worktree reference and follow it exactly before mutation. Record `Created` or `Already isolated`, the absolute workspace path, branch, chosen location, baseline result, and any excluded unrelated dirty paths. On resumption, reuse the recorded workspace; do not ask again unless it is inaccessible or its recorded state conflicts with repository facts.
 
 Read [references/doubt-protocol.md](references/doubt-protocol.md) before editing and use [references/validation-guide.md](references/validation-guide.md) throughout.
 

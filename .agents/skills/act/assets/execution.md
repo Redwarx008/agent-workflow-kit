@@ -3,6 +3,15 @@
 **Status:** Active
 **Authorized Design:** `<exact workflow/active/<change-name>/design.md path>`
 **Authorized Design Revision:** `<n>`
+**Worktree Choice:** Pending
+**Implementation Workspace:** Pending
+
+## Workspace Isolation
+
+| Choice / result | Workspace and branch | Location / baseline / excluded dirty paths | Evidence |
+| --- | --- | --- | --- |
+
+<!-- Record Declined, Created, or Already isolated. Workflow records stay at the Authorized Design path even when product changes use a linked worktree. -->
 
 ## Design Success Criteria Coverage
 
