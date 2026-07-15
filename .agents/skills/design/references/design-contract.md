@@ -21,4 +21,4 @@ Design is ready for user review only when:
 - all headings carry final, relevant content; and
 - it contains no placeholder, contradictory statement, process ledger, or discarded option.
 
-Read [plan-contract.md](plan-contract.md) for the separate local control-state gate. The user reviews `design.md`, not the Plan.
+The user reviews `design.md`; no companion Plan, execution ledger, or state record exists.

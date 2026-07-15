@@ -2,11 +2,8 @@
 
 `workflow/` is local working memory. Before a commit, prevent decisions that outlive the current change from disappearing with local archival.
 
-Classify every selected Design decision and authorized amendment in `plan.md` as one of:
+Review every selected Design decision and authorized amendment. A decision is durable when it changes a project-wide architecture boundary, ownership rule, public API or data format, persistence/compatibility/migration policy, resource/version-control boundary, security/operational policy, or validation policy that later changes must follow.
 
-- **Durable:** it changes a project-wide architecture boundary, ownership rule, public API or data format, persistence/compatibility/migration policy, resource/version-control boundary, security/operational policy, or validation policy that later changes must follow.
-- **Local:** it is only a mechanical implementation detail or a scope choice whose effect ends with this change. Record why it does not guide later work.
+For every durable item, add or update the documentation location required by the target project's `AGENTS.md` - normally its session log and, when it is a significant architecture decision, an ADR. Link to an existing durable record instead of duplicating it when it still applies. Local implementation details require no workflow record.
 
-For every Durable item, add or update the documentation location required by the target project's `AGENTS.md` - normally its session log and, when it is a significant architecture decision, an ADR. Record the exact path and heading in `plan.md`. Link to an existing durable record instead of duplicating it when it still applies.
-
-Do not declare the change ready to commit while a confirmed decision or amendment lacks a classification, or while a Durable item has no project-documentation record. Never commit `workflow/**` merely to preserve a decision.
+Do not declare the change ready to commit while a durable item has no project-documentation record. Never commit `workflow/**` merely to preserve a decision.

@@ -22,7 +22,7 @@ The transcript format is:
 }
 ```
 
-After the user replies, append their `{ "role": "user", "content": "..." }` turn and run the command again without `--allow-pending` before resolving the Plan decision entry. If the evaluator fails, correct the message or stop; do not send or advance it.
+After the user replies, append their `{ "role": "user", "content": "..." }` turn and run the command again without `--allow-pending` before updating the selected Design. If the evaluator fails, correct the message or stop; do not send or advance it. Delete the transient transcript once it no longer serves the evaluator.
 
 Use `architecture-decision`, `data-structure-decision`, or `data-flow-decision` for the corresponding Design chapters; use `decision-card` for every other decision. The first three kinds require each target tree or flow tree and illustrative-code section to live inside the option it describes. Current-state evidence may appear before the recommendation, but it cannot satisfy a target-artifact check.
 

@@ -10,7 +10,7 @@
 - 只有用户显式调用 `$agent-workflow-kit:design` 才启动工作流；不得根据任务特征自动触发。
 - Design Ready 后必须等待用户明确授权；授权后由 Design 携带当前 `design.md` 的确切路径直接进入 Act。普通实现请求、泛化的“继续”或仓库中无关的 active Design 不得触发 Act；Act 不得扫描、猜测、创建或补写 Design。
 - Act 完成后必须派独立 subagent 使用 `$agent-workflow-kit:review`，在同一工作区只读验收。
-- runtime Design、执行账本、Visual Companion 状态和临时 review 材料写入 `workflow/`，不得提交 Git。
+- runtime Design，以及 Visual Companion、决策卡 evaluator 和临时 review 所需的工具状态写入 `workflow/`，不得提交 Git。不得创建常驻执行账本或状态文件。
 - 项目自身规则与用户明确要求优先于本工作流。
 
 ## 验证

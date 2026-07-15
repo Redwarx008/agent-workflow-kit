@@ -1,7 +1,7 @@
 interface:
   display_name: "Workflow Act"
-  short_description: "Implement an authorized Design and record real evidence"
-  default_prompt: "Use $act with the exact path of the current Ready and authorized Design, record execution evidence, and stop on unresolved doubt."
+  short_description: "Implement an authorized Design and verify real behavior"
+  default_prompt: "Use $act only with the exact path of the Design the user has authorized, verify its required behavior, and stop on unresolved doubt."
 
 policy:
   allow_implicit_invocation: true

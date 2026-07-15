@@ -1,6 +1,6 @@
 # User-Facing Decision Cards
 
-Plan decision IDs exist only for internal traceability. Never require the user to infer a decision from `D-003`, a table row, or a prior design document.
+Internal tracking IDs, if a tool temporarily uses them, are never user-facing. Never require the user to infer a decision from `D-003`, a table row, or a prior design document.
 
 Ask exactly one decision per message. Use the domain language of the change and make the message understandable on its own:
 

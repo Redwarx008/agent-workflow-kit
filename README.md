@@ -9,10 +9,10 @@
 ## 三个入口
 
 - `$agent-workflow-kit:design`：唯一显式入口；调查真实仓库并持续记录 Design。
-- `$agent-workflow-kit:act`：Design 获得明确授权后携带当前 `design.md` 的确切路径直接进入，或恢复已经绑定到同一 Design 的执行记录；普通实现请求或泛化的“继续”不得触发 Act。
+- `$agent-workflow-kit:act`：Design 获得明确授权后携带当前 `design.md` 的确切路径直接进入；普通实现请求或泛化的“继续”不得触发 Act。
 - `$agent-workflow-kit:review`：Act 完成后自动派独立 subagent，在同一工作区只读反查真实调用链。
 
-工作流不得按任务特征自动启动；只有用户显式调用 `$agent-workflow-kit:design` 才进入。进入后按 `Design → 授权 → Act → Review` 推进，每次阶段转换都传递当前变更的确切 workflow 记录路径，不得扫描其他 active 记录猜测当前工作流。没有 Plan skill 或兼容入口。
+工作流不得按任务特征自动启动；只有用户显式调用 `$agent-workflow-kit:design` 才进入。进入后按 `Design → 授权 → Act → Review` 推进，Design 直接向 Act 传递当前 `design.md` 的确切路径，不得扫描其他 active 记录猜测当前工作流。没有 Plan skill 或兼容入口。
 
 Claude Code 的交互式命令使用 `/agent-workflow-kit:design` 等同名 namespaced skill。没有 `$workflow-*` 兼容入口，也没有 kit 自建的 doctor；宿主环境分别使用 `codex doctor` 与 `claude doctor`。
 
@@ -52,7 +52,7 @@ claude plugin update agent-workflow-kit@agent-workflow-kit
 
 把 [AGENTS.md](AGENTS.md) 中适用的触发与门禁合并进项目规则。项目规则和用户明确要求始终优先。
 
-Design 开始前会运行 bundled preflight：在 Git 项目的 repo-local `.git/info/exclude` 中幂等确保 `/workflow/` 被忽略，然后才允许创建记录。Design、执行账本、Visual Companion 状态和 Review 临时材料全部进入本地 `workflow/`，不会要求修改项目的 tracked `.gitignore`。
+Design 开始前会运行 bundled preflight：在 Git 项目的 repo-local `.git/info/exclude` 中幂等确保 `/workflow/` 被忽略，然后才允许创建记录。`design.md` 是唯一常驻工作流文件；Visual Companion、决策卡 evaluator 与 Review 的工具状态仅在需要时进入本地 `workflow/.local/`，不会要求修改项目的 tracked `.gitignore`。
 
 ## 维护与验证
 
