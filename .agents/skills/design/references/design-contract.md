@@ -1,45 +1,24 @@
 # Design Contract
 
-## Living record
+`design.md` is the short, user-reviewable final specification for this change. It contains only the selected result of the discussion.
 
-Use `.agents/skills/design/assets/design.md` without removing sections. Update the record when facts or decisions change, not merely at the end of the conversation.
+Keep:
 
-- `Evidence`: inspected repository paths, runtime behavior, engine source, captures, official references, and rejected hypotheses.
-- `Decisions`: a stable summary of confirmed choices and technical conclusions that implementation must treat as fixed, including causal rationale. It must not carry lifecycle status independent of Decision Map.
-- `Open Questions`: only unresolved questions that can change scope, architecture, contracts, failure behavior, validation, or compatibility.
-- `Discussion Trace`: a concise record of every material question, inspected facts, recommendation, user response, and result.
-- `Decision Map`: the authoritative dependency graph and lifecycle state of material decisions. Its status is `Evidence pending`, `Awaiting user`, `Confirmed`, `Delegated`, `Rejected`, or `N/A` with a reason. It is internal traceability, not a user-facing conversation format.
-- `Design Coverage`: a gate projection of Decision Map and inspected evidence, not a second decision ledger. Headings or plausible prose alone do not count as coverage.
-- `Change Impact Checklist`: the required assessment of API/external consumers, persisted or generated data, compatibility/migration/rollback, recovery/lifetime, observability, performance/resource budget, and security/privacy. Every row is `Affected` or `N/A` with a reason.
-- `Design Amendments`: append-only records for Design changes after initial authorization. Each amendment increments Revision and records affected decisions, user confirmation, written-design review, and reauthorization.
-- `Design illustrations`: for every affected architecture, data structure, and data flow, the required tree or flow tree plus illustrative target-language code. They make the proposed boundary and path inspectable before Act; prose alone is not enough.
+- problem, success criteria, scope, non-goals, and constraints;
+- the selected architecture, boundaries, components, integration path, interfaces, data structures, data flow, failure/compatibility behavior, and validation that actually apply;
+- required selected trees, flow trees, and illustrative code;
+- a compact rationale only where the selected choice would otherwise be surprising or hard to reverse.
 
-Write `N/A` plus a reason when interfaces, data flow, or another section genuinely does not apply. Never invent detail to make the template look complete.
+Do not keep empty or `N/A` headings, internal IDs, question history, coverage/impact tables, raw research notes, authorization state, amendments, or discarded approaches. A rejected option belongs only in an ADR when its rejected rationale is durable context under the project's ADR rules.
 
 ## Readiness check
 
-Design is Ready only when all are true:
+Design is ready for user review only when:
 
-- Problem, success picture, scope, and out-of-scope boundaries are explicit.
-- Relevant current implementation and references have been inspected.
-- Genuinely viable end-to-end approaches were compared before local decisions; the chosen overall direction has the user's confirmation or explicit delegation.
-- Every material decision appears in Decision Map with its dependencies; no entry remains `Awaiting user` or `Evidence pending`.
-- Every Change Impact Checklist row is `Affected` or justified `N/A`; affected impact has a design decision, acceptance evidence, or both.
-- Discussion Trace shows the user's confirmation, rejection, or explicit delegation for every affected production integration/call path, interface/contract, data model/state/structure, and data ownership/flow.
-- Every user-facing decision message was self-contained and used a domain title, why-now facts, recommendation-first proposal, real alternatives and consequences where applicable, and one direct decision question. Raw `D-xxx` labels were not exposed as the decision title.
-- Every Design Coverage row is `Resolved` or a justified `N/A`; none is merely inferred from a filled heading.
-- Architecture boundaries, components and responsibilities, targeted enabling improvements, production integration and call path, interfaces/contracts, data model/state/structures, data ownership and flow, implementation mechanics and integration points, failure/edge/compatibility behavior, and validation are defined or explicitly not applicable.
-- Every affected production integration/call path, interface/contract, data representation/state model, and data ownership/flow records the inspected evidence, concrete proposal, and the user's confirmation, rejection, or explicit delegation. Evidence may explain a proposal but cannot replace this record.
-- Every non-trivial new or changed data representation records its structure, invariants, ownership, lifecycle, mutation path, and persistence/compatibility implications. When more than one viable representation remains, it records alternatives, causal tradeoffs, recommendation, and the user's decision.
-- Every affected architecture has a fenced structure tree and illustrative code for its pivotal boundary or composition point; every affected data structure has a fenced ownership/type tree and illustrative representative type; every affected data flow has a fenced producer-to-consumer flow tree and illustrative read/write or transform path. In the user-facing card, current-state evidence precedes the recommendation, while target artifacts belong inside the recommended or alternative option that they describe; no target artifact may be presented as neutral pre-recommendation evidence.
-- Every affected component states its purpose, consumers, dependencies, stable contract, and replaceable internal details. Any enabling improvement is causally necessary to the target change and has an explicit user scope decision.
-- The implementation approach fixes the mechanisms and production integration path strongly enough that Act does not need to invent architecture, ownership, contracts, algorithms, or compatibility policy. Act may choose only mechanical execution order from repository facts.
-- Every design choice with multiple viable approaches records the compared approaches, causal tradeoffs, recommendation, and user decision. Do not manufacture alternatives when repository evidence leaves only one valid approach.
-- Success criteria are observable and testable with the chosen evidence type.
-- Every implementation-shaping decision is recorded and no such question remains open.
-- The user has seen an integrated walkthrough of the connected design and any correction is reflected in the record. This walkthrough is a Design discussion step, not implementation authorization.
-- The written local Design at its current Revision passed self-review, then the user reviewed the completed `design.md`; any requested correction was incorporated and re-reviewed before Ready.
-- Implementation Authorization explicitly names the current Revision. If an amendment changes that Revision after authorization, Act cannot resume until the amended document passes the affected decision, impact, self-review, written-review, and reauthorization gates.
-- No `TBD`, `TODO`, placeholder prose, contradiction, or requirement with two plausible interpretations remains.
+- it describes one coherent selected design with no implementation-shaping ambiguity;
+- every affected architecture, data structure, and data flow is inspectable through the required selected artifacts;
+- success criteria and validation evidence are observable;
+- all headings carry final, relevant content; and
+- it contains no placeholder, contradictory statement, process ledger, or discarded option.
 
-Perform a fresh self-review before marking Ready: scan for placeholders, internal inconsistency, oversized scope, hidden assumptions, and ambiguous terminology. Fix facts directly; ask the user about decisions.
+Read [plan-contract.md](plan-contract.md) for the separate local control-state gate. The user reviews `design.md`, not the Plan.

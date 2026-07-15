@@ -4,7 +4,7 @@ Use this only after the user explicitly chooses an isolated worktree at the star
 
 ## Preserve the workflow record
 
-The exact `design.md` and `execution.md` remain in the initiating checkout's local `workflow/` directory. Do not copy, move, or Git-stage them. Record the absolute implementation-workspace path in `execution.md`; Act and Review must read the original records while inspecting the selected workspace.
+The exact `design.md` and `plan.md` remain in the initiating checkout's local `workflow/` directory. Do not copy, move, or Git-stage them. Record the absolute implementation-workspace path in `plan.md`; Act and Review must read the original records while inspecting the selected workspace.
 
 ## Isolation order
 
@@ -16,6 +16,6 @@ The exact `design.md` and `execution.md` remain in the initiating checkout's loc
 
 ## Dirty primary checkout and baseline
 
-Before manual creation, inspect the initiating checkout's status. A new worktree starts at committed Git state and does not contain uncommitted changes. If Design or implementation could depend on any dirty path, stop and ask the user whether to commit, stash, include it by another explicit method, or work in place. Do not stash, copy, or discard anything automatically. If inspected evidence proves the dirty paths are unrelated, record that exclusion in `execution.md` before creating the worktree.
+Before manual creation, inspect the initiating checkout's status. A new worktree starts at committed Git state and does not contain uncommitted changes. If Design or implementation could depend on any dirty path, stop and ask the user whether to commit, stash, include it by another explicit method, or work in place. Do not stash, copy, or discard anything automatically. If inspected evidence proves the dirty paths are unrelated, record that exclusion in `plan.md` before creating the worktree.
 
 After setup, follow the target project's `AGENTS.md` for dependency setup and baseline validation. Do not invent package installation, test commands, or a validation policy that contradicts the project rules. If required baseline validation fails, report it and wait for direction before implementation.

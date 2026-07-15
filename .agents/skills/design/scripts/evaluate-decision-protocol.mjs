@@ -93,7 +93,7 @@ export function evaluateDecisionCard(content, turn) {
 
   const questions = content.match(/[?？]/g) ?? [];
   if (questions.length !== 1) failures.push(failure('not-one-question', turn, `Decision card has ${questions.length} question marks; exactly one is required.`));
-  if (/\bD-\d+\b/.test(content)) failures.push(failure('internal-id-leak', turn, 'Decision card exposes an internal Decision Map ID.'));
+  if (/\bD-\d+\b/.test(content)) failures.push(failure('internal-id-leak', turn, 'Decision card exposes an internal decision ID.'));
   if (/design\.md/i.test(content)) failures.push(failure('not-self-contained', turn, 'Decision card refers to design.md instead of explaining itself.'));
 
   return failures;
@@ -120,7 +120,7 @@ export function evaluateTranscript(transcript, { allowPending = false } = {}) {
       return;
     }
 
-    if (/\bD-\d+\b/.test(turn.content)) failures.push(failure('internal-id-leak', index, 'Agent message exposes an internal Decision Map ID.'));
+    if (/\bD-\d+\b/.test(turn.content)) failures.push(failure('internal-id-leak', index, 'Agent message exposes an internal decision ID.'));
     if (pendingDecisionTurn !== null) {
       failures.push(failure('advanced-before-user-reply', index, `Agent turn follows unanswered decision card at turn ${pendingDecisionTurn}.`));
     }

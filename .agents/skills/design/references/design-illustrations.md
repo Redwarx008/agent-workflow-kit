@@ -14,7 +14,7 @@ Use the target project's existing implementation language when one exists. Label
 - Each materially different `### Alternative: B/C ...` carries its own target tree or flow tree and code.
 - If an alternative keeps exactly the same target shape, use `#### Same Target Shape as Recommended` to name the shared artifacts and the non-structural difference; do not omit the relationship silently.
 
-Record the selected target tree and code in the relevant `design.md` section. Use a precise `N/A` reason only when the dimension is genuinely unaffected.
+Record only the selected target tree and code in the relevant `design.md` section. Keep discarded option artifacts in the transient conversation material only, not in Design or Plan. Use a precise `N/A` reason in Plan only when the dimension is genuinely unaffected.
 
 ## Shapes
 
