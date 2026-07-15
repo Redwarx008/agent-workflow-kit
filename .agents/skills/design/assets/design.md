@@ -18,7 +18,7 @@
 
 ### Components, Integration, and Interfaces
 
-<!-- When affected: responsibilities, production call path, stable contracts, and the selected integration point. -->
+<!-- When affected: for every new or materially changed component, state its purpose, consumers, owned data/state, dependency direction, stable contract, and replaceable internals; then show the production call path and selected integration point. -->
 
 ### Data Structures and Flow
 
