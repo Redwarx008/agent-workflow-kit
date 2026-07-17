@@ -6,7 +6,9 @@
 
 <!-- State the problem, observable success criteria, included work, and non-goals. -->
 
-## Constraints
+## Constraints and Implementation Guardrails
+
+<!-- Keep only applicable, project-evidence-backed constraints: contracts that must remain stable, internals that must remain replaceable, implementation principles, and prohibited shortcuts. State the failure mechanism when a guardrail would otherwise appear arbitrary. -->
 
 ## Selected Design
 

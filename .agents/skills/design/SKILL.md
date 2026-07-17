@@ -27,12 +27,13 @@ Read [references/user-facing-decision-cards.md](references/user-facing-decision-
 6. For affected production integration/call paths, interfaces/contracts, data structures/state, and data ownership/flow, obtain the user's confirmation or explicit delegation. Repository evidence constrains a proposal but does not replace that choice.
 7. For every affected architecture, data structure, or data flow, distinguish inspected current-state evidence from target proposals. Put target trees/flow trees and illustrative code under the recommended or alternative option that they describe. After selection, write only the selected artifacts into Design. Keep uniquely determined or reversible detail to the shortest wording that preserves the decision; give irreversible boundaries, contracts, ownership, and flow the required artifacts.
 8. After each resolution, update the selected final Design section. Do not preserve internal IDs, question history, discarded approaches, user-authorization state, or a duplicate execution record.
+9. After the selected architecture, integration, interfaces, data structures, and flow are coherent, run one evidence-grounded failure-first review before the Ready gate. Inspect the real project areas most likely to fail, choices likely to accumulate technical debt, contracts that must remain stable, internals that must remain replaceable, implementation principles needed to preserve the design, and tempting shortcuts that must be prohibited. For each material conclusion establish `project evidence -> causal failure mechanism -> consequence -> preventive design constraint`. Do not invent generic risks or create headings merely to complete a checklist. If prevention requires a non-unique choice, use one normal decision card; otherwise integrate only the selected constraint or guardrail into its relevant Design section. Do not retain the raw pre-mortem, rejected shortcuts, or resolved speculation.
 
 Design decisions include architecture, components, production wiring, interfaces, data structures, state transitions, ownership, data flow, failure behavior, compatibility, and validation. Act may choose only mechanical execution order. Reject unrelated refactors and speculative requirements. For a visual question, follow [references/visual-companion.md](references/visual-companion.md) and obtain consent before starting it.
 
 ## Ready gate
 
-Run the Design contract. Do not become Ready while a material decision is awaiting the user, a repository fact needed to evaluate a material decision is missing, or an implementation-shaping question remains. Do not fill gaps with assumptions.
+Run the Design contract. Do not become Ready while a material decision is awaiting the user, a repository fact needed to evaluate a material decision is missing, an implementation-shaping question remains, or a project-grounded failure/debt risk lacks a selected prevention. Do not fill gaps with assumptions.
 
 When the gates pass:
 
