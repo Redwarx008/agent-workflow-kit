@@ -6,7 +6,7 @@ Use read-only inspection to resolve discoverable facts: repository code and docs
 
 ## Stop when uncertainty remains
 
-Stop before further mutation whenever there are multiple reasonable implementations or uncertainty about a Design conflict or omission, scope, API/format, compatibility, persistence, dependency choice, fallback behavior, validation substitution, failure handling, non-mechanical task ordering, or a reviewer finding.
+An unknown repository fact is not automatically a user decision; investigate it first. Stop before further mutation when two or more reasonable choices remain and choosing among them can materially change observable behavior, a stable contract or format, data meaning or ownership, persistence or migration, compatibility, scope, dependency policy, fallback or failure behavior, validation strength, project risk, or the intended resolution of a reviewer finding. Also stop when the Design conflicts with production code or omits one of those material choices.
 
 Tell the user:
 
@@ -17,4 +17,4 @@ Tell the user:
 
 Wait for the response. Until then, continue only safe read-only investigation. Do not implement the recommendation first.
 
-Mechanical details may proceed only when Design and existing project patterns admit one safe interpretation. If you doubt uniqueness, stop.
+Proceed without asking only when the remaining variation is behaviorally equivalent, local, reversible, and cannot alter the approved Design or a stable project contract; use repository conventions to choose it. Examples include syntax, private naming, exact file placement within an established module, and mechanical execution order when they have no wider consequence. If uncertain whether alternatives are materially equivalent, stop.

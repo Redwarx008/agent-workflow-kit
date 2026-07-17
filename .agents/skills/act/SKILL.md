@@ -30,8 +30,8 @@ Until every Design success criterion is evidenced:
 1. Select an unmet success criterion or required production integration obligation and re-read its final Design constraints, affected system, and required evidence.
 2. Investigate unclear repository facts read-only. Choose the next mechanical execution step from the actual dependency graph; do not ask the user about uniquely determined ordering.
 3. Before mutation, confirm the Design-required validation entrypoint and prerequisites exist and can be invoked. If unavailable, stop before implementation and apply the doubt protocol.
-4. If any implementation choice is not uniquely fixed by Design and repository facts, apply the doubt protocol and wait for the user.
-5. Implement the smallest coherent change uniquely entailed by Design.
+4. If research leaves materially different implementation choices as defined by the doubt protocol, apply that protocol and wait for the user. Do not treat behaviorally equivalent, local, reversible details as new product decisions.
+5. Implement the smallest coherent change consistent with the Design, choosing only local details that cannot alter approved behavior or a stable project contract.
 6. Run applicable validation and retain its command/output only as transient tool or conversation evidence for the current Act and Review handoff; do not create a persistent execution ledger.
 7. Mark a success criterion covered only after required evidence exists. If a deviation changes final Design, stop before further mutation: use the Design decision-card protocol, update only the affected selected Design content after the user responds, repeat the affected self-review and written Design review, and obtain explicit reauthorization. Resume only after that authorization.
 
