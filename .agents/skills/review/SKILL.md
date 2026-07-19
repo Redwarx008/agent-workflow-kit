@@ -21,8 +21,9 @@ Work read-only in the shared working tree. Never create a worktree, edit files, 
 2. Trace each requirement through the real runtime/editor/tooling call path. Confirm wiring, ownership, error/cleanup behavior, and compatibility boundaries.
 3. Inspect the actual diff and surrounding consumers, not just named declarations or tests.
 4. Cross-check the actual diff against the supplied validation entrypoints and any raw evidence. Verify that each evidence type proves the claimed behavior and follows the project's deterministic-versus-visual validation rules.
-5. Inspect version-control ownership and documentation boundaries.
-6. Report only evidence-backed P0/P1/P2 findings with tight file/line references and causal mechanisms.
+5. Reverse-audit every added dependency, abstraction, interface or factory, wrapper, configuration or flag, state copy or cache, compatibility path, fallback, file, and duplicated helper. Identify the Design criterion or inspected project constraint that requires it, and check whether existing project code, a shared seam, the standard library, the engine/platform, or an installed dependency already provides a complete solution. Report unsupported complexity, but do not optimize for raw line or file count and do not remove required validation, failure handling, security, accessibility, or project ownership boundaries.
+6. Inspect version-control ownership and documentation boundaries.
+7. Report only evidence-backed P0/P1/P2 findings with tight file/line references and causal mechanisms.
 
 ## Output
 
