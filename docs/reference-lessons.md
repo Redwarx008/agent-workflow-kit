@@ -14,7 +14,7 @@
 
 Design 的“实现方案”指 Act 前必须确定的机制、所有权、状态转换、依赖和生产集成点；文件级顺序由 Act 从真实依赖动态选择，不预写成计划。这样既不让 Act 重新发明架构，也避免维护容易过时的重复 Plan。
 
-Visual Companion 保留上游已加固的 session key、同源 WebSocket、路径 containment、token fallback、断线恢复、空闲退出和 PID 所有权语义。浏览器只辅助视觉选择；终端对话仍是最终反馈和授权通道。
+Visual Companion 保留上游已加固的 session key、同源 WebSocket、路径 containment、token fallback、断线恢复、空闲退出和 PID 所有权语义，并采用上游的逐题判断：只有必须观察视觉关系或视觉差异才能明显改善理解或回答的问题才进入浏览器。API、数据模型、架构方案选择、文字型 A/B/C、trade-off、公式、代码和流程默认留在终端；把同一内容排成网页不构成视觉价值。离开视觉问题时推送 waiting 页面，终端对话始终是最终反馈和授权通道。
 
 ## 项目实践补充
 
