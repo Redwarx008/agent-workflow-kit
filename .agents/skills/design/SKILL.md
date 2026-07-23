@@ -40,8 +40,7 @@ Run the Design contract. Do not become Ready while an affected Design area has n
 When the gates pass:
 
 1. Self-review the actual written `design.md` as one connected final Design for sufficiency, relevance, contradictions, scope drift, material ambiguity, useful illustrations, and placeholder/process leakage. Fix any finding inline, then reread the file.
-2. Ask the user to review the self-reviewed `design.md`. If they request a correction, return to the loop and repeat the written-file self-review. This is the single comprehensive document-fidelity gate, not implementation authorization.
-3. After acceptance, ask for explicit implementation authorization. Do not modify product code while waiting.
-4. After authorization, invoke `$agent-workflow-kit:act` directly with the exact Design path. Never use a generic implementation or continuation request to select Act.
+2. Ask the user to review the self-reviewed `design.md`. In that same message, state that if no changes are needed, an unqualified direct reply such as “确认”, “继续”, or “按此实施” both accepts the written Design and explicitly authorizes Act, whose first step is the separate worktree choice. If they request a correction, return to the loop, repeat the written-file self-review, and present this combined final gate again. If they accept the document but explicitly say to wait or not implement, keep it Ready.
+3. After an unqualified direct acceptance of that combined final gate, invoke `$agent-workflow-kit:act` directly with the exact Design path. Do not ask for another synonymous implementation authorization. A generic implementation or continuation request outside a direct response to this gate must never select Act.
 
-The only terminal state is transition to Workflow Act after explicit authorization.
+The only terminal state is transition to Workflow Act after the combined final review and explicit authorization.

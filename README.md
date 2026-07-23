@@ -2,17 +2,17 @@
 
 面向 Codex 与 Claude Code 的轻量原生插件工作流：
 
-`Design 讨论与记录 → 用户授权 → Act 动态执行 → 独立 Review → 提交 → 归档`
+`Design 讨论与记录 → 最终审阅并授权 → Act 动态执行 → 独立 Review → 提交 → 归档`
 
 它解决三个常见问题：意图和边界尚未清楚就开始实现；实施遇到歧义时 agent 静默替用户选择；声明、文件或测试存在，却没有接入真实生产调用链。
 
 ## 三个入口
 
 - `$agent-workflow-kit:design`：唯一显式入口；调查真实仓库并持续记录 Design。
-- `$agent-workflow-kit:act`：Design 获得明确授权后携带当前 `design.md` 的确切路径直接进入；普通实现请求或泛化的“继续”不得触发 Act。
+- `$agent-workflow-kit:act`：用户在最终 Design 的合并审阅门禁中无保留接受后，携带当前 `design.md` 的确切路径直接进入；不再追加同义实施确认。脱离该门禁语境的普通实现请求或泛化“继续”不得触发 Act。
 - `$agent-workflow-kit:review`：Act 完成后自动派独立 subagent，在同一工作区只读反查真实调用链。
 
-工作流不得按任务特征自动启动；只有用户显式调用 `$agent-workflow-kit:design` 才进入。进入后按 `Design → 授权 → Act → Review` 推进，Design 直接向 Act 传递当前 `design.md` 的确切路径，不得扫描其他 active 记录猜测当前工作流。没有 Plan skill 或兼容入口。
+工作流不得按任务特征自动启动；只有用户显式调用 `$agent-workflow-kit:design` 才进入。进入后按 `Design → 最终审阅并授权 → Act → Review` 推进。最终提问会预先说明：若无修改，用户直接回复“确认”“继续”或“按此实施”即同时接受成品并授权 Act；明确表示暂不实施则停在 Ready。Design 直接向 Act 传递当前 `design.md` 的确切路径，不得扫描其他 active 记录猜测当前工作流。没有 Plan skill 或兼容入口。
 
 Claude Code 的交互式命令使用 `/agent-workflow-kit:design` 等同名 namespaced skill。没有 `$workflow-*` 兼容入口，也没有 kit 自建的 doctor；宿主环境分别使用 `codex doctor` 与 `claude doctor`。
 

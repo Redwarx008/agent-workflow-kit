@@ -31,4 +31,4 @@ Design is ready for user review only when:
 - success criteria and validation evidence are observable;
 - it contains only final relevant content, with no empty heading, placeholder, contradiction, process ledger, or discarded option.
 
-The user reviews `design.md`; no companion Plan, execution ledger, or state record exists.
+The user reviews `design.md` through one combined final gate whose unqualified acceptance also explicitly authorizes Act; no companion Plan, execution ledger, or state record exists. An explicit request to wait leaves the accepted Design Ready without implementation.

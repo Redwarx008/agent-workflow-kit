@@ -1,6 +1,6 @@
 ---
 name: act
-description: Use only when the current Agent Workflow Kit Design directly invokes Act with its exact design.md path after the user explicitly authorizes implementation. Never use for ordinary implementation or a generic continue request.
+description: Use only when the current Agent Workflow Kit Design directly invokes Act with its exact design.md path after the user accepts the combined final Design-review and implementation-authorization gate. Never use for ordinary implementation or a generic continue request outside that gate.
 ---
 
 # Workflow Act
@@ -9,11 +9,11 @@ Implement the approved Design without changing its intent. Choose mechanical ord
 
 ## Start
 
-Require the exact `design.md` path supplied by the invoking Design after the user's explicit authorization. Never scan `workflow/active/` to guess a Design from recency, folder names, or unrelated active records. Never create, infer, repair, or backfill a workflow record.
+Require the exact `design.md` path supplied by the invoking Design after the user's unqualified direct acceptance of the combined final Design-review and implementation-authorization gate. Never scan `workflow/active/` to guess a Design from recency, folder names, or unrelated active records. Never create, infer, repair, or backfill a workflow record.
 
 If no exact current-workflow Design is identified, Act is not applicable. Return control to normal task handling without creating or modifying workflow records and without blocking the underlying non-workflow task.
 
-Read the exact Design. Confirm the invoking Design directly followed the user's explicit implementation authorization; if that authorization is absent or no longer applies after a Design correction, stop Act without modifying product files. Inspect repository status and preserve unrelated user changes.
+Read the exact Design. Confirm the invoking Design directly followed that combined gate and its acceptance; do not demand another authorization phrase. If authorization is absent, was explicitly withheld, or no longer applies after a Design correction, stop Act without modifying product files. Inspect repository status and preserve unrelated user changes.
 
 ## Workspace isolation gate
 
@@ -34,7 +34,7 @@ Until every Design success criterion is evidenced:
 5. Before adding code, apply the solution-reduction ladder in order: no new mechanism; existing project code or shared seam; standard-library or engine/platform capability; already-installed dependency; minimum project-local implementation. Use the first option that completely satisfies the approved Design and project constraints. If it reveals that the approved Design requires a material correction, stop and return through the Design decision protocol instead of silently simplifying it.
 6. Implement the smallest coherent change consistent with the Design. Do not add an abstraction, interface, factory, wrapper, dependency, configuration surface, state copy or cache, compatibility path, fallback, or file solely for hypothetical future use. Prefer deletion and conventional code when behavior and responsibilities remain clear, but never optimize for the fewest lines or files at the expense of the project's ownership and organization rules.
 7. Run applicable validation and retain its command/output only as transient tool or conversation evidence for the current Act and Review handoff; do not create a persistent execution ledger.
-8. Mark a success criterion covered only after required evidence exists. If a deviation changes final Design, stop before further mutation: use the Design decision-card protocol, update only the affected selected Design content after the user responds, repeat the affected self-review and written Design review, and obtain explicit reauthorization. Resume only after that authorization.
+8. Mark a success criterion covered only after required evidence exists. If a deviation changes final Design, stop before further mutation: use the Design decision-card protocol, update only the affected selected Design content after the user responds, repeat the affected self-review, then present the combined final Design-review and implementation-authorization gate again. Resume only after its unqualified direct acceptance; do not ask a second synonymous confirmation.
 
 Do not silently add dependencies, change APIs or formats, broaden scope, choose compatibility policy, introduce fallback behavior, skip evidence, or replace validation. Use required domain skills and follow the target project's version-control ownership rules.
 
