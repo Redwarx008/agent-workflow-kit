@@ -1,6 +1,6 @@
 ---
 name: review
-description: Independently verifies an implementation against its authorized final Design, shared working tree, real production call paths, and validation entrypoints. Use automatically through an independent subagent after Act completes or requests follow-up review; run read-only in the existing workspace.
+description: Independently verifies an implementation against its authorized final Design, shared working tree, real production call paths, validation entrypoints, and intended input class rather than visible examples. Use automatically through an independent subagent after Act completes or requests follow-up review; run read-only in the existing workspace.
 ---
 
 # Workflow Review
@@ -20,10 +20,11 @@ Work read-only in the shared working tree. Never create a worktree, edit files, 
 1. Build a checklist from every final Design success criterion, constraint, interface, failure behavior, production integration obligation, and durable project-documentation obligation.
 2. Trace each requirement through the real runtime/editor/tooling call path. Confirm wiring, ownership, error/cleanup behavior, and compatibility boundaries.
 3. Inspect the actual diff and surrounding consumers, not just named declarations or tests.
-4. Cross-check the actual diff against the supplied validation entrypoints and any raw evidence. Verify that each evidence type proves the claimed behavior and follows the project's deterministic-versus-visual validation rules.
-5. Reverse-audit every added dependency, abstraction, interface or factory, wrapper, configuration or flag, state copy or cache, compatibility path, fallback, file, and duplicated helper. Identify the Design criterion or inspected project constraint that requires it, and check whether existing project code, a shared seam, the standard library, the engine/platform, or an installed dependency already provides a complete solution. Report unsupported complexity, but do not optimize for raw line or file count and do not remove required validation, failure handling, security, accessibility, or project ownership boundaries.
-6. Inspect version-control ownership and documentation boundaries.
-7. Report only evidence-backed P0/P1/P2 findings with tight file/line references and causal mechanisms.
+4. Audit generalization from the Design, public contracts, and domain invariants. Inspect implementation and validation for behavior coupled to visible examples, fixture/test names, exact names or IDs, incidental ordering or counts, current dimensions or data values, or the current dataset. Vary those irrelevant properties mentally or through already-authorized evidence and trace whether the same rule still holds. Do not demand behavior outside the authorized input class, and do not treat protocol-, schema-, or domain-required constants as overfitting.
+5. Cross-check the actual diff against the supplied validation entrypoints and any raw evidence. Verify that each evidence type proves the claimed behavior and follows the project's deterministic-versus-visual validation rules. Passing examples are insufficient when the implementation or evidence does not exercise the governing invariant.
+6. Reverse-audit every added dependency, abstraction, interface or factory, wrapper, configuration or flag, state copy or cache, compatibility path, fallback, file, and duplicated helper. Identify the Design criterion or inspected project constraint that requires it, and check whether existing project code, a shared seam, the standard library, the engine/platform, or an installed dependency already provides a complete solution. Report unsupported complexity, but do not optimize for raw line or file count and do not remove required validation, failure handling, security, accessibility, or project ownership boundaries.
+7. Inspect version-control ownership and documentation boundaries.
+8. Report only evidence-backed P0/P1/P2 findings with tight file/line references and causal mechanisms.
 
 ## Output
 

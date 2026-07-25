@@ -8,6 +8,9 @@ Determine whether the shared working tree fully implements the authorized final 
 - Reconstruct requirement-to-production-call-path relationships independently.
 - Treat declarations, selectors, tests, or registration as insufficient unless the real runtime/editor/tooling path consumes them.
 - Verify every final Design success criterion, constraint, contract, failure behavior, and required production integration path has evidence.
+- Derive the intended input class and governing invariants only from the final Design, public contracts, inspected project rules, and domain model. Do not silently broaden the feature while reviewing it.
+- Audit implementation and validation for example-specific coupling: fixture or test names, exact names/IDs, incidental order/count/dimensions, visible sample values, current dataset membership, and branches that recognize known cases instead of implementing the governing rule. Consider equivalent inputs with those irrelevant properties changed and trace the production behavior.
+- Treat a fixed value as legitimate when an explicit protocol, schema, resource format, approved requirement, or domain invariant requires it. Report overfitting only when evidence connects an incidental example property to incorrect or unsupported behavior.
 - For every Design correction that affects implementation, verify the final selected Design is the sole scope authority; if the diff exceeds it, report the excess rather than inferring user authorization.
 - Confirm the supplied workspace is the workspace whose diff is reviewed. When a linked worktree was created, verify the local Design was not copied or staged and that the implementation diff belongs to the supplied workspace.
 - Verify every selected Design decision or amendment that creates a durable project rule has the required project-documentation target; a workflow-only record is insufficient.
@@ -19,7 +22,7 @@ Determine whether the shared working tree fully implements the authorized final 
 ## Severity
 
 - **P0:** Data loss, security boundary break, destructive behavior, or unusable core workflow.
-- **P1:** Unmet success criterion, broken production integration, false validation claim, or material regression.
-- **P2:** Non-blocking maintainability or resilience issue with a concrete risk.
+- **P1:** Unmet success criterion, broken production integration, false validation claim, material regression, or implementation that only satisfies visible examples while failing the authorized input class.
+- **P2:** Non-blocking maintainability or resilience issue with a concrete risk, including suspicious example coupling whose failure is not yet demonstrated.
 
 `PASS` requires no P0/P1, no unaccounted success criterion, and no implementation beyond final Design scope. If a finding admits multiple reasonable fixes or changes intent, state the decision needed; the main agent must ask the user.

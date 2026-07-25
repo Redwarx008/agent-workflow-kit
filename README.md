@@ -87,7 +87,7 @@ npm run test:powershell
 - Design 是讨论过程中持续维护的记录，不是最后凭记忆补写。
 - 除非用户显式要求，否则不新增或修改测试；现有测试仍可作为验证证据运行。
 - 不把 TDD 机械套到视觉、GPU、shader 或探索性原型；证据形式服从真实因果链。
-- Reviewer 不接受主 agent 的完成结论，从成功标准反向检查生产路径。
+- Reviewer 不接受主 agent 的完成结论，从成功标准反向检查生产路径，并检查实现是否依赖固定示例、名称/ID、顺序、数量、尺寸或当前数据集，而非 Design 与领域不变量。
 
 进一步说明见 [工作流哲学](docs/workflow-philosophy.md)、[验证策略](docs/validation-strategy.md)、[独立 Review](docs/independent-review.md)、[会话记忆](docs/session-memory.md) 和 [参考实现取舍](docs/reference-lessons.md)。
 

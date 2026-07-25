@@ -5,9 +5,13 @@
 | Success criterion | Evidence inspected | Result |
 | --- | --- | --- |
 
+## Generalization audit
+
+For each materially changed behavior, state the intended input class or invariant, the irrelevant example properties varied or counterexamples inspected, the production evidence, and the result. Do not claim broader support than the final Design requires.
+
 ## Findings
 
-For each finding provide severity, concise title, exact file/line, observed evidence, causal mechanism, and violated criterion/constraint. Omit the section when there are no findings.
+For each finding provide severity, concise title, exact file/line, observed evidence, causal mechanism, and violated criterion/constraint. For overfitting, identify the incidental example property the implementation depends on and an equivalent authorized input that would take the wrong path. Omit the section when there are no findings.
 
 ## Validation gaps
 
