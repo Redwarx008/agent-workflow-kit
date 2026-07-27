@@ -12,6 +12,8 @@ Keep:
 
 For each materially changed boundary, record the properties needed to prevent inconsistent implementation, such as purpose, consumers, owned state, dependency direction, stable contract, or replaceable internals. Scale each section to decision impact and write uniquely determined or reversible detail in the shortest sufficient form, but do not omit an affected area from user discussion merely because the repository makes its proposal unambiguous.
 
+Define one Design by a shared user-visible outcome, domain invariants, stable contracts, and an atomic acceptance boundary—not by file, module, owner, or call-path count. Include every production path needed to make that outcome true, even when the paths have independent implementations. Split work only when each part can be authorized, validated, delivered, and reverted independently and the parts share no material design decision or invariant.
+
 Do not treat an affected Design area as a mandate to introduce a new layer. The selected design may explicitly retain an existing boundary, interface, state owner, or data flow. Every new abstraction, interface, configuration surface, state copy or cache, dependency, compatibility path, fallback, or independently maintained concept must trace to an accepted requirement or inspected project constraint and explain why existing project code, a shared seam, the standard library, the engine/platform, or an installed dependency is insufficient.
 
 Evaluate concrete failure and debt mechanisms while selecting each affected part of the design. Ground a material guardrail in the current project's production paths, ownership, lifecycle, compatibility, resource, migration, or other relevant evidence. Trace `evidence -> causal failure mechanism -> consequence -> prevention`, then keep only the prevention that shapes implementation. Do not add a separate generic risk checklist, speculative hazards, or rejected shortcuts.
@@ -24,7 +26,7 @@ Apply the minimum-sufficient test: keep content whose removal could permit a mat
 
 Design is ready for user review only when:
 
-- it describes one coherent selected design with no ambiguity capable of changing observable behavior, stable contracts, data meaning/ownership, compatibility, scope, validation strength, or project risk;
+- it describes one coherent selected design whose included paths jointly deliver one accepted outcome, with no ambiguity capable of changing observable behavior, stable contracts, data meaning/ownership, compatibility, scope, validation strength, or project risk;
 - every affected Design area has been discussed and confirmed or explicitly delegated;
 - every applicable production integration, contract, ownership boundary, and failure or lifecycle rule is sufficiently inspectable, with the required selected artifacts for affected architecture, interfaces, data structures, and data flow;
 - every newly introduced concept has a causal requirement and no earlier complete reuse or platform option satisfies it;
