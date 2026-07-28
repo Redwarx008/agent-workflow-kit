@@ -35,6 +35,27 @@ function sectionHasFencedBlock(lines, start, end = lines.length) {
   return false;
 }
 
+function sectionEnd(lines, start) {
+  if (start < 0) return lines.length;
+  for (let index = start + 1; index < lines.length; index += 1) {
+    if (/^#{2,3}\s+/.test(lines[index].trim())) return index;
+  }
+  return lines.length;
+}
+
+function proseOutsideFences(lines, start, end) {
+  const prose = [];
+  let fenced = false;
+  for (let index = start + 1; index < end; index += 1) {
+    if (/^```/.test(lines[index].trim())) {
+      fenced = !fenced;
+      continue;
+    }
+    if (!fenced) prose.push(lines[index]);
+  }
+  return prose.join('\n');
+}
+
 const illustrationKinds = {
   'architecture-decision': { tree: /^###\s+Structure tree\s*$/i, treeCode: 'missing-structure-tree', label: 'structure tree' },
   'data-structure-decision': { tree: /^###\s+Structure tree\s*$/i, treeCode: 'missing-structure-tree', label: 'structure tree' },
@@ -91,8 +112,9 @@ export function evaluateDecisionCard(content, turn) {
   if (alternative >= 0 && recommended >= 0 && alternative < recommended) failures.push(failure('recommendation-not-first', turn, 'Recommendation must precede alternatives.'));
   if (alternative >= 0 && decision >= 0 && alternative > decision) failures.push(failure('alternative-after-decision', turn, 'Alternatives must precede the user decision.'));
 
-  const questions = content.match(/[?？]/g) ?? [];
-  if (questions.length !== 1) failures.push(failure('not-one-question', turn, `Decision card has ${questions.length} question marks; exactly one is required.`));
+  const decisionProse = decision < 0 ? '' : proseOutsideFences(lines, decision, sectionEnd(lines, decision));
+  const questions = decisionProse.match(/[?？]/g) ?? [];
+  if (questions.length !== 1) failures.push(failure('not-one-question', turn, `The user-decision prose has ${questions.length} question terminators; the card format requires exactly one.`));
   if (/\bD-\d+\b/.test(content)) failures.push(failure('internal-id-leak', turn, 'Decision card exposes an internal decision ID.'));
   if (/design\.md/i.test(content)) failures.push(failure('not-self-contained', turn, 'Decision card refers to design.md instead of explaining itself.'));
 
