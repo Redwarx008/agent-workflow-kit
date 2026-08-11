@@ -16,13 +16,14 @@ Accept only the exact Design path, project root, and this contract. Do not accep
 6. Reverse-audit every proposed abstraction, interface, configuration surface, state copy or cache, dependency, compatibility path, fallback, and other independently maintained concept. Require a confirmed need and evidence that an earlier reuse or platform option is insufficient.
 7. Stress the Design against the intended input class rather than visible examples. Report rules coupled to sample names, IDs, ordering, counts, dimensions, or current data when those properties are not domain invariants.
 8. Check that retained guardrails have a concrete causal failure mechanism and that the Design has not accumulated rejected options, speculative risks, generic advice, or execution-plan detail.
+9. Review proposed names through two evidence standards. Enforce explicit applicable project naming rules with a rule citation; do not generalize their examples. Separately inspect only proposed domain concepts, stable interfaces, and ownership/lifecycle boundaries for a semantic mismatch capable of changing how implementers or callers understand the contract. Require evidence for `name-implied meaning -> designed responsibility or behavior -> materially different interpretation or misuse`. Do not review incidental illustrative-code locals, personal wording taste, mechanical word/prefix patterns, BCL/third-party APIs, or framework-mandated signatures.
 
 ## Findings and verdict
 
 Return a compact coverage table, then evidence-backed findings with Design sections and repository `file:line` references where applicable:
 
 - `P0`: the Design is unsafe, impossible, or directly violates an explicit project/user constraint;
-- `P1`: the Design is not implementation-ready because a required boundary, contract, flow, behavior, fact, or validation obligation is missing, contradictory, unsupported, or materially ambiguous;
+- `P1`: the Design is not implementation-ready because a required boundary, contract, flow, behavior, fact, or validation obligation is missing, contradictory, unsupported, or materially ambiguous, or because a proposed stable/domain name violates an explicit blocking project rule or has a demonstrated materially misleading contract interpretation;
 - `P2`: a precise non-blocking clarity or relevance issue that cannot materially change implementation.
 
 End with exactly one verdict:

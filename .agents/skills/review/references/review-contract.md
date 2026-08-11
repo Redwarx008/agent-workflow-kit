@@ -16,13 +16,15 @@ Determine whether the shared working tree fully implements the authorized final 
 - Verify every selected Design decision or amendment that creates a durable project rule has the required project-documentation target; a workflow-only record is insufficient.
 - For each added dependency, abstraction, interface/factory/wrapper, configuration/flag, state copy/cache, compatibility path, fallback, file, or duplicated helper, identify the approved requirement or project constraint it satisfies and verify that an existing project, standard-library, engine/platform, or installed-dependency capability does not already satisfy it completely.
 - Treat unsupported independently maintained concepts as complexity findings. Judge the number of concepts and ownership boundaries, not raw line or file count; never recommend removing behavior, validation, failure handling, security, accessibility, or organization required by Design or project rules merely to shrink the diff.
+- Apply explicit project naming rules only when an applicable instruction/standards file states them. Every standards finding must cite the rule and the newly introduced or renamed project-owned symbol that violates it; do not turn an example into an unstated keyword or grammar rule.
+- Separately inspect new or renamed domain types, stable interfaces, ownership/lifecycle boundaries, and symbols central to changed logic for semantic maintainability. Report a naming finding only when evidence traces `name-implied meaning -> actual responsibility or behavior -> concrete risk of misunderstanding, misuse, duplicated vocabulary, or unsafe maintenance`. A compound noun/verb shape is not itself a defect. Exempt incidental locals, personal wording preference, mechanical word/prefix matches, BCL/third-party APIs, framework-mandated signatures, and unchanged pre-existing symbols outside the reviewed scope.
 - Distinguish implementation completeness from external/manual acceptance explicitly delegated by Design.
-- Report only evidence-backed findings; style preferences do not block completion.
+- Report only evidence-backed findings. Personal style preferences do not block completion. A naming issue becomes a finding only through an explicit applicable project rule or the demonstrated semantic causal chain above.
 
 ## Severity
 
 - **P0:** Data loss, security boundary break, destructive behavior, or unusable core workflow.
-- **P1:** Unmet success criterion, broken production integration, false validation claim, material regression, or implementation that only satisfies visible examples while failing the authorized input class.
-- **P2:** Non-blocking maintainability or resilience issue with a concrete risk, including suspicious example coupling whose failure is not yet demonstrated.
+- **P1:** Unmet success criterion, broken production integration, false validation claim, material regression, implementation that only satisfies visible examples while failing the authorized input class, an explicit project naming-rule violation that the project treats as blocking, or a stable/domain contract name with a demonstrated materially misleading consequence.
+- **P2:** Non-blocking maintainability or resilience issue with a concrete risk, including suspicious example coupling whose failure is not yet demonstrated or a central internal name whose semantic mismatch has a demonstrated maintenance consequence.
 
 `PASS` requires no P0/P1, no unaccounted success criterion, and no implementation beyond final Design scope. If a finding admits multiple reasonable fixes or changes intent, state the decision needed; the main agent must ask the user.

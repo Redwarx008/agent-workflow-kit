@@ -89,6 +89,7 @@ npm run test:powershell
 - 除非用户显式要求，否则不新增或修改测试；现有测试仍可作为验证证据运行。
 - 不把 TDD 机械套到视觉、GPU、shader 或探索性原型；证据形式服从真实因果链。
 - Design reviewer 不接受主 agent 的完成结论，检查最终文档是否自包含、与真实仓库一致、没有实质歧义、过度设计或样例过拟合。
+- Design 与 Implementation reviewer 都按两层证据检查命名：项目明确规则必须引用并执行；领域与稳定契约名称只有在能证明“名称暗示 → 实际职责 → 具体误解或维护后果”时才报告。没有关键词黑名单，也不把个人措辞偏好当作 finding。
 - Implementation reviewer 从成功标准反向检查生产路径，并检查实现是否依赖固定示例、名称/ID、顺序、数量、尺寸或当前数据集，而非 Design 与领域不变量。
 
 进一步说明见 [工作流哲学](docs/workflow-philosophy.md)、[验证策略](docs/validation-strategy.md)、[独立 Review](docs/independent-review.md)、[会话记忆](docs/session-memory.md) 和 [参考实现取舍](docs/reference-lessons.md)。
