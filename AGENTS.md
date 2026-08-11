@@ -8,7 +8,7 @@
 ## 项目工作流
 
 - 只有用户显式调用 `$agent-workflow-kit:design` 才启动工作流；不得根据任务特征自动触发。
-- Design Ready 后使用一次合并门禁审阅最终 `design.md`，并预先说明无修改时直接回复“确认”“继续”或“按此实施”会同时接受成品并明确授权进入 Act；不得在接受后再次索要同义实施授权。若用户明确表示只接受文档但暂不实施，则保持 Ready。授权后由 Design 携带当前 `design.md` 的确切路径直接进入 Act。只有对该门禁的直接回复可触发 Act；普通实现请求、脱离门禁语境的泛化“继续”或仓库中无关的 active Design 不得触发 Act。Act 不得扫描、猜测、创建或补写 Design。
+- Design 候选 Ready 后先派独立、只读 subagent 审查实际 `design.md`；只提供 Design 路径、项目根目录和审查合约，不提供主 agent 的完成结论。P0/P1 或 `BLOCKED` 必须阻断最终门禁；修正方式不唯一时必须回到用户决策。通过后使用一次合并门禁审阅最终 `design.md`，并预先说明无修改时直接回复“确认”“继续”或“按此实施”会同时接受成品并明确授权进入 Act；不得在接受后再次索要同义实施授权。若用户明确表示只接受文档但暂不实施，则保持 Ready。授权后由 Design 携带当前 `design.md` 的确切路径直接进入 Act。只有对该门禁的直接回复可触发 Act；普通实现请求、脱离门禁语境的泛化“继续”或仓库中无关的 active Design 不得触发 Act。Act 不得扫描、猜测、创建或补写 Design。
 - Act 完成后必须派独立 subagent 使用 `$agent-workflow-kit:review`，在同一工作区只读验收。
 - runtime Design，以及 Visual Companion、决策卡 evaluator 和临时 review 所需的工具状态写入 `workflow/`，不得提交 Git。不得创建常驻执行账本或状态文件。
 - 项目自身规则与用户明确要求优先于本工作流。

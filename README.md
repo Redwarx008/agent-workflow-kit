@@ -2,17 +2,17 @@
 
 面向 Codex 与 Claude Code 的轻量原生插件工作流：
 
-`Design 讨论与记录 → 最终审阅并授权 → Act 动态执行 → 独立 Review → 提交 → 归档`
+`Design 讨论与记录 → 独立 Design Review → 最终审阅并授权 → Act 动态执行 → 独立 Implementation Review → 提交 → 归档`
 
 它解决三个常见问题：意图和边界尚未清楚就开始实现；实施遇到歧义时 agent 静默替用户选择；声明、文件或测试存在，却没有接入真实生产调用链。
 
 ## 三个入口
 
-- `$agent-workflow-kit:design`：唯一显式入口；调查真实仓库并持续记录 Design。
+- `$agent-workflow-kit:design`：唯一显式入口；调查真实仓库、持续记录 Design，并在候选 Ready 后派独立只读 subagent 审查成品。
 - `$agent-workflow-kit:act`：用户在最终 Design 的合并审阅门禁中无保留接受后，携带当前 `design.md` 的确切路径直接进入；不再追加同义实施确认。脱离该门禁语境的普通实现请求或泛化“继续”不得触发 Act。
 - `$agent-workflow-kit:review`：Act 完成后自动派独立 subagent，在同一工作区只读反查真实调用链。
 
-工作流不得按任务特征自动启动；只有用户显式调用 `$agent-workflow-kit:design` 才进入。进入后按 `Design → 最终审阅并授权 → Act → Review` 推进。最终提问会预先说明：若无修改，用户直接回复“确认”“继续”或“按此实施”即同时接受成品并授权 Act；明确表示暂不实施则停在 Ready。Design 直接向 Act 传递当前 `design.md` 的确切路径，不得扫描其他 active 记录猜测当前工作流。没有 Plan skill 或兼容入口。
+工作流不得按任务特征自动启动；只有用户显式调用 `$agent-workflow-kit:design` 才进入。进入后按 `Design → 独立 Design Review → 最终审阅并授权 → Act → 独立 Implementation Review` 推进。Design reviewer 只接收成品路径、项目根目录和审查合约，不接收主 agent 的完成结论；P0/P1 或缺少证据会阻断最终门禁。最终提问会预先说明：若无修改，用户直接回复“确认”“继续”或“按此实施”即同时接受成品并授权 Act；明确表示暂不实施则停在 Ready。Design 直接向 Act 传递当前 `design.md` 的确切路径，不得扫描其他 active 记录猜测当前工作流。没有 Plan skill 或兼容入口。
 
 Claude Code 的交互式命令使用 `/agent-workflow-kit:design` 等同名 namespaced skill。没有 `$workflow-*` 兼容入口，也没有 kit 自建的 doctor；宿主环境分别使用 `codex doctor` 与 `claude doctor`。
 
@@ -88,7 +88,8 @@ npm run test:powershell
 - Design 按共同结果、不变量和原子验收划分；同一结果涉及的所有生产路径留在一份 Design，不按模块或调用路径机械拆分。
 - 除非用户显式要求，否则不新增或修改测试；现有测试仍可作为验证证据运行。
 - 不把 TDD 机械套到视觉、GPU、shader 或探索性原型；证据形式服从真实因果链。
-- Reviewer 不接受主 agent 的完成结论，从成功标准反向检查生产路径，并检查实现是否依赖固定示例、名称/ID、顺序、数量、尺寸或当前数据集，而非 Design 与领域不变量。
+- Design reviewer 不接受主 agent 的完成结论，检查最终文档是否自包含、与真实仓库一致、没有实质歧义、过度设计或样例过拟合。
+- Implementation reviewer 从成功标准反向检查生产路径，并检查实现是否依赖固定示例、名称/ID、顺序、数量、尺寸或当前数据集，而非 Design 与领域不变量。
 
 进一步说明见 [工作流哲学](docs/workflow-philosophy.md)、[验证策略](docs/validation-strategy.md)、[独立 Review](docs/independent-review.md)、[会话记忆](docs/session-memory.md) 和 [参考实现取舍](docs/reference-lessons.md)。
 
