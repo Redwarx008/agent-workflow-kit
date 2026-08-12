@@ -12,7 +12,7 @@
 - `$agent-workflow-kit:act`：用户在最终 Design 的合并审阅门禁中无保留接受后，携带当前 `design.md` 的确切路径直接进入；不再追加同义实施确认。脱离该门禁语境的普通实现请求或泛化“继续”不得触发 Act。
 - `$agent-workflow-kit:review`：Act 完成后自动派独立 subagent，在同一工作区只读反查真实调用链。
 
-工作流不得按任务特征自动启动；只有用户显式调用 `$agent-workflow-kit:design` 才进入。此后沿上述阶段自动推进：有实施内容时，Design 的最终审阅同时承担实施授权；证据表明无需实施且用户确认时，本地归档后结束。两者都不增加 Plan 或同义确认。独立 reviewer 检查完整成品，只有遇到自己无法可靠判断的具体问题时才按真实证据缺口追加最少数量、每个只回答一个问题的只读 subagent。
+工作流不得按任务特征自动启动；只有用户显式调用 `$agent-workflow-kit:design` 才进入。此后沿上述阶段自动推进：有实施内容时，Design 的最终审阅同时承担实施授权；证据表明无需实施且用户确认时，本地归档后结束。两者都不增加 Plan 或同义确认。普通 Design 由一个独立 reviewer 审查；含两个以上可独立核验的高风险技术主张时，先按实际主张并行核验，再由一个独立 reviewer 检查覆盖、合并证据与 findings、处理冲突并给出唯一 verdict。
 
 Claude Code 的交互式命令使用 `/agent-workflow-kit:design` 等同名 namespaced skill。没有 `$workflow-*` 兼容入口，也没有 kit 自建的 doctor；宿主环境分别使用 `codex doctor` 与 `claude doctor`。
 
@@ -93,7 +93,7 @@ npm run test:powershell
 - 用户纠正事实或方案发生反转时，Design 必须先清理该前提影响的全部下游接口、schema、估算、理由和成功标准，再继续讨论；机械对话检查通过不代表技术方案已被验证。
 - 设计与验收围绕一般规则、真实生产路径和能证明行为的证据，而不是可见样例或固定清单。
 - 实施遇到会改变行为、契约、数据、兼容、范围或验证强度的疑问时停下询问，不静默选择默认方案。
-- 独立 Review 从最终 Design 反查真实调用链、一般化能力、复杂度与项目规则；完整覆盖受影响范围，调查深度随风险变化。
+- 独立 Review 从最终 Design 反查真实调用链、一般化能力、复杂度与项目规则；普通 Design 直接整体审查，多个独立高风险主张先并行核验再统一整合，最终始终只有一个 verdict。
 - 长期知识只按目标项目自己的文档类型和门槛沉淀；本地 `workflow/` 不成为项目历史。
 
 进一步说明见 [工作流哲学](docs/workflow-philosophy.md)、[验证策略](docs/validation-strategy.md)、[独立 Review](docs/independent-review.md)、[会话记忆](docs/session-memory.md) 和 [参考实现取舍](docs/reference-lessons.md)。

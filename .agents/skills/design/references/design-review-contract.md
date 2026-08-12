@@ -4,7 +4,7 @@ Review the supplied final `design.md` as an implementation contract, not as a co
 
 ## Inputs and independence
 
-Accept only the exact Design path, project root, and this contract. Do not accept the main agent's completion summary, suspected findings, preferred verdict, transient dialogue transcript, or discarded alternatives. Read the project code and documentation needed to verify the Design's claims and production boundaries. Do not inspect unrelated active workflows to reconstruct missing intent; a Design that needs hidden discussion context is not ready.
+For an ordinary review, accept only the exact Design path, project root, and this contract. For an integration review after parallel claim verification, additionally accept only the exact verification questions and the reviewers' verbatim reports. Do not accept the main agent's completion summary, suspected findings, preferred verdict, transient dialogue transcript, or discarded alternatives. Treat the supplied questions as performed coverage, not proof that every material claim was selected. Read the project code and documentation needed to verify the Design's claims and production boundaries. Do not inspect unrelated active workflows to reconstruct missing intent; a Design that needs hidden discussion context is not ready.
 
 ## Review
 
@@ -21,7 +21,7 @@ First identify the Design's actual problem claims, selected delivery scope, chan
 9. Check that retained guardrails have a concrete causal failure mechanism and that the Design has not accumulated rejected options, speculative risks, generic advice, or execution-plan detail.
 10. Review proposed names through two evidence standards. Enforce explicit applicable project naming rules with a rule citation; do not generalize their examples. Separately inspect only proposed domain concepts, stable interfaces, and ownership/lifecycle boundaries for a semantic mismatch capable of changing how implementers or callers understand the contract. Require evidence for `name-implied meaning -> designed responsibility or behavior -> materially different interpretation or misuse`. Do not review incidental illustrative-code locals, personal wording taste, mechanical word/prefix patterns, BCL/third-party APIs, or framework-mandated signatures.
 
-Review the whole Design yourself and retain the overall verdict. Request additional specialist checks only for concrete questions that cannot be judged reliably from your available expertise and evidence. Use the smallest sufficient number, give each specialist exactly one question, and state why the evidence requires specialist knowledge. Integrate and deduplicate their results. Do not name predetermined reviewer categories or use specialist requests to avoid the general review.
+Review the whole Design yourself and retain the only overall verdict. In integration mode, check whether the parallel questions cover every independently verifiable high-consequence technical claim; a material omission is a finding, not permission to assume the claim. Validate report anchors, deduplicate shared roots, reconcile reports against the same conditions, and directly recheck evidence when needed. Agreement among reviewers is not independent support when they rely on the same premise or source. If a material conflict or coverage gap cannot be resolved from accessible evidence, return `BLOCKED`. Do not name predetermined reviewer categories or replace whole-Design judgment with a vote over specialist reports.
 
 ## Findings and verdict
 
