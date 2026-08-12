@@ -21,7 +21,7 @@ Until every success criterion is evidenced:
 
 When one Design contains several outcomes or independently satisfiable parts, cover each one's criteria and evidence explicitly. The implementation order may be mechanical, but completing one part never completes the whole authorized Design. Do not manufacture a shared abstraction or lifecycle merely because the outcomes share one Design. If a part must be removed, deferred, or regrouped, treat that as a Design scope change and return through Design review and authorization rather than silently dropping it.
 
-Do not silently add dependencies, change APIs or formats, broaden scope, choose compatibility policy, introduce fallback behavior, skip evidence, or replace validation. Do not add or modify tests unless the user explicitly requested test work; existing tests may be run when Design names them as evidence. Follow required domain skills and target-project version-control rules.
+Do not silently add dependencies, change APIs or formats, broaden scope, choose compatibility policy, introduce fallback behavior, skip evidence, or replace validation. Follow the loaded validation guide, required domain skills, and target-project version-control rules.
 
 ## Independent review and closure
 

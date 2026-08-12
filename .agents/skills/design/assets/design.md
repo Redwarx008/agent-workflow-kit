@@ -4,11 +4,11 @@
 
 ## Problem, Success Criteria, and Scope
 
-<!-- State the evidence-backed problem or no-implementation conclusion, user-selected included work, and non-goals. Keep current code, current configuration/resource samples, reproducible estimates, external facts, and proposed target behavior clearly scoped without adding a status table; retain exact numbers only with compact reconstructible inputs and calculation. When several outcomes are included, state whether they share an invariant, need coordination, or are only bundled for delivery, and keep independently satisfiable outcomes distinct. For success criteria that change observable behavior, a stable contract, data meaning, or failure semantics, state the governing rule, only the representative scenarios needed to remove ambiguity, and the evidence that proves it. When one criterion spans multiple production paths, name each path and its evidence under that criterion. Scenarios clarify the rule; they are not a fixed checklist or an implicit test plan. -->
+<!-- State the evidence-backed problem or conclusion, user-selected scope and non-goals, success criteria, and proving evidence. Keep independently satisfiable outcomes distinct. -->
 
 ## Selected Design
 
-<!-- Add domain-titled subsections for every affected Design area. Retain corresponding target-language illustrative code for every selected project-code change. For affected architecture, data structure, and data flow, also retain the selected compact tree or flow tree; for affected interfaces, retain an illustrative signature or schema. Keep only code needed to inspect the selected responsibility, contract, data meaning, transition, or pivotal flow; do not freeze incidental syntax or keep discarded options, question history, status tables, raw research logs, authorization records, or checklist filler. -->
+<!-- Use domain-titled subsections and retain only the selected code and structural artifacts required by the Design contract. -->
 
 ## Validation and Acceptance
 

@@ -41,4 +41,4 @@ When an external or upstream implementation materially supports the recommendati
 
 A reply resolves a design choice only when it explicitly selects an option or target, explicitly corrects the proposal, or explicitly delegates that decision to the agent. Do not interpret generic continuation such as “继续” or “下一步”, an evaluation of the reasoning, a partial response, or ambiguous wording as acceptance. Ask one concise clarification and remain on the unresolved choice.
 
-The only exception is the combined final Design gate, where the agent has already declared that an unqualified direct reply such as “确认”, “继续”, or “按此实施” accepts the written Design and authorizes Act.
+The combined final gate defined by the Design process is the sole exception.

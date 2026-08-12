@@ -2,7 +2,7 @@
 
 `design.md` is the short, user-reviewable final specification for this change. It contains only the selected result of the discussion.
 
-Keep:
+## Required content
 
 - problem, success criteria, scope, non-goals, and constraints; for a criterion that changes observable behavior, a stable contract, data meaning, or failure semantics, include its governing rule, only the representative scenarios needed to remove implementation ambiguity, and the evidence that proves it;
 - the selected architecture, boundaries, integration path, interfaces, data meaning/ownership/flow, failure or compatibility behavior, and validation only where they actually shape this change;
@@ -10,25 +10,15 @@ Keep:
 - corresponding target-language illustrative code for every selected project-code change; the selected structure tree for affected architecture or data structure, the selected flow tree for affected data flow, and an illustrative signature or schema for every affected interface or contract;
 - a compact rationale only where the selected choice would otherwise be surprising or hard to reverse.
 
-When a project or external reference materially shapes the selected mechanism, retain enough provenance to identify the inspected implementation or version and the project-specific difference that governs adoption. Do not turn Design into a research bibliography or keep references that had no effect on the result.
+Retain provenance only for references that materially shaped the mechanism. Keep current evidence and proposed behavior distinct, scope configuration and resource samples to the inspected instance, and retain exact estimates only with compact reconstructible inputs and calculation.
 
-Keep current evidence and selected future design unmistakable without adding a research ledger. Scope current configuration and resource observations to the inspected instance; do not promote sample counts, dimensions, names, IDs, ordering, or settings into general contracts. Retain an exact estimate only when its inputs, formula or reproducible command, and material assumptions are compact enough for an independent reviewer to reconstruct it. Otherwise state only the supported qualitative consequence. Never use illustrative target code, a proposed schema, or another Design assertion as evidence for current behavior or technical necessity.
+For each changed boundary, record only the purpose, consumers, ownership, dependency direction, contract, or replaceable internals needed to prevent a materially different implementation. Every new independently maintained concept must trace to an accepted requirement or inspected constraint and explain why the earlier reuse or platform options are insufficient.
 
-For each materially changed boundary, record the properties needed to prevent inconsistent implementation, such as purpose, consumers, owned state, dependency direction, stable contract, or replaceable internals. Scale each section to decision impact and write uniquely determined or reversible detail in the shortest sufficient form, but do not omit an affected area from user discussion merely because the repository makes its proposal unambiguous.
+Ground retained guardrails in `evidence -> causal failure mechanism -> consequence -> prevention`; omit generic risk lists and rejected shortcuts. Use only the representative scenarios needed to clarify a governing rule, not fixed categories or an implicit test plan. When a criterion spans production paths, name each path and its evidence under that criterion.
 
-Illustrative code makes the selected target inspectable; it is not a file-by-file implementation plan. Show shared code once and retain only option-specific differences during comparison. In final Design, keep the compact selected code needed to constrain responsibilities, contracts, data meaning, transitions, or pivotal control flow without freezing incidental syntax. Omit any statement whose removal would still permit only behaviorally and contractually equivalent implementations; do not prewrite complete private method bodies, mechanical propagation, helper layout, or repeated versions of the same transformation.
+Define one Design by the user's delivery and authorization scope. State the relationship among independent outcomes and give independently satisfiable parts separate criteria and evidence. Suggest a split only when combined scope would obscure materially different outcomes, authorization or release boundaries, destructive consequences, or reviewable completion.
 
-Define one Design by the delivery and authorization scope the user selects, not by file, module, owner, call-path count, or technical reversibility. Include every production path needed for each selected outcome. A Design may contain technically independent outcomes; state their relationship honestly and give independently satisfiable parts separate success criteria and evidence. Call the scope atomic only when a shared invariant actually makes partial delivery invalid or the user explicitly requires all-or-nothing behavior. Suggest, but never force, a split when combined scope would obscure materially different outcomes, authorization or release boundaries, destructive consequences, or reviewable completion.
-
-Do not treat an affected Design area as a mandate to introduce a new layer. The selected design may explicitly retain an existing boundary, interface, state owner, or data flow. Every new abstraction, interface, configuration surface, state copy or cache, dependency, compatibility path, fallback, or independently maintained concept must trace to an accepted requirement or inspected project constraint and explain why existing project code, a shared seam, the standard library, the engine/platform, or an installed dependency is insufficient.
-
-Evaluate concrete failure and debt mechanisms while selecting each affected part of the design. Ground a material guardrail in the current project's production paths, ownership, lifecycle, compatibility, resource, migration, or other relevant evidence. Trace `evidence -> causal failure mechanism -> consequence -> prevention`, then keep only the prevention that shapes implementation. Do not add a separate generic risk checklist, speculative hazards, or rejected shortcuts.
-
-Do not keep empty or `N/A` headings, internal IDs, question history, coverage/impact tables, raw research notes, authorization state, amendments, or discarded approaches. A rejected option belongs only in an ADR when its rejected rationale is durable context under the project's ADR rules.
-
-Representative scenarios clarify a general rule; they do not define the supported input class. Do not mechanically require happy, edge, error, or integration categories, and do not turn scenarios into a test plan when the user did not request tests.
-
-When one success criterion must hold across multiple production paths, identify those paths and the evidence required from each under that criterion. Do not introduce internal requirement IDs, a separate coverage table, or repeated mappings for a single path whose relationship is already explicit.
+Keep illustrative artifacts compact enough to constrain responsibilities, contracts, data meaning, transitions, and pivotal flow without freezing private implementation. Omit empty headings, internal process state, research or question history, discarded approaches, mechanical propagation, and any detail whose removal still permits only behaviorally and contractually equivalent implementations.
 
 ## Readiness check
 
@@ -36,12 +26,8 @@ Apply the minimum-sufficient test: keep content whose removal could permit a mat
 
 Design is ready for user review only when:
 
-- it describes the user-selected delivery scope, the relationship among included outcomes, and each selected design with no ambiguity capable of changing observable behavior, stable contracts, data meaning/ownership, compatibility, scope, validation strength, or project risk;
-- every affected Design area has been investigated and presented, and every real unresolved material choice has been confirmed or explicitly delegated;
-- every applicable production integration, contract, ownership boundary, and failure or lifecycle rule is sufficiently inspectable, with the required selected artifacts for affected architecture, interfaces, data structures, and data flow;
-- every newly introduced concept has a causal requirement and no earlier complete reuse or platform option satisfies it;
-- every material current-state, platform, configuration, resource-sample, and quantitative claim is scoped and independently traceable; target behavior is not presented as existing implementation, and every retained estimate is reproducible from its stated inputs;
-- success criteria state the applicable rule and observable evidence, with enough representative scenarios to prevent materially different interpretations without overfitting the Design to examples; every multi-path criterion names all required production paths and path-specific evidence;
-- it contains only final relevant content, with no empty heading, placeholder, contradiction, superseded premise or dependent conclusion, process ledger, or discarded option.
-
-When implementation remains, the user reviews `design.md` through one combined final gate whose unqualified acceptance also explicitly authorizes Act; no companion Plan, execution ledger, or state record exists. An explicit request to wait leaves the accepted Design Ready without implementation. An evidence-backed no-implementation conclusion instead receives an explicit archival confirmation and never invokes Act or creates an empty commit.
+- scope, outcomes, criteria, and evidence are complete and materially unambiguous;
+- every affected area and production path has been investigated, presented, and represented by the required artifacts;
+- every material choice is resolved or explicitly delegated, and every new concept has a proved need;
+- current, external, sample, estimate, and target claims are correctly scoped and traceable; and
+- only one coherent selected design remains, without placeholders, contradictions, superseded dependencies, or process history.
