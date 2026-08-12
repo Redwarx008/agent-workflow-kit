@@ -1,6 +1,6 @@
 # Design Dialogue Evaluation
 
-Use [../scripts/evaluate-decision-protocol.mjs](../scripts/evaluate-decision-protocol.mjs) only as a mechanical gate for user-facing Design questions. It must not dictate the prose layout.
+Use [../scripts/evaluate-decision-protocol.mjs](../scripts/evaluate-decision-protocol.mjs) only as a mechanical gate for user-facing Design questions. It must not dictate the prose layout, and a pass must never be described or treated as validation of the Design, evidence, recommendation, or target mechanism.
 
 Before sending a question, write a transient JSON transcript under `workflow/.local/` and run:
 
@@ -35,7 +35,7 @@ For new code, `current_code_sources` identifies the current caller, owner, inter
 
 Set `proposes_code_change` to `false` for intent or scope selection that does not yet propose a concrete code target. Such a turn may still show current repository code or configuration to prove current behavior or reachability. When it does, include `current_code_sources`, show every listed repository-relative `path:line`, label the evidence `current code`, and include at least one non-empty fenced current-code block. Do not include an `illustrative target` until the outcome is selected. Omit `current_code_sources` when no current code is shown.
 
-The evaluator checks source shape, visible source attribution, and enough code blocks for a comparison. It cannot prove excerpts are verbatim, correctly paired, or sufficient; Design owns that duty and independent Review verifies the proposal against the repository.
+The evaluator checks source shape, visible source attribution, and enough code blocks for a comparison. It cannot prove excerpts are verbatim, correctly paired, sufficient, current rather than proposed, or capable of supporting the recommendation. It also cannot validate derived numbers, platform claims, necessity, or consistency with the living Design. The main agent must satisfy the exploration, Design, and dependency-repair contracts before running it; evaluator success does not authorize updating Design or advancing the dialogue.
 
 After the user replies, append the `{ "role": "user", "content": "..." }` turn and run the command again without `--allow-pending`. The mechanical reply check accepts any user text, so apply the Design dialogue contract before treating the choice as resolved. Delete the transcript when it no longer serves the evaluator.
 

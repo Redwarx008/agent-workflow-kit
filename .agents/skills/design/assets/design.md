@@ -4,7 +4,7 @@
 
 ## Problem, Success Criteria, and Scope
 
-<!-- State the evidence-backed problem or no-implementation conclusion, user-selected included work, and non-goals. When several outcomes are included, state whether they share an invariant, need coordination, or are only bundled for delivery, and keep independently satisfiable outcomes distinct. For success criteria that change observable behavior, a stable contract, data meaning, or failure semantics, state the governing rule, only the representative scenarios needed to remove ambiguity, and the evidence that proves it. When one criterion spans multiple production paths, name each path and its evidence under that criterion. Scenarios clarify the rule; they are not a fixed checklist or an implicit test plan. -->
+<!-- State the evidence-backed problem or no-implementation conclusion, user-selected included work, and non-goals. Keep current code, current configuration/resource samples, reproducible estimates, external facts, and proposed target behavior clearly scoped without adding a status table; retain exact numbers only with compact reconstructible inputs and calculation. When several outcomes are included, state whether they share an invariant, need coordination, or are only bundled for delivery, and keep independently satisfiable outcomes distinct. For success criteria that change observable behavior, a stable contract, data meaning, or failure semantics, state the governing rule, only the representative scenarios needed to remove ambiguity, and the evidence that proves it. When one criterion spans multiple production paths, name each path and its evidence under that criterion. Scenarios clarify the rule; they are not a fixed checklist or an implicit test plan. -->
 
 ## Selected Design
 

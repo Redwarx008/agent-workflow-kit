@@ -14,6 +14,16 @@ Use targeted read-only inspection to establish:
 4. Applicable project instructions, architecture/domain documents, ADRs, learnings, feature specifications, recent changes, and only the history needed to explain the current boundary or a prior failed approach.
 5. Existing validation entrypoints and evidence forms capable of proving the affected production behavior.
 
+Before using any statement as a premise for a recommendation or later Design decision, establish its exact scope and provenance:
+
+- **Current repository behavior** must identify the production-reachable code or resource seam that proves it. Do not describe target code, illustrative code, an unmerged change, or a Design statement as current implementation.
+- **Current configuration or resource data** must name the inspected configuration/resource and remain scoped to that instance. A current value, count, dimension, or asset sample is not an engine limit, format invariant, supported-input rule, or future default.
+- **Derived estimates** must retain the decision-relevant inputs, formula or reproducible command, and assumptions. If another agent cannot reconstruct the number from those materials, use a qualitative comparison instead of false precision.
+- **External or platform claims** must identify the applicable version and authoritative source. A claim that a mechanism does not exist requires a bounded search of the relevant project, dependency, or platform source; absence from memory or one file is not evidence.
+- **Target design** must be stated as proposed future behavior. Never cite another target paragraph, illustrative snippet, reviewer suggestion, or earlier unconfirmed proposal as evidence that the mechanism already exists or is required.
+
+Keep these distinctions natural in user-facing prose and the final Design; do not expose an epistemic-status table or workflow vocabulary. Use plain qualifiers such as “current setting,” “current map sample,” “estimated from…,” and “proposed target” only where the scope could otherwise be mistaken.
+
 For every candidate problem or improvement, establish what the evidence actually proves before turning it into an implementation target:
 
 - an observed failure needs a reproduction, runtime observation, capture, log, or equivalent evidence appropriate to the claim;
@@ -24,6 +34,8 @@ For every candidate problem or improvement, establish what the evidence actually
 These distinctions guide the agent; do not expose category names, matrices, or confidence jargon to the user. State the concrete current behavior, reachability, consequence, and condition under which the issue matters.
 
 When a factual premise depends on runtime behavior and static inspection cannot establish it uniquely, run an existing safe, relevant, reasonably bounded validation or observation entrypoint before asking the user or recommending a change. This does not authorize creating or modifying tests, mutating protected resources, or substituting an unrelated validation. If the required observation is unavailable or needs new authority, state the missing evidence and do not promote the inference to a current fact.
+
+When a persistent format, stable API, migration boundary, engine/platform contract, or other high-consequence decision depends on a technical premise the main agent cannot verify reliably, request the smallest read-only specialist check for that exact premise before presenting the decision. The specialist verifies evidence only; it does not choose the design or turn an unproved mechanism into a requirement.
 
 When the scope is broad, crosses modules, or has an unclear entrypoint, use bounded read-only exploration subagents when the host and project rules permit. Give each one a concrete search question and require conclusions with tight source locations; do not delegate interpretation of the Design or ask several agents to duplicate the same scan. The main agent integrates the results and directly verifies the evidence that materially supports a recommendation.
 
