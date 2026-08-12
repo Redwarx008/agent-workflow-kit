@@ -87,8 +87,25 @@ function evaluateDesignQuestion(turn, index) {
   if (typeof turn.proposes_code_change !== 'boolean') failures.push(failure('missing-code-change-declaration', index, 'A design-question turn must declare proposes_code_change true or false.'));
 
   if (turn.proposes_code_change === true) {
-    const code = fencedBlocks(lines).some(block => block.content.some(line => line.trim()) && !['', 'text', 'plaintext', 'md', 'markdown', 'mermaid'].includes(block.language));
-    if (!code) failures.push(failure('missing-illustrative-code', index, 'A proposed project-code change needs a non-empty fenced target-code block.'));
+    const sources = turn.current_code_sources;
+    if (!Array.isArray(sources) || sources.length === 0) {
+      failures.push(failure('missing-current-code-sources', index, 'A proposed project-code change needs at least one current repository path:line source.'));
+    } else {
+      for (const source of sources) {
+        if (typeof source !== 'string' || !/^(?![A-Za-z]:[\\/])[^\r\n]+:\d+$/.test(source.trim())) {
+          failures.push(failure('invalid-current-code-source', index, `Current-code source must be repository-relative path:line: ${String(source)}`));
+        } else if (!turn.content.includes(source)) {
+          failures.push(failure('hidden-current-code-source', index, `Current-code source is not visible in the user message: ${source}`));
+        }
+      }
+    }
+
+    const codeBlocks = fencedBlocks(lines).filter(block => block.content.some(line => line.trim()) && !['', 'text', 'plaintext', 'md', 'markdown', 'mermaid'].includes(block.language));
+    if (codeBlocks.length < 2) failures.push(failure('missing-code-comparison', index, 'A proposed project-code change needs separate non-empty current-code and illustrative-target blocks.'));
+    if (!/current code/i.test(turn.content)) failures.push(failure('missing-current-code-label', index, 'Label the current repository excerpt with the stable marker: current code.'));
+    if (!/illustrative target/i.test(turn.content)) failures.push(failure('missing-target-code-label', index, 'Label the proposed code with the stable marker: illustrative target.'));
+  } else if (Object.hasOwn(turn, 'current_code_sources')) {
+    failures.push(failure('unexpected-current-code-sources', index, 'Omit current_code_sources when proposes_code_change is false.'));
   }
 
   return failures;

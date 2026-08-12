@@ -14,16 +14,23 @@ For several materially different end-to-end approaches, make the whole choice sp
 
 ## Make code changes inspectable
 
-Whenever a proposed target would change project code, include compact target-language illustrative code sufficient to inspect the affected responsibility, signature, data meaning, state transition, or pivotal control flow. When useful, precede it with the smallest current-code excerpt needed to show what changes. Label target snippets as illustrative: they constrain the shown contract and relationships, not final file placement, incidental syntax, or the full implementation.
+Whenever a proposed target would change project code, show a direct before/after design comparison:
+
+1. **Current code:** quote the smallest sufficient verbatim excerpt from the inspected repository and identify its repository-relative `path:line`. A structure tree, prose summary, symbol list, or file link alone is not current-code evidence.
+2. **Illustrative target:** place compact target-language code next to the corresponding current excerpt, sufficient to inspect the changed responsibility, signature, data meaning, state transition, caller integration, or pivotal control flow. Label it illustrative: it constrains the shown contract and relationships, not final file placement, incidental syntax, or the full implementation.
+
+For a modification, show the directly changed current code. For an addition with no prior implementation, state that no corresponding implementation exists and show the current caller, owner, interface, or insertion seam where the new code will connect. For a deletion, show the current responsibility being removed and the target caller or flow that remains afterward. Never use “new code” as a reason to omit the existing seam.
 
 For multiple options:
 
-- show the shared current evidence or shared target code once;
+- show shared current code or shared target code once;
 - give each materially different option only the code that exposes its distinctive behavior or boundary;
 - never repeat an identical tree or large code block merely to make every option look symmetrical;
 - if an option has no code-level difference, state that it shares the shown code and explain the actual non-code distinction.
 
-Apply [design-illustrations.md](design-illustrations.md) when architecture, interfaces, data structures, or data flow are affected. A simple local code change needs the relevant snippet, not an artificial architecture tree.
+Keep current and target blocks visually distinguishable. Use localized labels that include the stable parenthetical markers `current code` and `illustrative target`, for example `当前代码（current code）— src/Feature.cs:42` and `目标示意代码（illustrative target）`. Every current block must show its `path:line`; do not make the user open the file merely to understand the comparison.
+
+Apply [design-illustrations.md](design-illustrations.md) when architecture, interfaces, data structures, or data flow are affected. A tree explains relationships but never substitutes for the required current/target code comparison. A simple local code change needs the relevant snippets, not an artificial architecture tree.
 
 ## Resolve the turn
 

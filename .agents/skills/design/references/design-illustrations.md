@@ -13,7 +13,7 @@ Prefer a compact text tree and use the target project's existing implementation 
 
 Keep inspected current-state evidence distinct from target proposals. Show shared current evidence, target structure, or target code once. For each materially different option, add only the tree fragment or illustrative code needed to expose its distinct ownership, contract, data meaning, or flow. If an option shares an artifact, state that briefly instead of copying it. Formatting and headings are chosen for readability, not evaluator compliance.
 
-Every proposal that changes project code must include corresponding illustrative code even when no structural tree is required. Conversely, do not generate a tree for a simple local code change whose surrounding architecture is unchanged.
+Every proposal that changes project code must include the current repository code with `path:line` and corresponding illustrative target code even when no structural tree is required. A structure or flow tree cannot satisfy either code block. Conversely, do not generate a tree for a simple local code change whose surrounding architecture is unchanged.
 
 Record only selected artifacts in the relevant `design.md` section. Keep discarded option artifacts in transient conversation material only, not in Design. Do not create an empty section or artifact for an unaffected dimension.
 
