@@ -6,43 +6,6 @@ function failure(code, turn, message) {
   return { code, turn, message };
 }
 
-function headingIndex(lines, expression) {
-  return lines.findIndex(line => expression.test(line.trim()));
-}
-
-function sectionHasContent(lines, start) {
-  if (start < 0) return false;
-  for (let index = start + 1; index < lines.length; index += 1) {
-    if (/^#{2,3}\s+/.test(lines[index].trim())) break;
-    if (lines[index].trim()) return true;
-  }
-  return false;
-}
-
-function sectionHasFencedBlock(lines, start, end = lines.length) {
-  if (start < 0) return false;
-  let opened = false;
-  let content = false;
-  for (let index = start + 1; index < end; index += 1) {
-    if (/^#{2,3}\s+/.test(lines[index].trim())) break;
-    if (/^```/.test(lines[index].trim())) {
-      if (opened) return content;
-      opened = true;
-    } else if (opened && lines[index].trim()) {
-      content = true;
-    }
-  }
-  return false;
-}
-
-function sectionEnd(lines, start) {
-  if (start < 0) return lines.length;
-  for (let index = start + 1; index < lines.length; index += 1) {
-    if (/^#{2,3}\s+/.test(lines[index].trim())) return index;
-  }
-  return lines.length;
-}
-
 function proseOutsideFences(lines, start, end) {
   const prose = [];
   let fenced = false;
@@ -82,14 +45,15 @@ function evaluateDesignQuestion(turn, index) {
   const questions = prose.match(/[?？]/g) ?? [];
 
   if (questions.length !== 1) failures.push(failure('not-one-question', index, `The design question has ${questions.length} question terminators outside fenced code; exactly one is required.`));
-  if (/\bD-\d+\b/.test(turn.content)) failures.push(failure('internal-id-leak', index, 'Design dialogue exposes an internal decision ID.'));
-  if (/design\.md/i.test(turn.content)) failures.push(failure('not-self-contained', index, 'Design dialogue refers to design.md instead of explaining itself.'));
+  if (/\bD-\d+\b/.test(prose)) failures.push(failure('internal-id-leak', index, 'Design dialogue exposes an internal decision ID.'));
+  if (/(?:设计卡|决策卡)\s*\d+\s*\/\s*\d+|\b(?:design\s+card|decision)\s+\d+\s*(?:of|\/)\s*\d+\b/i.test(prose)) failures.push(failure('fixed-batch-label', index, 'Design dialogue exposes a pre-numbered card or promised decision count.'));
+  if (/design\.md/i.test(prose)) failures.push(failure('not-self-contained', index, 'Design dialogue refers to design.md instead of explaining itself.'));
   if (typeof turn.proposes_code_change !== 'boolean') failures.push(failure('missing-code-change-declaration', index, 'A design-question turn must declare proposes_code_change true or false.'));
 
-  if (turn.proposes_code_change === true) {
-    const sources = turn.current_code_sources;
+  const sources = turn.current_code_sources;
+  if (Object.hasOwn(turn, 'current_code_sources')) {
     if (!Array.isArray(sources) || sources.length === 0) {
-      failures.push(failure('missing-current-code-sources', index, 'A proposed project-code change needs at least one current repository path:line source.'));
+      failures.push(failure('missing-current-code-sources', index, 'Declared current code needs at least one current repository path:line source.'));
     } else {
       for (const source of sources) {
         if (typeof source !== 'string' || !/^(?![A-Za-z]:[\\/])[^\r\n]+:\d+$/.test(source.trim())) {
@@ -99,85 +63,19 @@ function evaluateDesignQuestion(turn, index) {
         }
       }
     }
-
-    const codeBlocks = fencedBlocks(lines).filter(block => block.content.some(line => line.trim()) && !['', 'text', 'plaintext', 'md', 'markdown', 'mermaid'].includes(block.language));
-    if (codeBlocks.length < 2) failures.push(failure('missing-code-comparison', index, 'A proposed project-code change needs separate non-empty current-code and illustrative-target blocks.'));
     if (!/current code/i.test(turn.content)) failures.push(failure('missing-current-code-label', index, 'Label the current repository excerpt with the stable marker: current code.'));
+  }
+
+  const codeBlocks = fencedBlocks(lines).filter(block => block.content.some(line => line.trim()) && !['', 'text', 'plaintext', 'md', 'markdown', 'mermaid'].includes(block.language));
+  if (turn.proposes_code_change === true) {
+    if (!Object.hasOwn(turn, 'current_code_sources')) failures.push(failure('missing-current-code-sources', index, 'A concrete project-code target needs at least one current repository path:line source.'));
+    if (codeBlocks.length < 2) failures.push(failure('missing-code-comparison', index, 'A proposed project-code change needs separate non-empty current-code and illustrative-target blocks.'));
     if (!/illustrative target/i.test(turn.content)) failures.push(failure('missing-target-code-label', index, 'Label the proposed code with the stable marker: illustrative target.'));
-  } else if (Object.hasOwn(turn, 'current_code_sources')) {
-    failures.push(failure('unexpected-current-code-sources', index, 'Omit current_code_sources when proposes_code_change is false.'));
+  } else if (Object.hasOwn(turn, 'current_code_sources') && codeBlocks.length < 1) {
+    failures.push(failure('missing-current-code-evidence', index, 'Declared current-code evidence needs a non-empty fenced current-code block.'));
   }
 
   return failures;
-}
-
-const illustrationKinds = {
-  'architecture-decision': { tree: /^###\s+Structure tree\s*$/i, treeCode: 'missing-structure-tree', label: 'structure tree' },
-  'data-structure-decision': { tree: /^###\s+Structure tree\s*$/i, treeCode: 'missing-structure-tree', label: 'structure tree' },
-  'data-flow-decision': { tree: /^###\s+Flow tree\s*$/i, treeCode: 'missing-flow-tree', label: 'flow tree' }
-};
-
-function optionSections(lines) {
-  const starts = [];
-  for (let index = 0; index < lines.length; index += 1) {
-    const heading = lines[index].trim();
-    if (/^###\s+Recommended:\s+\S/i.test(heading)) starts.push({ type: 'recommended', start: index });
-    else if (/^###\s+Alternatives?:\s+\S/i.test(heading)) starts.push({ type: 'alternative', start: index });
-  }
-  return starts.map((section, index) => ({ ...section, end: starts[index + 1]?.start ?? lines.length }));
-}
-
-function headingInOption(lines, option, expression) {
-  for (let index = option.start + 1; index < option.end; index += 1) {
-    if (expression.test(lines[index].trim())) return index;
-  }
-  return -1;
-}
-
-function evaluateIllustrations(turn, index, lines) {
-  const requirement = illustrationKinds[turn.kind];
-  if (!requirement) return [];
-  const failures = [];
-  for (const option of optionSections(lines)) {
-    const tree = headingInOption(lines, option, new RegExp(`^####\\s+Target ${requirement.label}\\s*$`, 'i'));
-    const code = headingInOption(lines, option, /^####\s+Illustrative code\s*$/i);
-    const sharesRecommended = option.type === 'alternative'
-      && sectionHasContent(lines, headingInOption(lines, option, /^####\s+Same target shape as recommended\s*$/i));
-    if (sharesRecommended) continue;
-    if (!sectionHasFencedBlock(lines, tree, option.end)) failures.push(failure(requirement.treeCode, index, `${option.type} option needs a fenced target ${requirement.label}.`));
-    if (!sectionHasFencedBlock(lines, code, option.end)) failures.push(failure('missing-illustrative-code', index, `${option.type} option needs fenced illustrative code.`));
-  }
-  return failures;
-}
-
-export function evaluateDecisionCard(content, turn) {
-  const failures = [];
-  const lines = content.replace(/\r\n/g, '\n').split('\n');
-  const title = headingIndex(lines, /^##\s+\S/);
-  const why = headingIndex(lines, /^###\s+Why this must be decided now\s*$/i);
-  const recommended = headingIndex(lines, /^###\s+Recommended:\s+\S/i);
-  const alternative = headingIndex(lines, /^###\s+Alternatives?:\s+\S/i);
-  const decision = headingIndex(lines, /^###\s+Your decision\s*$/i);
-
-  if (title < 0) failures.push(failure('missing-domain-title', turn, 'Decision card needs a domain title.'));
-  if (why < 0 || !sectionHasContent(lines, why)) failures.push(failure('missing-why-now', turn, 'Decision card needs a non-empty why-now section.'));
-  if (recommended < 0 || !sectionHasContent(lines, recommended)) failures.push(failure('missing-recommendation', turn, 'Decision card needs a non-empty recommended choice.'));
-  if (decision < 0 || !sectionHasContent(lines, decision)) failures.push(failure('missing-decision-question', turn, 'Decision card needs a non-empty user-decision section.'));
-  if (why >= 0 && recommended >= 0 && why > recommended) failures.push(failure('recommendation-before-why', turn, 'Why-now facts must precede the recommendation.'));
-  if (alternative >= 0 && recommended >= 0 && alternative < recommended) failures.push(failure('recommendation-not-first', turn, 'Recommendation must precede alternatives.'));
-  if (alternative >= 0 && decision >= 0 && alternative > decision) failures.push(failure('alternative-after-decision', turn, 'Alternatives must precede the user decision.'));
-
-  const decisionProse = decision < 0 ? '' : proseOutsideFences(lines, decision, sectionEnd(lines, decision));
-  const questions = decisionProse.match(/[?？]/g) ?? [];
-  if (questions.length !== 1) failures.push(failure('not-one-question', turn, `The user-decision prose has ${questions.length} question terminators; the card format requires exactly one.`));
-  if (/\bD-\d+\b/.test(content)) failures.push(failure('internal-id-leak', turn, 'Decision card exposes an internal decision ID.'));
-  if (/design\.md/i.test(content)) failures.push(failure('not-self-contained', turn, 'Decision card refers to design.md instead of explaining itself.'));
-
-  return failures;
-}
-
-function isDecisionCard(turn) {
-  return turn.kind === 'decision-card' || Object.hasOwn(illustrationKinds, turn.kind) || /^###\s+Your decision\s*$/im.test(turn.content);
 }
 
 function isDesignQuestion(turn) {
@@ -201,17 +99,14 @@ export function evaluateTranscript(transcript, { allowPending = false } = {}) {
       return;
     }
 
-    if (/\bD-\d+\b/.test(turn.content)) failures.push(failure('internal-id-leak', index, 'Agent message exposes an internal decision ID.'));
     if (pendingDecisionTurn !== null) {
       failures.push(failure('advanced-before-user-reply', index, `Agent turn follows unanswered decision card at turn ${pendingDecisionTurn}.`));
     }
     if (isDesignQuestion(turn)) {
       failures.push(...evaluateDesignQuestion(turn, index));
       pendingDecisionTurn = index;
-    } else if (isDecisionCard(turn)) {
-      failures.push(...evaluateDecisionCard(turn.content, index));
-      failures.push(...evaluateIllustrations(turn, index, turn.content.replace(/\r\n/g, '\n').split('\n')));
-      pendingDecisionTurn = index;
+    } else if (['decision-card', 'architecture-decision', 'data-structure-decision', 'data-flow-decision'].includes(turn.kind)) {
+      failures.push(failure('legacy-question-kind', index, 'Use the natural design-question protocol; fixed decision-card kinds are no longer supported.'));
     }
   });
 

@@ -9,6 +9,7 @@ Determine whether the shared working tree fully implements the authorized final 
 - Reconstruct requirement-to-production-call-path relationships independently.
 - Treat declarations, selectors, tests, or registration as insufficient unless the real runtime/editor/tooling path consumes them.
 - Verify every final Design success criterion, constraint, contract, failure behavior, and required production integration path has evidence. For a criterion spanning multiple production paths, report path-specific coverage and do not infer whole-criterion completion from one path.
+- When the Design includes several outcomes or independently satisfiable parts, report coverage for each part before the overall verdict. A failed or missing part makes the authorized whole incomplete without invalidating evidence-backed parts that pass. Do not require artificial coupling merely because they share one Design.
 - Derive the intended input class and governing invariants only from the final Design, public contracts, inspected project rules, and domain model. Do not silently broaden the feature while reviewing it.
 - Audit implementation and validation for example-specific coupling: fixture or test names, exact names/IDs, incidental order/count/dimensions, visible sample values, current dataset membership, and branches that recognize known cases instead of implementing the governing rule. Consider equivalent inputs with those irrelevant properties changed and trace the production behavior.
 - Treat a fixed value as legitimate when an explicit protocol, schema, resource format, approved requirement, or domain invariant requires it. Report overfitting only when evidence connects an incidental example property to incorrect or unsupported behavior.
@@ -21,7 +22,7 @@ Determine whether the shared working tree fully implements the authorized final 
 - Separately inspect new or renamed domain types, stable interfaces, ownership/lifecycle boundaries, and symbols central to changed logic for semantic maintainability. Report a naming finding only when evidence traces `name-implied meaning -> actual responsibility or behavior -> concrete risk of misunderstanding, misuse, duplicated vocabulary, or unsafe maintenance`. A compound noun/verb shape is not itself a defect. Exempt incidental locals, personal wording preference, mechanical word/prefix matches, BCL/third-party APIs, framework-mandated signatures, and unchanged pre-existing symbols outside the reviewed scope.
 - Distinguish implementation completeness from external/manual acceptance explicitly delegated by Design. An unavailable validation required to prove a success criterion is blocking unless the final Design explicitly assigned that acceptance outside the agent.
 - Report only evidence-backed findings. Personal style preferences do not block completion. A naming issue becomes a finding only through an explicit applicable project rule or the demonstrated semantic causal chain above.
-- Review the whole implementation yourself. Request an additional specialist check only when a concrete question cannot be judged reliably from your available expertise and evidence. State the exact question and triggering evidence; do not select from a fixed category list or use specialists to avoid general review. The specialist remains read-only and checks only that question.
+- Review the whole implementation yourself and retain the overall verdict. Request additional specialist checks only when concrete questions cannot be judged reliably from your available expertise and evidence. Use the smallest sufficient number, state each exact question and its triggering evidence, and give each read-only specialist only one question. Integrate and deduplicate the returned evidence; do not select from a fixed category list or use specialists to avoid general review.
 
 ## Severity
 
@@ -33,11 +34,11 @@ Determine whether the shared working tree fully implements the authorized final 
 
 Return:
 
-1. A coverage table mapping every success criterion to inspected production evidence and result.
+1. A coverage table mapping every success criterion to its Design outcome or part, inspected production evidence, and result.
 2. A generalization audit for each materially changed behavior: intended input class or invariant, irrelevant example properties varied or counterexamples inspected, production evidence, and result.
 3. Evidence-backed findings with severity, concise title, tight `file:line`, observed evidence, causal mechanism, and violated criterion or constraint. For overfitting, name the incidental property and an equivalent authorized input that takes the wrong path. Omit findings when there are none.
 4. Validation gaps separated from external/manual acceptance explicitly delegated by Design.
-5. Any exact specialist question with its triggering evidence.
+5. Any exact specialist questions with their triggering evidence.
 6. Exactly one verdict: `PASS`, `FAIL`, or `BLOCKED`.
 
 Final `PASS` requires no P0/P1, no unaccounted success criterion, no implementation beyond final Design scope, no unresolved product or technical decision, and no unresolved specialist question. `PASS` may retain disclosed P2 findings, known limitations, or external/manual acceptance explicitly delegated by the final Design; report them distinctly so the main agent can include them in the single commit-authorization request. A specialist `PASS` resolves only its assigned question. If a finding admits multiple reasonable fixes or changes intent, state the decision needed; the main agent must ask the user rather than choosing it.

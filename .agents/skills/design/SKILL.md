@@ -19,4 +19,4 @@ Read [references/design-process.md](references/design-process.md), [references/d
 
 Follow the Design process and contracts exactly. Compare genuinely viable end-to-end approaches and retain only the selected design. Apply the dialogue evaluator at each user-facing design question as required by its contract. Do not modify product files.
 
-Transition directly through the combined final gate: after its unqualified acceptance, invoke `$agent-workflow-kit:act` directly with the exact Design path.
+When implementation remains, transition directly through the combined final gate: after its unqualified acceptance, invoke `$agent-workflow-kit:act` directly with the exact Design path. When evidence and the user's scope choice conclude that no implementation is warranted, complete independent Design Review, obtain explicit no-implementation archival confirmation, archive the local Design, and stop without Act or an empty commit.

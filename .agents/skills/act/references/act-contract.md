@@ -19,12 +19,14 @@ Until every success criterion is evidenced:
 7. Run applicable validation and retain raw command/output as transient evidence for Review, not a persistent execution ledger.
 8. Mark a criterion covered only after its required evidence exists. If a deviation changes final Design, use the Design decision protocol, update only selected Design content after the user responds, repeat affected Design review, and present the combined final gate again before resuming.
 
+When one Design contains several outcomes or independently satisfiable parts, cover each one's criteria and evidence explicitly. The implementation order may be mechanical, but completing one part never completes the whole authorized Design. Do not manufacture a shared abstraction or lifecycle merely because the outcomes share one Design. If a part must be removed, deferred, or regrouped, treat that as a Design scope change and return through Design review and authorization rather than silently dropping it.
+
 Do not silently add dependencies, change APIs or formats, broaden scope, choose compatibility policy, introduce fallback behavior, skip evidence, or replace validation. Do not add or modify tests unless the user explicitly requested test work; existing tests may be run when Design names them as evidence. Follow required domain skills and target-project version-control rules.
 
 ## Independent review and closure
 
 1. Launch one independent subagent with `$agent-workflow-kit:review`, passing only `design.md`, the implementation workspace root, and raw validation entrypoints.
-2. If the reviewer names an exact question it cannot reliably judge, launch one suitable read-only subagent for only that question. Require evidence-backed findings and exactly one `PASS`, `FAIL`, or `BLOCKED`. Do not predefine or routinely dispatch specialist categories.
+2. If the reviewer names one or more exact questions it cannot reliably judge, launch the smallest sufficient number of suitable read-only subagents, each for only one question. Require evidence-backed findings and exactly one `PASS`, `FAIL`, or `BLOCKED` per question. The main reviewer integrates and deduplicates their evidence and retains the overall verdict. Do not predefine or routinely dispatch specialist categories.
 3. Resolve P0/P1 and unmet criteria only when the correction is uniquely determined; otherwise ask the user before editing. Re-run the appropriate review until the whole review has no blocker. A specialist `PASS` resolves only its question.
 4. Reconcile final Design behavior, evidence, amendments, and review verdicts.
 5. Before requesting commit authorization, list every remaining P2, known limitation, and external/manual acceptance explicitly delegated by final Design, or state `none`. The single commit authorization also accepts this disclosed remainder. If the user requests resolution first, fix it and re-review the affected scope. Never present an unresolved product/technical decision, unmet success criterion, or unavailable Design-required validation as non-blocking; only validation explicitly delegated outside the agent may remain.
