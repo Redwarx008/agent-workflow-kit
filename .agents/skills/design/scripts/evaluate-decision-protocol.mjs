@@ -56,6 +56,44 @@ function proseOutsideFences(lines, start, end) {
   return prose.join('\n');
 }
 
+function fencedBlocks(lines) {
+  const blocks = [];
+  let current = null;
+  for (const line of lines) {
+    const fence = /^```\s*([^\s`]*)/.exec(line.trim());
+    if (fence) {
+      if (current) {
+        blocks.push(current);
+        current = null;
+      } else {
+        current = { language: fence[1].toLowerCase(), content: [] };
+      }
+    } else if (current) {
+      current.content.push(line);
+    }
+  }
+  return blocks;
+}
+
+function evaluateDesignQuestion(turn, index) {
+  const failures = [];
+  const lines = turn.content.replace(/\r\n/g, '\n').split('\n');
+  const prose = proseOutsideFences(['', ...lines], 0, lines.length + 1);
+  const questions = prose.match(/[?？]/g) ?? [];
+
+  if (questions.length !== 1) failures.push(failure('not-one-question', index, `The design question has ${questions.length} question terminators outside fenced code; exactly one is required.`));
+  if (/\bD-\d+\b/.test(turn.content)) failures.push(failure('internal-id-leak', index, 'Design dialogue exposes an internal decision ID.'));
+  if (/design\.md/i.test(turn.content)) failures.push(failure('not-self-contained', index, 'Design dialogue refers to design.md instead of explaining itself.'));
+  if (typeof turn.proposes_code_change !== 'boolean') failures.push(failure('missing-code-change-declaration', index, 'A design-question turn must declare proposes_code_change true or false.'));
+
+  if (turn.proposes_code_change === true) {
+    const code = fencedBlocks(lines).some(block => block.content.some(line => line.trim()) && !['', 'text', 'plaintext', 'md', 'markdown', 'mermaid'].includes(block.language));
+    if (!code) failures.push(failure('missing-illustrative-code', index, 'A proposed project-code change needs a non-empty fenced target-code block.'));
+  }
+
+  return failures;
+}
+
 const illustrationKinds = {
   'architecture-decision': { tree: /^###\s+Structure tree\s*$/i, treeCode: 'missing-structure-tree', label: 'structure tree' },
   'data-structure-decision': { tree: /^###\s+Structure tree\s*$/i, treeCode: 'missing-structure-tree', label: 'structure tree' },
@@ -125,6 +163,10 @@ function isDecisionCard(turn) {
   return turn.kind === 'decision-card' || Object.hasOwn(illustrationKinds, turn.kind) || /^###\s+Your decision\s*$/im.test(turn.content);
 }
 
+function isDesignQuestion(turn) {
+  return turn.kind === 'design-question';
+}
+
 export function evaluateTranscript(transcript, { allowPending = false } = {}) {
   const failures = [];
   const turns = transcript?.turns;
@@ -146,7 +188,10 @@ export function evaluateTranscript(transcript, { allowPending = false } = {}) {
     if (pendingDecisionTurn !== null) {
       failures.push(failure('advanced-before-user-reply', index, `Agent turn follows unanswered decision card at turn ${pendingDecisionTurn}.`));
     }
-    if (isDecisionCard(turn)) {
+    if (isDesignQuestion(turn)) {
+      failures.push(...evaluateDesignQuestion(turn, index));
+      pendingDecisionTurn = index;
+    } else if (isDecisionCard(turn)) {
       failures.push(...evaluateDecisionCard(turn.content, index));
       failures.push(...evaluateIllustrations(turn, index, turn.content.replace(/\r\n/g, '\n').split('\n')));
       pendingDecisionTurn = index;

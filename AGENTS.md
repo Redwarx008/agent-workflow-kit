@@ -1,20 +1,8 @@
-## 对话与决策
+## Repository maintenance
 
-- 使用用户当前语言沟通。
-- 可从仓库、文档、历史或官方资料发现的事实先自行调查。
-- 调查后仍存在多种合理实现、Design 遗漏、需求歧义、范围变化或验证替代时，立即停止实施并询问用户。
-- 不得静默增加依赖、改变 API/格式/兼容策略、扩大范围、采用 fallback、跳过验证或降低质量标准。
-
-## 项目工作流
-
-- 只有用户显式调用 `$agent-workflow-kit:design` 才启动工作流；不得根据任务特征自动触发。
-- Design 候选 Ready 后先派独立、只读 subagent 审查实际 `design.md`；只提供 Design 路径、项目根目录和审查合约，不提供主 agent 的完成结论。P0/P1 或 `BLOCKED` 必须阻断最终门禁；修正方式不唯一时必须回到用户决策。通过后使用一次合并门禁审阅最终 `design.md`，并预先说明无修改时直接回复“确认”“继续”或“按此实施”会同时接受成品并明确授权进入 Act；不得在接受后再次索要同义实施授权。若用户明确表示只接受文档但暂不实施，则保持 Ready。授权后由 Design 携带当前 `design.md` 的确切路径直接进入 Act。只有对该门禁的直接回复可触发 Act；普通实现请求、脱离门禁语境的泛化“继续”或仓库中无关的 active Design 不得触发 Act。Act 不得扫描、猜测、创建或补写 Design。
-- Act 完成后必须派独立 subagent 使用 `$agent-workflow-kit:review`，在同一工作区只读验收。
-- runtime Design，以及 Visual Companion、决策卡 evaluator 和临时 review 所需的工具状态写入 `workflow/`，不得提交 Git。不得创建常驻执行账本或状态文件。
-- 项目自身规则与用户明确要求优先于本工作流。
-
-## 验证
-
-- 除非用户显式要求，否则不得新增或修改测试；允许运行现有测试作为验证。
-- 视觉、GPU、shader 和编辑器交互使用能证明行为的编译、运行、截帧、截图或明确手动验证。
-- Design 规定的验证不可执行时必须询问用户，不得自行换成更弱的验证。
+- `.agents/skills/` is the only runtime source of truth. Keep `SKILL.md` focused on entry, orchestration, reference-loading order, and phase transitions; put each detailed runtime rule in one directly linked reference.
+- `README.md` and `docs/` explain installation, intent, rationale, and maintenance. They must not introduce a runtime gate or algorithm absent from the canonical skill sources.
+- Keep the Codex and Claude manifests synchronized. `.claude-plugin/` is a thin package entry; do not create a second skill tree or compatibility commands.
+- Keep workflow/evaluator/Visual Companion runtime state under ignored `workflow/`; never stage or commit it.
+- Preserve upstream attribution and safety boundaries for the bundled Visual Companion.
+- Do not add or modify tests unless the user explicitly requests test work. Static skill validation and `npm run check` may be run after documentation or skill changes.

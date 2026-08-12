@@ -15,7 +15,7 @@ Use the terminal for content whose answer is words, a contract, or a technical c
 - API design, data modeling, architectural approach selection, compatibility, failure behavior, and validation policy;
 - structure trees, flow trees, formulas, signatures, schemas, illustrative code, and textual process steps that remain equally understandable without browser styling.
 
-A topic involving architecture, UI, rendering, coordinates, or spatial terminology is not automatically visual. A browser page must expose a relationship or difference that would be materially harder to inspect in the terminal. Do not use it merely to typeset a recommendation, formula, code sample, tree, process, or decision card as a slide. If removing the layout, graphics, or side-by-side presentation would preserve all decision-relevant information, use the terminal.
+A topic involving architecture, UI, rendering, coordinates, or spatial terminology is not automatically visual. A browser page must expose a relationship or difference that would be materially harder to inspect in the terminal. Do not use it merely to typeset a recommendation, formula, code sample, tree, process, or design question as a slide. If removing the layout, graphics, or side-by-side presentation would preserve all decision-relevant information, use the terminal.
 
 ## Consent
 

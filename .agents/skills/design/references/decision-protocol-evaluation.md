@@ -1,29 +1,30 @@
-# Decision-Protocol Evaluation
+# Design Dialogue Evaluation
 
-Use [../scripts/evaluate-decision-protocol.mjs](../scripts/evaluate-decision-protocol.mjs) as a mechanical gate for every user-facing Design decision card.
+Use [../scripts/evaluate-decision-protocol.mjs](../scripts/evaluate-decision-protocol.mjs) only as a mechanical gate for user-facing Design questions. It must not dictate the prose layout.
 
-Before sending a card, write a transient JSON transcript under `workflow/.local/` (never Git) and run:
+Before sending a question, write a transient JSON transcript under `workflow/.local/` and run:
 
 ```powershell
 node .agents/skills/design/scripts/evaluate-decision-protocol.mjs --allow-pending <transcript.json>
 ```
 
-The transcript format is:
+Use this turn shape:
 
 ```json
 {
   "turns": [
     {
       "role": "agent",
-      "kind": "architecture-decision",
-      "content": "## Domain decision\n..."
+      "kind": "design-question",
+      "proposes_code_change": true,
+      "content": "Natural self-contained design discussion ending in one question..."
     }
   ]
 }
 ```
 
-After the user replies, append their `{ "role": "user", "content": "..." }` turn and run the command again without `--allow-pending` before updating the selected Design. If the evaluator fails, correct the message or stop; do not send or advance it. Delete the transient transcript once it no longer serves the evaluator.
+Set `proposes_code_change` to `true` whenever the turn proposes a target that changes project code, including a recommendation-only explanation with a remaining choice. That turn must contain at least one non-empty fenced target-code block whose language is not plain text or Mermaid. Set it to `false` for pure intent clarification or a decision that changes no project code. This metadata does not prove that the snippet is sufficient or faithful; Design and independent Review own that judgment.
 
-Use `architecture-decision`, `data-structure-decision`, or `data-flow-decision` for the corresponding affected structural discussion; use `decision-card` for interface-only and every other discussion. The first three kinds require each target tree or flow tree and illustrative-code section to live inside the option it describes. Current-state evidence may appear before the recommendation, but it cannot satisfy a target-artifact check.
+After the user replies, append the `{ "role": "user", "content": "..." }` turn and run the command again without `--allow-pending`. The mechanical reply check accepts any user text, so apply the Design dialogue contract before treating the choice as resolved. Delete the transcript when it no longer serves the evaluator.
 
-The evaluator rejects missing card sections, recommendation after alternatives, required artifacts missing from a structural card, target artifacts detached from their option, internal `D-xxx` IDs, references that make the card depend on `design.md`, anything other than one question in the `Your decision` prose, and any agent turn after an unanswered card. Question marks elsewhere in the card and inside fenced code do not affect this check. It proves only these structural and turn-order properties. It cannot prove that every affected area was identified, repository facts are correct, the recommendation is sound, or user intent was understood; those remain Design responsibilities.
+The evaluator checks only stable mechanical properties: the turn has exactly one question terminator outside fenced code, does not expose an internal `D-xxx` ID, does not depend on opening `design.md`, carries a code block when it declares a proposed code change, and is not followed by another agent turn before a user reply. It does not require headings, A/B labels, recommendation order, per-option artifacts, or repeated trees/code. It cannot judge whether facts, options, recommendation, code, or user intent are correct.
