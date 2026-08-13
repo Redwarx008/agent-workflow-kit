@@ -38,6 +38,15 @@ function fencedBlocks(lines) {
   return blocks;
 }
 
+function labelPattern(label) {
+  return new RegExp(`(?<![A-Z0-9_])${label}(?![A-Z0-9_])`);
+}
+
+function hasOptionEntry(prose, label) {
+  const marker = new RegExp(`^\\s*(?:#{1,6}\\s+|[-*+]\\s+)?(?:\\*\\*)?${label}(?:\\s*(?:（[^）\\r\\n]*）|\\([^\\)\\r\\n]*\\)))?\\s*(?:[-—–:：、.)）]|\\*\\*)`);
+  return prose.split('\n').some(line => marker.test(line));
+}
+
 function evaluateDesignQuestion(turn, index) {
   const failures = [];
   const lines = turn.content.replace(/\r\n/g, '\n').split('\n');
@@ -49,6 +58,19 @@ function evaluateDesignQuestion(turn, index) {
   if (/(?:设计卡|决策卡)\s*\d+\s*\/\s*\d+|\b(?:design\s+card|decision)\s+\d+\s*(?:of|\/)\s*\d+\b/i.test(prose)) failures.push(failure('fixed-batch-label', index, 'Design dialogue exposes a pre-numbered card or promised decision count.'));
   if (/design\.md/i.test(prose)) failures.push(failure('not-self-contained', index, 'Design dialogue refers to design.md instead of explaining itself.'));
   if (typeof turn.proposes_code_change !== 'boolean') failures.push(failure('missing-code-change-declaration', index, 'A design-question turn must declare proposes_code_change true or false.'));
+
+  const optionLabels = turn.option_labels;
+  if (!Array.isArray(optionLabels)) {
+    failures.push(failure('missing-option-label-declaration', index, 'A design-question turn must declare option_labels as [] or sequential A/B/C labels.'));
+  } else if (optionLabels.length === 1 || optionLabels.length > 26 || optionLabels.some((label, labelIndex) => label !== String.fromCharCode(65 + labelIndex))) {
+    failures.push(failure('invalid-option-labels', index, 'option_labels must be empty or contain sequential labels starting with A.'));
+  } else if (optionLabels.length >= 2) {
+    const questionText = prose.split(/\n\s*\n/).find(paragraph => /[?？]/.test(paragraph)) ?? '';
+    for (const label of optionLabels) {
+      if (!hasOptionEntry(prose, label)) failures.push(failure('missing-labeled-option', index, `Design dialogue has no visible ${label} option entry.`));
+      if (!labelPattern(label).test(questionText)) failures.push(failure('question-omits-option-label', index, `The final question does not name option ${label}.`));
+    }
+  }
 
   const sources = turn.current_code_sources;
   if (Object.hasOwn(turn, 'current_code_sources')) {
