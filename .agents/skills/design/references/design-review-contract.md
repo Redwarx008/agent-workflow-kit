@@ -37,4 +37,9 @@ End with exactly one verdict:
 - `FAIL`: at least one P0/P1 finding exists;
 - `BLOCKED`: required repository evidence, access, or specialist judgment is unavailable, so readiness cannot be established.
 
-For every P0/P1 finding, state whether the correction is uniquely mechanical or requires a user decision. If more than one reasonable correction exists, describe the decision boundary without choosing an option. Do not turn stylistic preference into a finding and do not apply any fix.
+For every P0/P1 finding, emit exactly one disposition:
+
+- `MECHANICAL`: only when cited evidence and an already selected user or project contract leave one contract-preserving correction. State that governing contract and the narrow correction boundary.
+- `USER DECISION`: when two reasonable corrections remain, the target was not previously selected, or the correction would choose or change scope, architecture, a stable interface or domain name, data meaning or format, compatibility, ownership or lifecycle, failure behavior, a performance-quality trade-off, or validation strength. Describe the decision boundary without choosing an option.
+
+If accessible evidence cannot establish uniqueness, use `USER DECISION`. In integration mode, reconcile specialist reports and issue the final disposition; do not silently downgrade a specialist's `USER DECISION` without directly checked counterevidence. Do not turn stylistic preference into a finding and do not apply any fix.
