@@ -155,7 +155,7 @@ function main() {
     const { allowPending, inputPath } = parseArguments(process.argv.slice(2));
     const transcript = JSON.parse(fs.readFileSync(inputPath, 'utf8'));
     const result = evaluateTranscript(transcript, { allowPending });
-    if (result.ok) console.log('PASS decision protocol');
+    if (result.ok) console.log('PASS decision protocol; send the validated content verbatim');
     else {
       console.error('FAIL decision protocol');
       for (const item of result.failures) console.error(`- [${item.code}] turn ${item.turn ?? 'n/a'}: ${item.message}`);
