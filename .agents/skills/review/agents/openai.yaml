@@ -1,7 +1,7 @@
 interface:
   display_name: "Workflow Review"
-  short_description: "Verify completeness and reject example-specific implementations"
-  default_prompt: "Use $review to inspect the shared working tree, production paths, generalization, and validation evidence against its authorized Design."
+  short_description: "Risk-scaled implementation verification and integration review"
+  default_prompt: "Use $review in the supplied ordinary, claim-verification, or integration mode to inspect the shared working tree and evidence against its authorized Design."
 
 policy:
   allow_implicit_invocation: true

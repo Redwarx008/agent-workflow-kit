@@ -19,4 +19,4 @@ Read the exact Design. Confirm the invoking Design directly followed that combin
 
 Read [references/act-contract.md](references/act-contract.md), [references/worktree-setup.md](references/worktree-setup.md), [references/doubt-protocol.md](references/doubt-protocol.md), [references/validation-guide.md](references/validation-guide.md), and [references/durable-decision-handoff.md](references/durable-decision-handoff.md) completely before product mutation.
 
-Follow the Act contract exactly. Use the Design dialogue protocol when a material correction returns to Design. After implementation and agent-accessible validation, launch an independent subagent with `$agent-workflow-kit:review` as defined by the contract. Do not create a Plan, execution ledger, workspace record, or authorization record.
+Follow the Act contract exactly. Use the Design dialogue protocol when a material correction returns to Design. After implementation and agent-accessible validation, launch the independent `$agent-workflow-kit:review` pipeline defined by the contract. Do not create a Plan, execution ledger, workspace record, or authorization record.

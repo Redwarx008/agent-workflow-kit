@@ -8,6 +8,6 @@
 
 Design Review 检查事实前提、用户所选范围以及最终 `design.md` 是否自包含；Implementation Review 检查真实 diff 是否完整落实成功标准和生产路径。两者都读取原始成品和证据，不接受作者结论，也不替用户决定或直接修复。
 
-覆盖由 Design 与实际变更决定，深度随后果、可逆性和边界稳定性变化。高风险技术主张可以先获得独立专项证据，但整份 Design 或实现始终由一个 reviewer 保留整体判断。
+覆盖由本轮选定语义与实际变更共同决定，深度随后果、可逆性和边界稳定性变化。两个以上独立高影响主张先并行核验，再由一个 reviewer 整合并保留整体判断；未被本轮改变、依赖或明确要求改变的既有行为不构成 finding。
 
 运行时顺序和判定分别以 [Design Review 规则](../.agents/skills/design/references/design-review-contract.md) 与 [Implementation Review 规则](../.agents/skills/review/references/review-contract.md) 为准。
