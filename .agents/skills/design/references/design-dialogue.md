@@ -39,6 +39,6 @@ When an external or upstream implementation materially supports the recommendati
 
 ## Resolve the turn
 
-A reply resolves a design choice only when it explicitly selects an option or target, explicitly corrects the proposal, or explicitly delegates that decision to the agent. Do not interpret generic continuation such as “继续” or “下一步”, an evaluation of the reasoning, a partial response, or ambiguous wording as acceptance. Ask one concise clarification and remain on the unresolved choice.
+A reply resolves a design choice only when it explicitly selects an option or target, explicitly corrects the proposal, or explicitly accepts the presented recommendation. A request for the agent to decide permits it to present one recommended target, but does not resolve the choice or mint `选择来源：用户确认。`; wait for explicit acceptance. Do not interpret generic continuation such as “继续” or “下一步”, an evaluation of the reasoning, a partial response, or ambiguous wording as acceptance. Ask one concise clarification and remain on the unresolved choice.
 
 The combined final gate defined by the Design process is the sole exception.
