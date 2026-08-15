@@ -8,6 +8,13 @@ Before product mutation, ask once whether to create an isolated worktree. Recomm
 
 ## Execution
 
+Before any further product mutation after each user message during Act, compare the requested outcome or correction with the exact authorized Design:
+
+- continue when the Design already fixes the same observable outcome and material mechanism, or when the current implementation violates it and repository evidence leaves one contract-preserving correction;
+- return to Design when the message adds or changes an outcome, UI behavior, integration, architecture, stable interface, data meaning or ownership, lifecycle, failure behavior, compatibility, validation strength, or any omitted mechanism for which materially different implementations remain.
+
+An empty property, placeholder UI, stub, TODO, unfinished draft, or generic word in the Design does not authorize the mechanism needed to make it real. A request to inspect or learn from an external implementation authorizes read-only research, not adoption or production mutation. Perform the comparison before drafting code; do not implement first and use discovered complexity to decide afterward whether the requirement belonged in Design. Use the Design dialogue, review, and combined authorization gate for anything returned.
+
 Until every success criterion is evidenced:
 
 1. Select an unmet criterion or production-integration obligation and re-read its final constraints, affected system, and required evidence. A multi-path criterion remains unmet until every named path has evidence.

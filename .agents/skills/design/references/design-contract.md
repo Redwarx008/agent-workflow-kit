@@ -29,7 +29,7 @@ Apply the minimum-sufficient test: keep content whose removal could permit a mat
 Design is ready for user review only when:
 
 - scope, outcomes, criteria, and evidence are complete and materially unambiguous;
-- every affected area and production path has been investigated, presented, and represented by the required artifacts;
+- every affected area and production path has been investigated, presented to the user in the conversation, and represented in this document by the required artifacts;
 - every real design choice is resolved by explicit user confirmation, and every new concept has a proved need;
 - current, external, sample, estimate, and target claims are correctly scoped and traceable; and
 - only one coherent selected design remains, without placeholders, contradictions, superseded dependencies, or process history.

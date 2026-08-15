@@ -28,13 +28,13 @@ For an explicit implementation request, verify its factual premises and carry th
 3. Compare genuinely viable end-to-end approaches before local decisions. Show two or three only when they are real, identify the recommendation, and do not design an unselected scope candidate.
 4. Resolve affected architecture and boundaries, production integration and interfaces, data structures and ownership/flow, failure/compatibility/lifecycle behavior, and validation in dependency order. Inspect the real path for each affected area; present uniquely determined targets without inventing approval gates, and ask only when materially different valid targets remain.
 5. Use the dialogue and evaluator contracts for one unresolved decision at a time, and wait for an explicit resolution before updating Design or advancing a dependent question.
-6. After resolution, immediately update the selected result under the Design and illustration contracts.
+6. After resolution, immediately update the selected result under the Design and illustration contracts, then present the selected coherent section to the user under the dialogue contract. Do not advance to Design Review or a dependent decision while newly resolved architecture, interfaces, data structures, ownership, or data flow exists only in `design.md`.
 
 Act may choose behaviorally equivalent, local, reversible implementation details and mechanical order. Design owns architecture, production wiring, stable interfaces, data meaning and ownership, state transitions, failure behavior, compatibility, scope, and validation choices. Reject unrelated refactors and speculative requirements.
 
 ## Ready transition
 
-Do not nominate Design while an affected area has not been investigated and presented, a real material choice awaits the user, or required repository evidence is missing. A uniquely determined target needs no separate confirmation before the final assembled-Design gate.
+Do not nominate Design while an affected area has not been investigated and presented in the user-facing conversation with its required affected-area artifacts, a real material choice awaits the user, or required repository evidence is missing. A uniquely determined target needs no separate confirmation before the final assembled-Design gate.
 
 When the Design contract is satisfied:
 
