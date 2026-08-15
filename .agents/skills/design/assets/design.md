@@ -8,7 +8,7 @@
 
 ## Selected Design
 
-<!-- Use domain-titled subsections and retain only the selected code and structural artifacts required by the Design contract. When a real choice was resolved through a user question, add `选择来源：用户确认。` once under that final selected item. -->
+<!-- Use domain-titled subsections and retain only the selected code and structural artifacts required by the Design contract. Give every independently variable stable target an adjacent source: `选择来源：用户确认。` after an explicit user direction or choice, or `唯一依据：...` when cited evidence truly rules out every materially different target. -->
 
 ## Validation and Acceptance
 

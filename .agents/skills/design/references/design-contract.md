@@ -2,7 +2,12 @@
 
 `design.md` is the short, user-reviewable final specification for this change. It contains only the selected result of the discussion.
 
-When a real design choice was resolved through a user question, add the exact line `选择来源：用户确认。` once under that final selected item. Only the user's explicit reply to the surfaced choice can mint this line; an agent recommendation, reviewer verdict, inferred preference, delegation, or generic continuation cannot. The line covers only the surfaced decision axis and the clauses that distinguished the selected option. It does not authorize a premise shared by every option, incidental wording, or another independently variable rule; keep such rules as separate final items and resolve them from their own evidence or user choice. Do not add the line to proved facts, targets uniquely fixed by accessible project evidence, or mechanical details, and do not retain the discarded alternatives or discussion history beside it.
+Give every independently variable final target that changes scope, observable behavior, architecture, a stable interface, data meaning or format, ownership or lifecycle, failure or compatibility behavior, or validation strength an adjacent source:
+
+- after an unambiguous user directive for that exact target or an explicit reply to a surfaced choice, add the exact line `选择来源：用户确认。` once under that selected item. Only the user's own explicit direction can mint it; an agent recommendation, reviewer verdict, inferred preference, delegation, or generic continuation cannot. It covers only the exact directive or surfaced decision axis and its distinguishing clauses. The final assembled-Design gate cannot retroactively supply missing per-target provenance;
+- when a separate question is unnecessary because the target is forced, add `唯一依据：<project path:line or already sourced selected item> — <why every materially different target violates that invariant>.` A current implementation, nearby pattern, current sample or configuration, internal consistency, simplicity, implementation convenience, or reviewer agreement is not by itself a unique-target proof.
+
+One source may cover several clauses only when the same cited invariant makes them inseparable. Otherwise keep them as separately sourced final items. An independently variable stable target with no source is unresolved and cannot enter Ready. Do not add source lines to current-state facts or behaviorally equivalent, local, reversible implementation details, and do not retain discarded alternatives or discussion history beside the selected result. A persistent format field, public or cross-module contract, domain meaning, compatibility or failure rule, ownership or lifecycle choice, or validation-strength choice is never mechanical merely because it completes the Design.
 
 ## Required content
 
@@ -30,6 +35,6 @@ Design is ready for user review only when:
 
 - scope, outcomes, criteria, and evidence are complete and materially unambiguous;
 - every affected area and production path has been investigated, presented to the user in the conversation, and represented in this document by the required artifacts;
-- every real design choice is resolved by explicit user confirmation, and every new concept has a proved need;
+- every independently variable stable target has an adjacent valid source, every real design choice is resolved by explicit user confirmation, and every new concept has a proved need;
 - current, external, sample, estimate, and target claims are correctly scoped and traceable; and
 - only one coherent selected design remains, without placeholders, contradictions, superseded dependencies, or process history.
