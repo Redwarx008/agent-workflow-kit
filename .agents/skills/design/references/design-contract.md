@@ -2,7 +2,7 @@
 
 `design.md` is the short, user-reviewable final specification for this change. It contains only the selected result of the discussion.
 
-When a real design choice was resolved through a user question, add the exact line `选择来源：用户确认。` once under that final selected item. Only the user's explicit reply to the surfaced choice can mint this line; an agent recommendation, reviewer verdict, inferred preference, delegation, or generic continuation cannot. Do not add it to proved facts, targets uniquely fixed by accessible project evidence, or mechanical details, and do not retain the discarded alternatives or discussion history beside it.
+When a real design choice was resolved through a user question, add the exact line `选择来源：用户确认。` once under that final selected item. Only the user's explicit reply to the surfaced choice can mint this line; an agent recommendation, reviewer verdict, inferred preference, delegation, or generic continuation cannot. The line covers only the surfaced decision axis and the clauses that distinguished the selected option. It does not authorize a premise shared by every option, incidental wording, or another independently variable rule; keep such rules as separate final items and resolve them from their own evidence or user choice. Do not add the line to proved facts, targets uniquely fixed by accessible project evidence, or mechanical details, and do not retain the discarded alternatives or discussion history beside it.
 
 ## Required content
 
