@@ -90,8 +90,8 @@ function evaluateDesignQuestion(turn, index) {
 
   const codeBlocks = fencedBlocks(lines).filter(block => block.content.some(line => line.trim()) && !['', 'text', 'plaintext', 'md', 'markdown', 'mermaid'].includes(block.language));
   if (turn.proposes_code_change === true) {
-    if (!Object.hasOwn(turn, 'current_code_sources')) failures.push(failure('missing-current-code-sources', index, 'A concrete project-code target needs at least one current repository path:line source.'));
-    if (codeBlocks.length < 2) failures.push(failure('missing-code-comparison', index, 'A proposed project-code change needs separate non-empty current-code and illustrative-target blocks.'));
+    if (codeBlocks.length < 1) failures.push(failure('missing-target-code', index, 'A proposed project-code change needs a non-empty illustrative-target block.'));
+    if (Object.hasOwn(turn, 'current_code_sources') && codeBlocks.length < 2) failures.push(failure('missing-code-comparison', index, 'Declared current code needs separate non-empty current-code and illustrative-target blocks.'));
     if (!/illustrative target/i.test(turn.content)) failures.push(failure('missing-target-code-label', index, 'Label the proposed code with the stable marker: illustrative target.'));
   } else if (Object.hasOwn(turn, 'current_code_sources') && codeBlocks.length < 1) {
     failures.push(failure('missing-current-code-evidence', index, 'Declared current-code evidence needs a non-empty fenced current-code block.'));

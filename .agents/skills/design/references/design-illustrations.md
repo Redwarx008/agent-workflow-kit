@@ -9,7 +9,7 @@ When architecture, an interface or contract, a data structure, or data flow is a
 - **Data structure:** a compact structure tree showing aggregates, containment, keys, and ownership, plus illustrative code for the representative type, fields, invariants, and mutation boundary.
 - **Data flow:** a compact flow tree showing producer, transform, canonical state or transport, consumers, persistence, and an applicable failure branch, plus illustrative code for the representative read/write or transform path.
 
-Prefer a compact text tree and the target project's implementation language. Apply the dialogue contract for current/target code comparison; trees complement rather than replace that comparison. Omit a tree for a local change whose surrounding structure is unchanged, and omit all artifacts for unaffected dimensions.
+Prefer a compact text tree and the target project's implementation language. Apply the dialogue contract for illustrative target code and include current-code comparison only when the existing implementation materially supports the decision; trees complement rather than replace useful code evidence. Omit a tree for a local change whose surrounding structure is unchanged, and omit all artifacts for unaffected dimensions.
 
 ## Shapes
 
