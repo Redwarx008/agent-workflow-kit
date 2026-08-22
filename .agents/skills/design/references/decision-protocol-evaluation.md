@@ -30,13 +30,13 @@ Set `option_labels` to sequential `A`, `B`, `C` labels when two or more finite c
 
 `proposes_code_change` means that this turn already proposes a concrete target type, interface, control flow, integration mechanism, state transition, allocation or reuse rule, lifecycle or ordering change, deletion, or other project-code transformation. It does not mean merely that accepting the scope may lead to code work later. Set it to `true` for a concrete code target, including a recommendation-only explanation with a remaining implementation choice. Then label the proposed code with `illustrative target` and include at least one non-empty fenced illustrative-target block; multiple target options may add further blocks.
 
-`current_code_sources` is optional. Add it only when the current-code display rule in [design-dialogue.md](design-dialogue.md) requires a current-code block. When current code is shown:
+`current_code_sources` records the sources for a current-code block selected under [design-dialogue.md](design-dialogue.md). For such a block:
 
 - set `current_code_sources` to every repository-relative `path:line` shown with a current-code block;
 - include each listed source visibly in the message and label the evidence with `current code`;
 - include separate non-empty current-code and illustrative-target blocks.
 
-Set `proposes_code_change` to `false` for intent or scope selection that does not yet propose a concrete code target. Such a turn may still show current code when the same display rule applies. When it does, include `current_code_sources`, show every listed repository-relative `path:line`, label the evidence `current code`, and include at least one non-empty fenced current-code block. Do not include an `illustrative target` until the outcome is selected. Omit `current_code_sources` when no current code is shown.
+Set `proposes_code_change` to `false` for intent or scope selection that does not yet propose a concrete code target. When the dialogue rule selects a current-code excerpt for such a turn, include `current_code_sources`, show every listed repository-relative `path:line`, label the evidence `current code`, and include at least one non-empty fenced current-code block. Introduce an `illustrative target` after the outcome is selected. A turn consisting of repository findings without an excerpt has no `current_code_sources` field.
 
 After the user replies, append the `{ "role": "user", "content": "..." }` turn and run the command again without `--allow-pending`. The mechanical reply check accepts any user text, so apply the Design dialogue contract before treating the choice as resolved. Delete the transcript when it no longer serves the evaluator.
 

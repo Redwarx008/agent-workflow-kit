@@ -21,22 +21,21 @@ Whenever the turn proposes a concrete target that would change project code, sho
 
 1. **Illustrative target:** show the smallest target-language fragment sufficient to inspect the changed responsibility, signature, data meaning, state transition, caller integration, or pivotal control flow. Label it illustrative: it constrains the shown contract and relationships, not final file placement, incidental syntax, or the full implementation.
 
-Investigate current code before discussing the target, but do not reproduce it by default. In user-facing Design discussion, cite repository findings with `path:line`. Quote current code only when the current question asks whether to preserve, change, replace, or remove that exact interface, data shape, or control flow. If target code is also shown, keep both excerpts at the same code boundary. Otherwise omit the current excerpt. Never include one merely to prove that the repository was inspected.
+Investigate the repository before discussing the target. Build the user-facing evidence from concise `path:line` findings. For a decision about an existing symbol or call site, show the excerpt that exposes the interface, data shape, or control flow being chosen, paired with the target excerpt at the same code boundary.
 
-Do not fill Design with complete private method bodies, local control-flow details, file layout, helper decomposition, mechanical propagation across equivalent call sites, or repeated implementations of the same rule.
+Keep Design code at the stable contract boundary: representative interfaces, data meaning, state transitions, caller integration, and pivotal control flow. Leave private method bodies, helper decomposition, file placement, and mechanical propagation to Act.
 
-For multiple options:
+For multiple options, organize the selected evidence and target sketches as follows:
 
-- show shared current code or shared target code once;
+- place each shared excerpt once;
 - give each materially different option only the code that exposes its distinctive behavior or boundary;
-- never repeat an identical tree or large code block merely to make every option look symmetrical;
-- if an option has no code-level difference, state that it shares the shown code and explain the actual non-code distinction.
+- describe a non-code distinction in prose when the options share the shown code.
 
 Keep current and target blocks visually distinguishable when both are shown. Use localized labels that include the stable parenthetical markers `current code` and `illustrative target`, for example `当前代码（current code）— src/Feature.cs:42` and `目标示意代码（illustrative target）`. Every shown current block must include its `path:line`; do not make the user open the file merely to understand the comparison.
 
-Apply [design-illustrations.md](design-illustrations.md) when architecture, interfaces, data structures, or data flow are affected. A tree explains relationships but never substitutes for illustrative target code or for current evidence that materially supports the choice. A simple local code change needs the relevant snippets, not an artificial architecture tree.
+Apply [design-illustrations.md](design-illustrations.md) when architecture, interfaces, data structures, or data flow are affected. Use a tree to explain relationships, illustrative target code to expose the contract, and repository findings to establish the relevant current behavior. For a local change whose surrounding structure stays fixed, the relevant snippets are sufficient.
 
-When an external or upstream implementation materially supports the recommendation, identify its version or revision and source file or symbol, explain the condition it solves, and compare that condition with this project's actual inputs, lifecycle, ownership, and constraints. Show a minimal reference mechanism when it is needed for the user to judge the recommendation. Never present a name-only resemblance or upstream difference as proof that the project is defective.
+When an external or upstream implementation materially supports the recommendation, identify its version or revision and source file or symbol, explain the condition it solves, and compare that condition with this project's actual inputs, lifecycle, ownership, and constraints. Show a minimal reference mechanism when it is needed for the user to judge the recommendation. Treat the reference as supporting evidence when those operating conditions match.
 
 ## Resolve the turn
 
