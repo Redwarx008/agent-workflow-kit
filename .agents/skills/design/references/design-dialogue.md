@@ -13,17 +13,17 @@ Use headings only when they improve navigation in a long or structurally rich tu
 
 Always make the whole viable choice space visible before anchoring on the recommendation, including for a narrow local decision. Identify the recommendation once, after the options, and explain its causal advantage rather than making the user infer it. Do not repeat the recommendation before and after the comparison.
 
-After the user selects a direction, present the selected coherent Design section in the conversation before Design Review or a dependent decision. A file link, “written into Design”, or a one-sentence architecture summary does not count. Show every affected artifact required by the illustration contract: the selected structure, representative interfaces or data structures, and the ownership/lifecycle/data flow with its material failure branch, together with compact illustrative target code. Apply the current-code display rule below. Omit unaffected dimensions and do not repeat an artifact already shown unchanged, but never hide newly resolved detail in `design.md`. This presentation is not another approval gate; ask only when developing it exposes a new material choice.
+After the user selects a direction, present the selected coherent Design section in the conversation before Design Review or a dependent decision. A file link, “written into Design”, or a one-sentence architecture summary does not count. Show every affected artifact and decision-bearing implementation detail required by the Design and illustration contracts. Apply the current-code display rule below. Omit unaffected dimensions and mechanical work, and do not repeat an artifact already shown unchanged. This presentation is not another approval gate; ask only when developing it exposes a new material choice.
 
 ## Make code changes inspectable
 
 Whenever the turn proposes a concrete target that would change project code, show compact target-language code that makes the proposed contract or mechanism inspectable.
 
-1. **Illustrative target:** show the smallest target-language fragment sufficient to inspect the changed responsibility, signature, data meaning, state transition, caller integration, or pivotal control flow. Label it illustrative: it constrains the shown contract and relationships, not final file placement, incidental syntax, or the full implementation.
+1. **Illustrative target:** show the smallest set of target-language fragments sufficient to inspect every decision-bearing implementation detail. Label it illustrative: it fixes the shown choices while leaving mechanical work to Act.
 
 Investigate the repository before discussing the target. Build the user-facing evidence from concise `path:line` findings. For a decision about an existing symbol or call site, show the excerpt that exposes the interface, data shape, or control flow being chosen, paired with the target excerpt at the same code boundary.
 
-Keep Design code at the stable contract boundary: representative interfaces, data meaning, state transitions, caller integration, and pivotal control flow. Leave private method bodies, helper decomposition, file placement, and mechanical propagation to Act.
+Mechanically repeated call-site changes may be listed once instead of copied in full.
 
 For multiple options, organize the selected evidence and target sketches as follows:
 
@@ -39,6 +39,8 @@ When an external or upstream implementation materially supports the recommendati
 
 ## Resolve the turn
 
-A reply resolves a design choice only when it explicitly selects an option or target, explicitly corrects the proposal, or explicitly accepts the presented recommendation. A request for the agent to decide permits it to present one recommended target, but does not resolve the choice or mint `选择来源：用户确认。`; wait for explicit acceptance. Do not interpret generic continuation such as “继续” or “下一步”, an evaluation of the reasoning, a partial response, or ambiguous wording as acceptance. Ask one concise clarification and remain on the unresolved choice.
+Interpret the reply only against the active question supplied by the evaluation contract; `design.md` supplies the choices already resolved.
+
+A reply resolves that design choice only when it explicitly selects an option or target, explicitly corrects the proposal, or explicitly accepts the presented recommendation. A request for the agent to decide permits it to present one recommended target, but does not resolve the choice or mint `选择来源：用户确认。`; wait for explicit acceptance. Treat generic continuation such as “继续” or “下一步”, an evaluation of the reasoning, a partial response, or ambiguous wording as a request to remain on the active choice and ask one concise clarification.
 
 The combined final gate defined by the Design process is the sole exception.

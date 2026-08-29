@@ -1,6 +1,6 @@
 # Act Contract
 
-Implement the authorized Design without changing its intent. Design fixes behavior and technical decisions; repository facts determine mechanical execution order.
+Apply the Design contract's decision-bearing/mechanical boundary and implement the authorized Design without making a new design choice.
 
 ## Workspace gate
 
@@ -11,20 +11,20 @@ Before product mutation, ask once whether to create an isolated worktree. Recomm
 Before any further product mutation after each user message during Act, compare the requested outcome or correction with the exact authorized Design:
 
 - continue when the Design already fixes the same observable outcome and material mechanism, or when the current implementation violates it and repository evidence leaves one contract-preserving correction;
-- return to Design when the message adds or changes an outcome, UI behavior, integration, architecture, stable interface, data meaning or ownership, lifecycle, failure behavior, compatibility, validation strength, or any omitted mechanism for which materially different implementations remain.
+- return to Design when the message changes an authorized requirement or the Design leaves a decision-bearing implementation detail unresolved.
 
-An empty property, placeholder UI, stub, TODO, unfinished draft, or generic word in the Design does not authorize the mechanism needed to make it real. A request to inspect or learn from an external implementation authorizes read-only research, not adoption or production mutation. Perform the comparison before drafting code; do not implement first and use discovered complexity to decide afterward whether the requirement belonged in Design. Use the Design dialogue, review, and combined authorization gate for anything returned.
+An empty property, placeholder UI, stub, TODO, unfinished draft, or generic word in the Design does not authorize the mechanism needed to make it real. A request to inspect or learn from an external implementation authorizes read-only research, not adoption or production mutation. Perform the comparison before drafting code; do not implement first and use discovered complexity to decide afterward whether the requirement belonged in Design. For anything returned, stop product mutation, pass the exact Design path plus repository evidence and the unresolved choice to `$agent-workflow-kit:design`, then use its dialogue, review, and combined authorization process before resuming Act.
 
 Until every success criterion is evidenced:
 
 1. Select an unmet criterion or production-integration obligation and re-read its final constraints, affected system, and required evidence. A multi-path criterion remains unmet until every named path has evidence.
 2. Trace the real production flow and callers before choosing the implementation seam. Prefer a shared root-cause correction only when it preserves the authorized behavior and scope.
 3. Before mutation, confirm the Design-required validation entrypoint and prerequisites exist and are invocable. Apply the stop-on-doubt contract if they are unavailable.
-4. Investigate unclear facts read-only. Apply the stop-on-doubt contract whenever materially different choices remain or reality conflicts with Design.
-5. Reduce the solution in order: no new mechanism; existing project code or shared seam; standard library or engine/platform; installed dependency; minimum project-local implementation. A material Design correction returns to Design instead of being silently simplified.
+4. Investigate unclear facts read-only and apply the stop-on-doubt contract.
+5. Reduce the solution in order: no new mechanism; existing project code or shared seam; standard library or engine/platform; installed dependency; minimum project-local implementation. Follow the Design-return path above when this conflicts with the authorized Design.
 6. Implement the smallest coherent change. Do not add an abstraction, interface, factory, wrapper, dependency, configuration surface, state copy/cache, compatibility path, fallback, file, or duplicated helper solely for hypothetical use.
 7. Run applicable validation and retain raw command/output as transient evidence for Review, not a persistent execution ledger.
-8. Mark a criterion covered only after its required evidence exists. If a deviation changes final Design, use the Design decision protocol, update only selected Design content after the user responds, repeat affected Design review, and present the combined final gate again before resuming.
+8. Mark a criterion covered only after its required evidence exists. Follow the Design-return path above for any deviation from final Design.
 
 When one Design contains several outcomes or independently satisfiable parts, cover each one's criteria and evidence explicitly. The implementation order may be mechanical, but completing one part never completes the whole authorized Design. Do not manufacture a shared abstraction or lifecycle merely because the outcomes share one Design. If a part must be removed, deferred, or regrouped, treat that as a Design scope change and return through Design review and authorization rather than silently dropping it.
 

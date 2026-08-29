@@ -1,10 +1,12 @@
 # <change-name> Design
 
-## Summary
+## Goal
 
-## Problem, Success Criteria, and Scope
+<!-- State the evidence-backed current problem and the observable outcome this change must produce. -->
 
-<!-- State the evidence-backed problem or conclusion, user-selected scope and non-goals, success criteria, and proving evidence. Keep independently satisfiable outcomes distinct. -->
+## Scope and Success Criteria
+
+<!-- State the user-selected scope, non-goals, constraints, success criteria, and proving evidence. Keep independently satisfiable outcomes distinct. -->
 
 ## Selected Design
 

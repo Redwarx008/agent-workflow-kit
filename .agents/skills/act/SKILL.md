@@ -5,7 +5,7 @@ description: Use only when the current Agent Workflow Kit Design directly invoke
 
 # Workflow Act
 
-Implement the approved Design without changing its intent. Choose mechanical order from repository facts; Design fixes product and technical decisions, not a file-by-file execution route.
+Implement the approved Design exactly; Act makes no new implementation choice.
 
 ## Start
 
@@ -17,6 +17,6 @@ Read the exact Design. Confirm the invoking Design directly followed that combin
 
 ## Workspace isolation gate and execution
 
-Read [references/act-contract.md](references/act-contract.md), [references/worktree-setup.md](references/worktree-setup.md), [references/doubt-protocol.md](references/doubt-protocol.md), [references/validation-guide.md](references/validation-guide.md), and [references/durable-decision-handoff.md](references/durable-decision-handoff.md) completely before product mutation.
+Read [../design/references/design-contract.md](../design/references/design-contract.md), [references/act-contract.md](references/act-contract.md), [references/worktree-setup.md](references/worktree-setup.md), [references/doubt-protocol.md](references/doubt-protocol.md), [references/validation-guide.md](references/validation-guide.md), and [references/durable-decision-handoff.md](references/durable-decision-handoff.md) completely before product mutation.
 
-Follow the Act contract exactly. Use the Design dialogue protocol when a material correction returns to Design. After implementation and agent-accessible validation, launch the independent `$agent-workflow-kit:review` pipeline defined by the contract. Do not create a Plan, execution ledger, workspace record, or authorization record.
+Follow the Act contract, including its Design-return path. After implementation and agent-accessible validation, launch the independent `$agent-workflow-kit:review` pipeline defined by that contract. Do not create a Plan, execution ledger, workspace record, or authorization record.

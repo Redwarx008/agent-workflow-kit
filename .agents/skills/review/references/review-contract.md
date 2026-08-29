@@ -25,6 +25,7 @@ Unless a rule explicitly says otherwise, claim verification applies it only with
 - Audit implementation and validation for example-specific coupling: fixture or test names, exact names/IDs, incidental order/count/dimensions, visible sample values, current dataset membership, and branches that recognize known cases instead of implementing the governing rule. Consider equivalent inputs with those irrelevant properties changed and trace the production behavior.
 - Treat a fixed value as legitimate when an explicit protocol, schema, resource format, approved requirement, or domain invariant requires it. Report overfitting only when evidence connects an incidental example property to incorrect or unsupported behavior.
 - For every Design correction that affects implementation, verify the final selected Design is the sole scope authority; if the diff exceeds it, report the excess rather than inferring user authorization.
+- Trace every decision-bearing implementation detail to the final Design. When the diff contains a choice the Design did not make, return a P1 finding that sends the exact missing choice back through Design rather than accepting it after the fact.
 - Confirm the supplied workspace is the workspace whose diff is reviewed. When a linked worktree was created, verify the local Design was not copied or staged and that the implementation diff belongs to the supplied workspace.
 - Verify every selected Design decision or amendment that creates a durable project rule has the required project-documentation target; a workflow-only record is insufficient.
 - For each added dependency, abstraction, interface/factory/wrapper, configuration/flag, state copy/cache, compatibility path, fallback, file, or duplicated helper, identify the approved requirement or project constraint it satisfies and verify that an existing project, standard-library, engine/platform, or installed-dependency capability does not already satisfy it completely.
@@ -38,7 +39,7 @@ Unless a rule explicitly says otherwise, claim verification applies it only with
 ## Severity
 
 - **P0:** Data loss, security boundary break, destructive behavior, or unusable core workflow.
-- **P1:** Unmet success criterion, broken production integration, false validation claim, material regression, implementation that only satisfies visible examples while failing the authorized input class, an explicit project naming-rule violation that the project treats as blocking, or a stable/domain contract name with a demonstrated materially misleading consequence.
+- **P1:** Unmet success criterion, broken production integration, false validation claim, material regression, an implementation choice absent from final Design, implementation that only satisfies visible examples while failing the authorized input class, an explicit project naming-rule violation that the project treats as blocking, or a stable/domain contract name with a demonstrated materially misleading consequence.
 - **P2:** Non-blocking maintainability or resilience issue with a concrete risk, including suspicious example coupling whose failure is not yet demonstrated or a central internal name whose semantic mismatch has a demonstrated maintenance consequence.
 
 ## Output

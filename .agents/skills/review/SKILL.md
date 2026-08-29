@@ -11,7 +11,7 @@ The main agent launches this skill with the active `design.md`, implementation w
 
 ## Setup
 
-Read [references/review-contract.md](references/review-contract.md) completely, identify the supplied review mode, then read Design, repository status/diff/untracked files, the applicable project rules governing changed paths, and the supplied validation evidence. Confirm the supplied Design and workspace are the items under review.
+Read [../design/references/design-contract.md](../design/references/design-contract.md) and [references/review-contract.md](references/review-contract.md) completely, identify the supplied review mode, then read Design, repository status/diff/untracked files, the applicable project rules governing changed paths, and the supplied validation evidence. Confirm the supplied Design and workspace are the items under review.
 
 ## Review
 

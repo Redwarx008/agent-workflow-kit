@@ -1,19 +1,20 @@
 # Design Dialogue Evaluation
 
-Use [../scripts/evaluate-decision-protocol.mjs](../scripts/evaluate-decision-protocol.mjs) only as a mechanical gate for user-facing Design questions. It must not dictate the prose layout, and a pass must never be described or treated as validation of the Design, evidence, recommendation, or target mechanism.
+Use [../scripts/evaluate-decision-protocol.mjs](../scripts/evaluate-decision-protocol.mjs) as the mechanical gate for user-facing Design questions. The same transient transcript is the current-question record across user turns and context compaction. It does not dictate the prose layout, and a pass is not validation of the Design, evidence, recommendation, or target mechanism.
 
-Before sending a question, write the complete final user-facing message into a transient JSON transcript under `workflow/.local/` and run:
+Keep one current-question record for this Design at `workflow/.local/<change-name>/design-question.json`. Before sending a question, write the exact active `design.md` path and complete final user-facing message into it, then run:
 
 ```powershell
 node .agents/skills/design/scripts/evaluate-decision-protocol.mjs --allow-pending <transcript.json>
 ```
 
-The `content` field is the canonical outgoing message. After the evaluator passes, send that content verbatim as the final question; do not shorten, paraphrase, or move required context into commentary. If the message changes, update the transcript and run the evaluator again before sending it.
+The `design_path` identifies the selected-results document for this exact workflow. The latest agent `content` is the canonical outgoing message. After the evaluator passes, send that content verbatim as the final question; do not shorten, paraphrase, or move required context into commentary. If the message changes, update the transcript and run the evaluator again before sending it. Keep this file while its question awaits or processes a reply.
 
 Use this turn shape:
 
 ```json
 {
+  "design_path": "workflow/active/example-change/design.md",
   "turns": [
     {
       "role": "agent",
@@ -38,6 +39,12 @@ Set `option_labels` to sequential `A`, `B`, `C` labels when two or more finite c
 
 Set `proposes_code_change` to `false` for intent or scope selection that does not yet propose a concrete code target. When the dialogue rule selects a current-code excerpt for such a turn, include `current_code_sources`, show every listed repository-relative `path:line`, label the evidence `current code`, and include at least one non-empty fenced current-code block. Introduce an `illustrative target` after the outcome is selected. A turn consisting of repository findings without an excerpt has no `current_code_sources` field.
 
-After the user replies, append the `{ "role": "user", "content": "..." }` turn and run the command again without `--allow-pending`. The mechanical reply check accepts any user text, so apply the Design dialogue contract before treating the choice as resolved. Delete the transcript when it no longer serves the evaluator.
+After the user replies, reread this reference and [design-dialogue.md](design-dialogue.md), then open the current-question record rather than reconstructing the question from recent chat. Bind the reply to its latest agent question, append the `{ "role": "user", "content": "..." }` turn, and run the command again without `--allow-pending`. The mechanical reply check accepts any user text, so apply the Design dialogue contract before treating the choice as resolved.
+
+- When the reply resolves the question, apply the selected result to the record's exact `design_path`, then delete `design-question.json` before advancing or presenting another question. The absence of this record means the Design has no unanswered question; continue from the selected results in `design.md` and create a new record before presenting another question.
+- When the reply needs clarification, retain the record, append the validated clarification as its next agent `design-question` turn, and wait for the next reply.
+- When context resumes with a record ending in an agent question, use that question as the current choice. When it ends in a user reply, reconcile the selected result against the record's exact `design_path`: clear the record when the result is already present, otherwise apply it once and then clear the record. When context resumes without a record, use `design.md` only for settled results and present the next unresolved question before accepting a new reply label.
+
+The record contains only the current unresolved exchange and is deleted as soon as that choice is applied. It is disposable local state, not Design history or Git content.
 
 The evaluator checks only stable mechanical properties: one question terminator outside fenced code; no internal ID, fixed-batch label, or explicit dependency on `design.md`; declared finite-choice labels and their use in the question; an illustrative-target block for a declared concrete code proposal; visible attribution and separate blocks when current code is declared; and no second agent turn before the reply. It ignores question-like syntax inside code and does not require cards, recommendation order, duplicated artifacts, or current code. It cannot prove that the message is semantically self-contained, that metadata truthfully classifies the proposal, that a supposedly open question has no finite choices, or that the emitted response matches the transcript; the author must satisfy those contracts explicitly. It also cannot validate facts, excerpts, estimates, platform claims, necessity, recommendations, target correctness, Design consistency, or user intent.
