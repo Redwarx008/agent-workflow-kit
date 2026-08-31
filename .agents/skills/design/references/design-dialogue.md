@@ -6,14 +6,38 @@ Discuss the design as a natural technical conversation, not a sequence of forms.
 
 - **Clarify intent:** Ask one short, concrete question when the user's desired outcome is unknown. Do not recommend an answer before understanding the preference.
 - **Select implementation scope:** For an exploratory comparison, audit, or disproved premise, present the evidence-backed candidates or conclusion in plain domain language and ask one question about which outcome, if any, belongs in this Design. Apply the current-code display rule below; do not invent a target API or implementation before the outcome is selected.
-- **Choose a design direction:** In the same user-facing message, connect the current behavior to the failure, limitation, or tradeoff that makes the decision necessary; show every genuinely viable option and its distinguishing consequences; only after the options, give the recommendation and causal reason; then ask one direct question. Prefer easy finite choices when they fit; use an open question only when choices would distort the answer.
+- **Choose a design direction:** Connect the current behavior to the failure, limitation, or tradeoff that makes the decision necessary, then apply the stable technical-choice shape below. Prefer finite choices when they fit; use an open question when choices would distort the answer.
 - **Explain a determined target:** Do this only when a cited project invariant or already sourced selected item leaves one valid target, and state why every materially different target would violate it. Current behavior, a nearby pattern, consistency, simplicity, implementation convenience, or reviewer agreement can support a recommendation but cannot by themselves turn future policy into a determined target. Record the governing evidence beside the final target under the Design contract. Do not manufacture alternatives or demand approval for behaviorally equivalent local details; ask when a materially different valid target remains.
 
-Use headings only when they improve navigation in a long or structurally rich turn. Use domain titles that state what is being decided. Do not require fixed sections, repeated restatement of the same context, internal IDs, numbered cards, or a promised total such as `Design card 1/2` or `设计卡 1/2`; later evidence determines whether another question exists. When two or more finite choices are viable, label them sequentially `A`, `B`, `C`, explain them in comparable decision-relevant terms without marking one as recommended, then add a separate recommendation after the last option and end by asking the user to choose those labels. These labels are reply handles, not internal decision IDs. Ask exactly one decision per message and wait for the answer before resolving a dependent decision. Every option set must vary on one named decision axis. Shared premises must already be selected or determined under the cited-evidence rule above; if a shared or incidental clause could independently change scope, observable behavior, domain meaning, data or format, ownership or lifecycle, failure or compatibility behavior, or validation strength, split it into a separate decision. A label selection confirms only the named axis and the clauses that distinguish the selected option, never wording common to every option or an independent choice bundled inside one option. Selecting one, several, all, or none from an evidence-backed candidate set is one scope decision, not several confirmation gates.
+## Present technical choices in a stable shape
 
-Always make the whole viable choice space visible before anchoring on the recommendation, including for a narrow local decision. Identify the recommendation once, after the options, and explain its causal advantage rather than making the user infer it. Do not repeat the recommendation before and after the comparison.
+A short intent or scope question can remain one paragraph. When two or more finite choices remain for a decision-bearing target defined by the Design contract, use this user-facing shape with localized labels:
 
-After the user selects a direction, move to the next unresolved decision. An option already shown supplies the selected target without repetition. Carry the selected result into the outgoing discussion when it is needed to understand what follows. When the selection synthesizes a target beyond what the options showed, present its affected architecture, interfaces, data structures, ownership, and data flow together with the next dependent question, or in the completed coherent section before Design Review. Apply the current-code display rule below and show every decision-bearing detail required by the Design and illustration contracts before Design Review. Target presentation remains part of the continuing discussion rather than a separate stage or approval request.
+```markdown
+**<domain title stating the decision>**
+
+**Why this decision is needed now**
+<grounded current seam and the consequence that makes the choice necessary>
+
+### A. <option title>
+<decision-relevant mechanism and consequence>
+<artifacts required by the illustration contract>
+
+### B. <option title>
+<the same decision-relevant coverage>
+<artifacts required by the illustration contract>
+
+**Recommendation: A**
+<causal reason this option fits the verified project constraints better>
+
+**Choose A or B?**
+```
+
+Give every option comparable coverage under the Design contract. Present shared context and artifacts once before the options, then place each option's distinctive material under that option. Use a table for short one-line comparisons. Use per-option sections when the illustration contract requires artifacts or the option needs several consequences.
+
+Finite choices use sequential `A`, `B`, `C` labels as reply handles. Present all options before the one separate recommendation. Use a domain title rather than internal IDs, numbered cards, or a promised question count. Ask exactly one decision per message and wait for the answer before resolving a dependent decision. Every option set varies on one named decision axis; use the Design contract's independently variable target rule to separate other axes. A label selection confirms only the named axis and the clauses that distinguish the selected option. Selecting one, several, all, or none from an evidence-backed candidate set is one scope decision.
+
+After the user selects a direction, move to the next unresolved decision. An option already shown supplies the selected target without repetition. Carry the selected result into the outgoing discussion when it is needed to understand what follows. When the selection synthesizes material beyond what the options showed, present the additional Design content and required illustrations together with the next dependent question, or in the completed coherent section before Design Review. Target presentation remains part of the continuing discussion rather than a separate stage or approval request.
 
 ## Make code changes inspectable
 
@@ -33,7 +57,7 @@ For multiple options, organize the selected evidence and target sketches as foll
 
 Keep current and target blocks visually distinguishable when both are shown. Use localized labels that include the stable parenthetical markers `current code` and `illustrative target`, for example `当前代码（current code）— src/Feature.cs:42` and `目标示意代码（illustrative target）`. Every shown current block must include its `path:line`; do not make the user open the file merely to understand the comparison.
 
-Apply [design-illustrations.md](design-illustrations.md) when architecture, interfaces, data structures, or data flow are affected. Use a tree to explain relationships, illustrative target code to expose the contract, and repository findings to establish the relevant current behavior. For a local change whose surrounding structure stays fixed, the relevant snippets are sufficient.
+Apply [design-illustrations.md](design-illustrations.md) for every affected artifact type it defines. Keep repository findings here as the evidence for the relevant current behavior.
 
 When an external or upstream implementation materially supports the recommendation, identify its version or revision and source file or symbol, explain the condition it solves, and compare that condition with this project's actual inputs, lifecycle, ownership, and constraints. Show a minimal reference mechanism when it is needed for the user to judge the recommendation. Treat the reference as supporting evidence when those operating conditions match.
 

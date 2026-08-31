@@ -2,7 +2,22 @@
 
 `design.md` is the short, user-reviewable final specification for this change. It contains only the selected result of the discussion.
 
-Use the stable top-level sections from the Design asset: `Goal`, `Scope and Success Criteria`, `Selected Design`, and `Validation and Acceptance`. `Selected Design` uses domain-titled subsections for the affected architecture, interface, data, flow, lifecycle, failure, or compatibility boundaries; omit dimensions that do not shape the change.
+Use the stable top-level sections from the Design asset: `Goal`, `Scope and Success Criteria`, `Selected Design`, and `Validation and Acceptance`.
+
+Each top-level section owns one kind of information:
+
+| Section | Content contract |
+|---|---|
+| `Goal` | The verified current problem and the observable outcome the change must produce. |
+| `Scope and Success Criteria` | Included and excluded outcomes, governing constraints, and independently assessable success criteria. |
+| `Selected Design` | The selected system shape, grouped design areas, boundaries, contracts, illustrative artifacts, rationale, and decision sources. |
+| `Validation and Acceptance` | The mapping from every success criterion and affected production path to the evidence and acceptance condition that prove it. |
+
+Give each fact one primary home in this contract. Refer to another section when a relationship matters instead of restating its content. The artifact describes the selected change and its proof; implementation tasks, file-by-file steps, and execution progress remain outside it.
+
+Organize `Selected Design` by project-defined design areas. One area is a coherent responsibility maintained by one owning project boundary. Name it with the project's capability or subsystem term. When ownership differs, use sibling area chapters; describe an end-to-end call or data path as integration among those owners instead of duplicating the path as another area. Organize chapters by the selected system shape rather than by conversation order, reviewer source, file list, or decision chronology.
+
+Within each area chapter, use only the affected design dimensions in this order: responsibilities and ownership; architecture and integration; interfaces and contracts; data structures and state ownership; data flow and lifecycle; failure and compatibility behavior. A compact area may express several dimensions together when their relationship stays clear. Dimension headings remain inside their owning area so unrelated parts of the change are not collected into global interface, data, or flow sections.
 
 A **decision-bearing implementation detail** is any responsibility, name, signature, data shape, ownership or lifecycle rule, algorithm, control flow, integration, file or module ownership, failure or compatibility behavior, or validation choice for which two reasonable implementations remain. Design fixes every such detail. Syntax, formatting, mechanically repeated propagation, and execution order are mechanical only when the selected Design plus cited project rules leave one reasonable result.
 
@@ -15,7 +30,7 @@ One source may cover several clauses only when the same cited invariant makes th
 
 ## Required content
 
-- problem, success criteria, scope, non-goals, and constraints; for a criterion that changes observable behavior, a stable contract, data meaning, or failure semantics, include its governing rule, only the representative scenarios needed to remove implementation ambiguity, and the evidence that proves it;
+- problem, success criteria, scope, non-goals, and constraints; for a criterion that changes observable behavior, a stable contract, data meaning, or failure semantics, include its governing rule and only the representative scenarios needed to remove implementation ambiguity, then map its proving evidence under `Validation and Acceptance`;
 - the selected architecture, boundaries, integration path, interfaces, data meaning/ownership/flow, failure or compatibility behavior, and validation only where they actually shape this change;
 - project-evidence-backed constraints or prohibited shortcuts only when they materially protect the selected design, with a compact failure mechanism where the guardrail would otherwise appear arbitrary;
 - corresponding target-language illustrative code covering every decision-bearing implementation detail; the selected structure tree for affected architecture or data structure, the selected flow tree for affected data flow, and an illustrative signature or schema for every affected interface or contract;
@@ -25,7 +40,7 @@ Retain provenance only for references that materially shaped the mechanism. Keep
 
 For each changed boundary, record the purpose, consumers, ownership, dependency direction, contract, and concrete mechanism needed so Act does not choose among reasonable implementations. Every new independently maintained concept must trace to an accepted requirement or inspected constraint and explain why the earlier reuse or platform options are insufficient.
 
-Ground retained guardrails in `evidence -> causal failure mechanism -> consequence -> prevention`; omit generic risk lists and rejected shortcuts. Use only the representative scenarios needed to clarify a governing rule, not fixed categories or an implicit test plan. When a criterion spans production paths, name each path and its evidence under that criterion.
+Ground retained guardrails in `evidence -> causal failure mechanism -> consequence -> prevention`; omit generic risk lists and rejected shortcuts. Use only the representative scenarios needed to clarify a governing rule, not fixed categories or an implicit test plan. When a criterion spans production paths, name each path under the criterion and map each path to its evidence under `Validation and Acceptance`.
 
 Define one Design by the user's delivery and authorization scope. State the relationship among independent outcomes and give independently satisfiable parts separate criteria and evidence. Suggest a split only when combined scope would obscure materially different outcomes, authorization or release boundaries, destructive consequences, or reviewable completion.
 

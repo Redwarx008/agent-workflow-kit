@@ -2,13 +2,13 @@
 
 Use [../scripts/evaluate-decision-protocol.mjs](../scripts/evaluate-decision-protocol.mjs) as the mechanical gate for user-facing Design questions. The same transient transcript is the current-question record across user turns and context compaction. It does not dictate the prose layout, and a pass is not validation of the Design, evidence, recommendation, or target mechanism.
 
-Keep one current-question record for this Design at `workflow/.local/<change-name>/design-question.json`. Before sending a question, write the exact active `design.md` path and complete final user-facing message into it, then run:
+Keep the one current-question record for this Design at the exact path `workflow/.local/<change-name>/design-question.json`. Before sending a question, write the exact active `design.md` path and complete final user-facing message into that record, then run the evaluator against that same file:
 
 ```powershell
-node .agents/skills/design/scripts/evaluate-decision-protocol.mjs --allow-pending <transcript.json>
+node .agents/skills/design/scripts/evaluate-decision-protocol.mjs --allow-pending workflow/.local/<change-name>/design-question.json
 ```
 
-The `design_path` identifies the selected-results document for this exact workflow. The latest agent `content` is the canonical outgoing message. After the evaluator passes, send that content verbatim as the final question; do not shorten, paraphrase, or move required context into commentary. If the message changes, update the transcript and run the evaluator again before sending it. Keep this file while its question awaits or processes a reply.
+The `design_path` identifies the selected-results document for this exact workflow. The latest agent `content` in this canonical record is the outgoing message. A draft, handoff file, reviewer report, or another `workflow/.local/` file is not a current-question record. After the evaluator passes, send that content verbatim as the final question; if the message changes, update the canonical record and run the evaluator again before sending it. Keep this file while its question awaits or processes a reply.
 
 Use this turn shape:
 
@@ -47,4 +47,4 @@ After the user replies, reread this reference and [design-dialogue.md](design-di
 
 The record contains only the current unresolved exchange and is deleted as soon as that choice is applied. It is disposable local state, not Design history or Git content.
 
-The evaluator checks only stable mechanical properties: one question terminator outside fenced code; no internal ID, fixed-batch label, or explicit dependency on `design.md`; declared finite-choice labels and their use in the question; an illustrative-target block for a declared concrete code proposal; visible attribution and separate blocks when current code is declared; and no second agent turn before the reply. It ignores question-like syntax inside code and does not require cards, recommendation order, duplicated artifacts, or current code. It cannot prove that the message is semantically self-contained, that metadata truthfully classifies the proposal, that a supposedly open question has no finite choices, or that the emitted response matches the transcript; the author must satisfy those contracts explicitly. It also cannot validate facts, excerpts, estimates, platform claims, necessity, recommendations, target correctness, Design consistency, or user intent.
+The evaluator checks only the mechanical properties stated in this reference and ignores question-like syntax inside code. A pass does not replace the semantic requirements in the dialogue, illustration, or Design contracts.
