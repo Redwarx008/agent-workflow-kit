@@ -8,6 +8,7 @@ Discuss the design as a natural technical conversation, not a sequence of forms.
 - **Select implementation scope:** For an exploratory comparison, audit, or disproved premise, present the evidence-backed candidates or conclusion in plain domain language and ask one question about which outcome, if any, belongs in this Design. Apply the current-code display rule below; do not invent a target API or implementation before the outcome is selected.
 - **Choose a design direction:** Connect the current behavior to the failure, limitation, or tradeoff that makes the decision necessary, then apply the stable technical-choice shape below. Prefer finite choices when they fit; use an open question when choices would distort the answer.
 - **Explain a determined target:** Do this only when a cited project invariant or already sourced selected item leaves one valid target, and state why every materially different target would violate it. Current behavior, a nearby pattern, consistency, simplicity, implementation convenience, or reviewer agreement can support a recommendation but cannot by themselves turn future policy into a determined target. Record the governing evidence beside the final target under the Design contract. Do not manufacture alternatives or demand approval for behaviorally equivalent local details; ask when a materially different valid target remains.
+- **Reframe the design premise:** When every candidate depends on the same premise and none satisfies the selected constraints or proved need, state that premise and the concrete conflict, then reopen the nearest upstream boundary that produced it. The next question addresses that boundary instead of asking the user to choose among the invalid candidates.
 
 ## Present technical choices in a stable shape
 
@@ -17,7 +18,7 @@ A short intent or scope question can remain one paragraph. When two or more fini
 **<domain title stating the decision>**
 
 **Why this decision is needed now**
-<grounded current seam and the consequence that makes the choice necessary>
+<settled fact -> unresolved consequence -> the one decision axis; explain how different answers change the target>
 
 ### A. <option title>
 <decision-relevant mechanism and consequence>
@@ -33,7 +34,7 @@ A short intent or scope question can remain one paragraph. When two or more fini
 **Choose A or B?**
 ```
 
-Give every option comparable coverage under the Design contract. Present shared context and artifacts once before the options, then place each option's distinctive material under that option. Use a table for short one-line comparisons. Use per-option sections when the illustration contract requires artifacts or the option needs several consequences.
+Use the candidate classification in the Design process before choosing this format. Every displayed option satisfies the selected constraints and represents a materially different target on the named axis. Give every option comparable coverage under the Design contract. Present shared context and artifacts once before the options, then place each option's distinctive material under that option. Use a table for short one-line comparisons. Use per-option sections when the illustration contract requires artifacts or the option needs several consequences.
 
 Finite choices use sequential `A`, `B`, `C` labels as reply handles. Present all options before the one separate recommendation. Use a domain title rather than internal IDs, numbered cards, or a promised question count. Ask exactly one decision per message and wait for the answer before resolving a dependent decision. Every option set varies on one named decision axis; use the Design contract's independently variable target rule to separate other axes. A label selection confirms only the named axis and the clauses that distinguish the selected option. Selecting one, several, all, or none from an evidence-backed candidate set is one scope decision.
 

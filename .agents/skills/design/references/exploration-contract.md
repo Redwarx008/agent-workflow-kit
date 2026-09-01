@@ -66,7 +66,7 @@ Exploration is complete only when the agent can:
 - describe the relevant reference mechanism and its important differences from this project, or state the bounded search that found no applicable external analogue;
 - identify the evidence that can validate the resulting behavior; and
 - distinguish a current failure or reachable contract problem from a future capability or maintenance opportunity without workflow jargon; and
-- phrase the next question as a choice that cannot be answered from the inspected evidence.
+- name the unresolved decision axis and classify its viable targets under the Design process before drafting the next question.
 
 Depth is measured by these outcomes, not file counts or a mandatory dossier. Keep raw searches, excerpts, and tool output transient. Write into `design.md` only current-state facts, reference provenance, and constraints that materially shape the selected design.
 
