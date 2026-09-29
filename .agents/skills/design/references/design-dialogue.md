@@ -64,7 +64,7 @@ When an external or upstream implementation materially supports the recommendati
 
 ## Resolve the turn
 
-Interpret the reply only against the active question supplied by the evaluation contract; `design.md` supplies the choices already resolved.
+Interpret the reply only against the active question supplied by the evaluation contract; the Design supplies the choices already resolved.
 
 A reply resolves that design choice only when it explicitly selects an option or target, explicitly corrects the proposal, or explicitly accepts the presented recommendation. A request for the agent to decide permits it to present one recommended target, but does not resolve the choice or mint `选择来源：用户确认。`; wait for explicit acceptance. Treat generic continuation such as “继续” or “下一步”, an evaluation of the reasoning, a partial response, or ambiguous wording as a request to remain on the active choice and ask one concise clarification.
 

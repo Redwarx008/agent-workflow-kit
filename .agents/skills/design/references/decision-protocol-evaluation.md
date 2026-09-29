@@ -8,7 +8,7 @@ Keep the one current-question record for this Design at the exact path `workflow
 node .agents/skills/design/scripts/evaluate-decision-protocol.mjs --allow-pending workflow/.local/<change-name>/design-question.json
 ```
 
-The `design_path` identifies the selected-results document for this exact workflow. The latest agent `content` in this canonical record is the outgoing message. A draft, handoff file, reviewer report, or another `workflow/.local/` file is not a current-question record. After the evaluator passes, send that content verbatim as the final question; if the message changes, update the canonical record and run the evaluator again before sending it. Keep this file while its question awaits or processes a reply.
+The `design_path` identifies the `design.md` entry for this exact workflow, including its listed area files. The latest agent `content` in this canonical record is the outgoing message. A draft, handoff file, reviewer report, or another `workflow/.local/` file is not a current-question record. After the evaluator passes, send that content verbatim as the final question; if the message changes, update the canonical record and run the evaluator again before sending it. Keep this file while its question awaits or processes a reply.
 
 Use this turn shape:
 
@@ -41,9 +41,9 @@ Set `proposes_code_change` to `false` for intent or scope selection that does no
 
 After the user replies, reread this reference and [design-dialogue.md](design-dialogue.md), then open the current-question record rather than reconstructing the question from recent chat. Bind the reply to its latest agent question, append the `{ "role": "user", "content": "..." }` turn, and run the command again without `--allow-pending`. The mechanical reply check accepts any user text, so apply the Design dialogue contract before treating the choice as resolved.
 
-- When the reply resolves the question, apply the selected result to the record's exact `design_path`, then delete `design-question.json` before advancing or presenting another question. The absence of this record means the Design has no unanswered question. Continue from the selected results in `design.md`; when another decision is ready, create and validate its new record in the same turn so the outgoing response follows the Design process's completion rule.
+- When the reply resolves the question, update the Design identified by the record's exact `design_path` under the [Design process](design-process.md), then delete `design-question.json` before advancing or presenting another question. The absence of this record means the Design has no unanswered question. Continue from the selected results in the Design; when another decision is ready, create and validate its new record in the same turn so the outgoing response follows the Design process's completion rule.
 - When the reply needs clarification, retain the record, append the validated clarification as its next agent `design-question` turn, and wait for the next reply.
-- When context resumes with a record ending in an agent question, use that question as the current choice. When it ends in a user reply, reconcile the selected result against the record's exact `design_path`: clear the record when the result is already present, otherwise apply it once and then clear the record. When context resumes without a record, use `design.md` only for settled results and present the next unresolved question before accepting a new reply label.
+- When context resumes with a record ending in an agent question, use that question as the current choice. When it ends in a user reply, follow the record's exact `design_path` to reconcile the selected result in its owning section or area file: clear the record when the result is already present, otherwise apply it once and then clear the record. When context resumes without a record, use the Design only for settled results and present the next unresolved question before accepting a new reply label.
 
 The record contains only the current unresolved exchange and is deleted as soon as that choice is applied. It is disposable local state, not Design history or Git content.
 

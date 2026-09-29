@@ -17,7 +17,7 @@ An empty property, placeholder UI, stub, TODO, unfinished draft, or generic word
 
 Until every success criterion is evidenced:
 
-1. Select an unmet criterion or production-integration obligation and re-read its final constraints, affected system, and required evidence. A multi-path criterion remains unmet until every named path has evidence.
+1. Select an unmet criterion or production-integration obligation and re-read its applicable Design and required evidence under the Design reading rules. A multi-path criterion remains unmet until every named path has evidence.
 2. Trace the real production flow and callers before choosing the implementation seam. Prefer a shared root-cause correction only when it preserves the authorized behavior and scope.
 3. Before mutation, confirm the Design-required validation entrypoint and prerequisites exist and are invocable. Apply the stop-on-doubt contract if they are unavailable.
 4. Investigate unclear facts read-only and apply the stop-on-doubt contract.
@@ -40,6 +40,6 @@ Do not silently add dependencies, change APIs or formats, broaden scope, choose 
 6. Before requesting commit authorization, list every remaining P2, known limitation, and external/manual acceptance explicitly delegated by final Design, or state `none`. The single commit authorization also accepts this disclosed remainder. If the user requests resolution first, fix it and re-review the affected scope. Never present an unresolved product/technical decision, unmet success criterion, or unavailable Design-required validation as non-blocking; only validation explicitly delegated outside the agent may remain.
 7. Apply the durable-decision handoff under the target project's document types, thresholds, and ownership rules.
 8. At the next user-authorized commit boundary, commit approved project artifacts under repository ownership rules. Never stage `workflow/**` merely to archive it.
-9. Only after the commit succeeds, delete completed local evaluator or Visual Companion state and move `design.md` from `workflow/active/<change>/` to `workflow/completed/<change>/`. If commit is absent or fails, leave Design active and report it ready to commit. Never create an empty commit solely to archive.
+9. Only after the commit succeeds, delete completed local evaluator or Visual Companion state and move the entire `workflow/active/<change>/` directory to `workflow/completed/<change>/`, keeping the Design entry and area files together. If commit is absent or fails, leave Design active and report it ready to commit. Never create an empty commit solely to archive.
 
 Never claim completion before independent `PASS`.

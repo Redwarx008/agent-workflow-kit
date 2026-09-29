@@ -1,8 +1,8 @@
 # Design Contract
 
-`design.md` is the short, user-reviewable final specification for this change. It contains only the selected result of the discussion.
+The Design is the user-reviewable final specification for this change: `design.md` and any area files it lists. It contains only the selected result of the discussion. The exact `design.md` path remains its entry throughout discussion, Act, and Review.
 
-Use the stable top-level sections from the Design asset: `Goal`, `Scope and Success Criteria`, `Selected Design`, and `Validation and Acceptance`.
+Keep the stable top-level sections from the Design asset in `design.md`: `Goal`, `Scope and Success Criteria`, `Selected Design`, and `Validation and Acceptance`.
 
 Each top-level section owns one kind of information:
 
@@ -13,11 +13,19 @@ Each top-level section owns one kind of information:
 | `Selected Design` | The selected system shape, grouped design areas, boundaries, contracts, illustrative artifacts, rationale, and decision sources. |
 | `Validation and Acceptance` | The mapping from every success criterion and affected production path to the evidence and acceptance condition that prove it. |
 
-Give each fact one primary home in this contract. Refer to another section when a relationship matters instead of restating its content. The artifact describes the selected change and its proof; implementation tasks, file-by-file steps, and execution progress remain outside it.
+Give each fact one primary home in this contract. Define each interface, schema, or lifecycle contract in its owning area's section or file; consumers link to that definition and describe their own obligations. The Design describes the selected change and its proof; implementation tasks, file-by-file steps, and execution progress remain outside it.
 
-Organize `Selected Design` by project-defined design areas. One area is a coherent responsibility maintained by one owning project boundary. Name it with the project's capability or subsystem term. When ownership differs, use sibling area chapters; describe an end-to-end call or data path as integration among those owners instead of duplicating the path as another area. Organize chapters by the selected system shape rather than by conversation order, reviewer source, file list, or decision chronology.
+Organize `Selected Design` by project-defined design areas. One area is a coherent responsibility maintained by one owning project boundary. Name it with the project's capability or subsystem term. Compact changes keep their area chapters in `design.md`. When several areas need substantial treatment, put each area's technical design in `areas/<area-name>.md` under the same change directory. Split an oversized area further along coherent responsibilities when needed for review. Use the selected system shape to choose boundaries and names.
+
+For a multi-file Design, `Selected Design` carries the overall structure, cross-area flows, and a relative-link index giving each area file's responsibility and direct dependencies. Acceptance entries can link to area-specific validation details. Create area files as selected content needs a home and update the index in the same change. The files together retain one delivery and authorization scope.
 
 Within each area chapter, use only the affected design dimensions in this order: responsibilities and ownership; architecture and integration; interfaces and contracts; data structures and state ownership; data flow and lifecycle; failure and compatibility behavior. A compact area may express several dimensions together when their relationship stays clear. Dimension headings remain inside their owning area so unrelated parts of the change are not collected into global interface, data, or flow sections.
+
+## Reading the Design
+
+Start at the supplied `design.md`. For a large Design, map its headings and area index before reading the relevant sections or files in full. Read the governing definitions cited by the current task, including provider and consumer contracts when crossing an area boundary. Resolve relative links from the containing document, including when the implementation uses another worktree.
+
+## Decisions and sources
 
 A **decision-bearing implementation detail** is any responsibility, name, signature, data shape, ownership or lifecycle rule, algorithm, control flow, integration, file or module ownership, failure or compatibility behavior, or validation choice for which two reasonable implementations remain. Design fixes every such detail. Syntax, formatting, mechanically repeated propagation, and execution order are mechanical only when the selected Design plus cited project rules leave one reasonable result.
 
@@ -42,7 +50,7 @@ For each changed boundary, record the purpose, consumers, ownership, dependency 
 
 Ground retained guardrails in `evidence -> causal failure mechanism -> consequence -> prevention`; omit generic risk lists and rejected shortcuts. Use only the representative scenarios needed to clarify a governing rule, not fixed categories or an implicit test plan. When a criterion spans production paths, name each path under the criterion and map each path to its evidence under `Validation and Acceptance`.
 
-Define one Design by the user's delivery and authorization scope. State the relationship among independent outcomes and give independently satisfiable parts separate criteria and evidence. Suggest a split only when combined scope would obscure materially different outcomes, authorization or release boundaries, destructive consequences, or reviewable completion.
+Define one Design by the user's delivery and authorization scope. State the relationship among independent outcomes and give independently satisfiable parts separate criteria and evidence. Suggest separate Designs only when combined scope would obscure materially different outcomes, authorization or release boundaries, destructive consequences, or reviewable completion.
 
 Keep illustrative artifacts focused on decision-bearing implementation details rather than copying complete source files. Omit empty headings, internal process state, research or question history, discarded approaches, and mechanical work.
 
@@ -53,9 +61,9 @@ Apply the minimum-sufficient test: keep content whose removal could permit a mat
 Design is ready for user review only when:
 
 - scope, outcomes, criteria, and evidence are complete and materially unambiguous;
-- every affected area and production path has been investigated, presented to the user in the conversation, and represented in this document by the required artifacts;
+- every affected area and production path has been investigated, presented to the user in the conversation, and represented in the Design by the required artifacts;
 - every independently variable stable target has an adjacent valid source, every real design choice is resolved by explicit user confirmation, and every new concept has a proved need;
 - current, external, sample, estimate, and target claims are correctly scoped and traceable; and
-- only one coherent selected design remains, without placeholders, contradictions, superseded dependencies, or process history.
+- the area index and contract links resolve to the selected definitions, and only one coherent selected design remains, without placeholders, contradictions, superseded dependencies, or process history.
 
 If Act would need to choose a decision-bearing implementation detail, the Design is not ready.

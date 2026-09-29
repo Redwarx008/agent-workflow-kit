@@ -13,7 +13,7 @@ Require the exact `design.md` path supplied by the invoking Design after that wo
 
 If no exact current-workflow Design is identified, Act is not applicable. Return control to normal task handling without creating or modifying workflow records and without blocking the underlying non-workflow task.
 
-Read the exact Design. Confirm that this workflow has received implementation authorization; do not demand another authorization phrase. A Design correction does not invalidate that authorization. If authorization was never given or the user explicitly revoked it, stop Act without modifying product files. Inspect repository status and preserve unrelated user changes.
+Read the supplied entry under the Design contract's reading rules. Confirm that this workflow has received implementation authorization; do not demand another authorization phrase. A Design correction does not invalidate that authorization. If authorization was never given or the user explicitly revoked it, stop Act without modifying product files. Inspect repository status and preserve unrelated user changes.
 
 ## Workspace isolation gate and execution
 

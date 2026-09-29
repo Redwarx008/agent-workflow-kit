@@ -52,7 +52,7 @@ claude plugin update agent-workflow-kit@agent-workflow-kit
 
 安装插件即可提供工作流入口；无需把本仓库的 `AGENTS.md` 复制到消费项目。目标项目自己的规则和用户明确要求始终优先。
 
-Design 开始前会运行 bundled preflight：在 Git 项目的 repo-local `.git/info/exclude` 中幂等确保 `/workflow/` 被忽略，然后才允许创建记录。`design.md` 是唯一常驻工作流文件；Visual Companion、对话 evaluator 与 Review 的工具状态仅在需要时进入本地 `workflow/.local/`，不会要求修改项目的 tracked `.gitignore`。
+Design 开始前会运行 bundled preflight：在 Git 项目的 repo-local `.git/info/exclude` 中幂等确保 `/workflow/` 被忽略，然后才允许创建记录。`design.md` 是总览与入口；小改在其中完成，多领域设计使用 `areas/<area-name>.md`。Act 和 Review 按 [Design 文档契约](.agents/skills/design/references/design-contract.md)读取，归档时移动整个变更目录。所有 Design 文件保持本地，工具临时状态进入 `workflow/.local/`，不会要求修改项目的 tracked `.gitignore`。
 
 ## 维护与验证
 

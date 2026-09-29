@@ -68,6 +68,6 @@ Exploration is complete only when the agent can:
 - distinguish a current failure or reachable contract problem from a future capability or maintenance opportunity without workflow jargon; and
 - name the unresolved decision axis and classify its viable targets under the Design process before drafting the next question.
 
-Depth is measured by these outcomes, not file counts or a mandatory dossier. Keep raw searches, excerpts, and tool output transient. Write into `design.md` only current-state facts, reference provenance, and constraints that materially shape the selected design.
+Depth is measured by these outcomes, not file counts or a mandatory dossier. Keep raw searches, excerpts, and tool output transient. Write into the Design only current-state facts, reference provenance, and constraints that materially shape the selected design.
 
 Before every later Design question, investigate any newly introduced code path, dependency, reference, or factual premise the same way. Completing the initial scan does not permit sending a later discoverable fact back to the user.

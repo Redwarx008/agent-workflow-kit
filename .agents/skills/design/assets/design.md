@@ -10,8 +10,8 @@
 
 ## Selected Design
 
-<!-- Group the selected result into project-defined design areas following the Design contract. Retain only the selected code and structural artifacts. Give every independently variable stable target an adjacent source: `选择来源：用户确认。` after an explicit user direction or choice, or `唯一依据：...` when cited evidence truly rules out every materially different target. -->
+<!-- Present the overall system shape and the area chapters or linked area index defined by the Design contract. -->
 
 ## Validation and Acceptance
 
-<!-- Map each success criterion and affected production path to the evidence and acceptance condition that prove it. -->
+<!-- Map each success criterion and affected production path to the evidence and acceptance condition that prove it; link to area-specific validation details where applicable. -->

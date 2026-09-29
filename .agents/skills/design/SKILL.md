@@ -13,7 +13,7 @@ For a new explicit invocation:
 
 1. Resolve the directory containing this `SKILL.md`, then run `node <design-skill-dir>/scripts/preflight.mjs ensure --project-root <project-root>` using that absolute script path. If it fails, stop without creating `workflow/`.
 2. Read [references/exploration-contract.md](references/exploration-contract.md) completely, then restore project context and perform its pre-question exploration. Follow the target project's documentation indexes and reading order. Do not read recent session logs by default; use them only when project rules or a concrete need for unfinished-work or historical evidence makes them relevant.
-3. Create `workflow/active/<change-name>/design.md` from [assets/design.md](assets/design.md). It is the only persistent workflow record and is never Git content.
+3. Create `workflow/active/<change-name>/design.md` from [assets/design.md](assets/design.md). It is the entry to this Design; organize any area files under [references/design-contract.md](references/design-contract.md). All Design files remain local workflow content and are never Git content.
 
 For an Act return, require its exact active `design.md` path and continue that original explicit workflow; do not scan for another Design or recreate it from the asset. The Design process owns repair, review, and resumption of the already authorized Act.
 

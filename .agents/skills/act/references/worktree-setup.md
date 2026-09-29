@@ -4,7 +4,7 @@ Use this only after the user explicitly chooses an isolated worktree at the star
 
 ## Preserve the Design
 
-The exact `design.md` remains in the initiating checkout's local `workflow/` directory. Do not copy, move, or Git-stage it. Pass its absolute path and the implementation-workspace path directly to Review; Act and Review must read the original Design while inspecting the selected workspace.
+The Design entry and area files remain together in the initiating checkout's local `workflow/` directory. Do not copy, move, or Git-stage them for worktree setup. Pass the absolute `design.md` path and the implementation-workspace path directly to Review; Act and Review read the original Design under its reading rules while inspecting the selected workspace.
 
 ## Isolation order
 

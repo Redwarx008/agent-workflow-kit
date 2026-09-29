@@ -28,6 +28,12 @@ Visual Companion 保留上游已加固的 session key、同源 WebSocket、路�
 
 同时采用“运行规范与用户说明分离”：`.agents/skills/` 是唯一运行时规范源，`SKILL.md` 负责编排，单一主题 reference 负责详细规则，README 与 `docs/` 只解释目的和取舍。这样减少同一提示词在多处漂移，而不削弱门禁。
 
+## 大型 Design 的文档组织
+
+采用 [Compound Engineering 的先定位再读取](https://github.com/EveryInc/compound-engineering-plugin/blob/main/skills/ce-plan/references/plan-sections.md)：通过总览和章节找到当前工作及其引用的契约，再读取对应内容。参考 [OpenSpec 按能力组织规格](https://github.com/Fission-AI/OpenSpec/blob/main/docs-lab/reference/schemas/spec-driven/index.md)和 [Spec Kit 的单一接口定义](https://github.com/github/spec-kit/blob/main/docs/guides/contract-driven-development.md)，AWK 将需要展开的领域写入独立文件，由 `design.md` 连接范围、领域关系与验收。每个契约在所属领域定义，消费方引用；讨论、实施、评审和归档处理同一组文件。
+
+这是对 AWK 技术 Design 的适配：CE 仍维护单个统一 Plan，OpenSpec 按能力拆分的是行为规格，Spec Kit 也有不同职责的文档。AWK 保持每个领域的架构、API、数据和数据流相邻，并让一组文件共同承载原有交付与授权范围。
+
 ## 项目实践补充
 
 - Review 必须读取共享工作区，不能因隔离而错过未提交实现。
