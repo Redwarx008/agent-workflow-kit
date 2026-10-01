@@ -54,6 +54,17 @@ claude plugin update agent-workflow-kit@agent-workflow-kit
 
 Design 开始前会运行 bundled preflight：在 Git 项目的 repo-local `.git/info/exclude` 中幂等确保 `/workflow/` 被忽略，然后才允许创建记录。`design.md` 是总览与入口；小改在其中完成，多领域设计使用 `areas/<area-name>.md`。Act 和 Review 按 [Design 文档契约](.agents/skills/design/references/design-contract.md)读取，归档时移动整个变更目录。所有 Design 文件保持本地，工具临时状态进入 `workflow/.local/`，不会要求修改项目的 tracked `.gitignore`。
 
+### 必需的 agent 角色
+
+Act 把实施交给 `worker` 角色，Design 与 Act 的审查都交给 `reviewer` 角色；角色缺失时工作流停止并报告，不退回主会话自行实施或审查。插件不内置角色定义，模型与推理强度由用户在宿主配置中决定：
+
+| 宿主 | 位置 | 示例字段 |
+|---|---|---|
+| Codex | `~/.codex/agents/worker.toml`、`reviewer.toml` | `model`、`model_reasoning_effort`、`sandbox_mode` |
+| Claude Code | `~/.claude/agents/worker.md`、`reviewer.md`（或项目 `.claude/agents/`） | frontmatter 的 `model`、`effort`、`disallowedTools` |
+
+`worker` 需要写权限且不得再委托；`reviewer` 只读且不得再委托。探索仍使用宿主的只读探索子代理，不要求指定角色。
+
 ## 维护与验证
 
 仓库只维护直接保护插件契约与 bundled 工具安全边界的检查：
