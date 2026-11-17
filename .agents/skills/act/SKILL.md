@@ -9,14 +9,8 @@ Implement the approved Design exactly; Act makes no new implementation choice.
 
 ## Start
 
-Require the exact `design.md` path supplied by the invoking Design after that workflow receives implementation authorization. The same authorization remains valid when Act returns the Design for correction and the corrected Design passes its required review. Never scan `workflow/active/` to guess a Design from recency, folder names, or unrelated active records. Never create, infer, repair, or backfill a workflow record.
+Enter only from the [authorized Design handoff](../design/references/design-process.md#ready-transition) with its exact `design.md`. Without that handoff, leave the ordinary task outside Act; do not search for or create a workflow record. Read the supplied Design under its [reading rules](../design/references/design-contract.md#reading-the-design) and preserve unrelated workspace changes.
 
-If no exact current-workflow Design is identified, Act is not applicable. Return control to normal task handling without creating or modifying workflow records and without blocking the underlying non-workflow task.
+## Execution
 
-Read the supplied entry under the Design contract's reading rules. Confirm that this workflow has received implementation authorization; do not demand another authorization phrase. A Design correction does not invalidate that authorization. If authorization was never given or the user explicitly revoked it, stop Act without modifying product files. Inspect repository status and preserve unrelated user changes.
-
-## Workspace isolation gate and execution
-
-Read [../design/references/design-contract.md](../design/references/design-contract.md), [references/act-contract.md](references/act-contract.md), [references/worktree-setup.md](references/worktree-setup.md), [references/doubt-protocol.md](references/doubt-protocol.md), [references/validation-guide.md](references/validation-guide.md), and [references/durable-decision-handoff.md](references/durable-decision-handoff.md) completely before product mutation.
-
-Follow the Act contract, including its Design-return path. Delegate product mutation and validation to the `worker` agent role as that contract defines, and keep user dialogue, Design return, review dispatch, and closure in this session. After implementation and agent-accessible validation, launch the independent `$agent-workflow-kit:review` pipeline defined by that contract on the `reviewer` agent role. Do not create a Plan, execution ledger, workspace record, or authorization record.
+Follow the [Act contract](references/act-contract.md) for workspace selection, worker delegation, independent Review, and closure. Stop mutation on unresolved doubt. Load the linked guides at the step that uses them.

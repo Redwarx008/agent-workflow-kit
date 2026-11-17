@@ -22,7 +22,8 @@ function checkReferences(skill, failures) {
   for (const match of text.matchAll(/\[[^\]]+\]\(([^)]+)\)/g)) {
     const target = match[1];
     if (/^[a-z]+:/i.test(target) || target.startsWith('#')) continue;
-    if (!fs.existsSync(path.resolve(root, target))) failures.push(`missing reference: ${skill}/${target}`);
+    const [file] = target.split('#', 1);
+    if (!fs.existsSync(path.resolve(root, file))) failures.push(`missing reference: ${skill}/${target}`);
   }
 }
 

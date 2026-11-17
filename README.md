@@ -2,13 +2,13 @@
 
 面向 Codex 与 Claude Code 的轻量原生插件工作流：
 
-`Design 讨论与记录 → 独立 Design Review → 最终审阅 → 授权 Act 或确认无需实施 → Review / 归档`
+`Design 讨论与记录 → 独立 Design Review → 最终审阅 → 授权 Act 或结束设计 → Review / 归档`
 
 它解决三个常见问题：意图和边界尚未清楚就开始实现；实施遇到歧义时 agent 静默替用户选择；声明、文件或测试存在，却没有接入真实生产调用链。
 
 ## 三个入口
 
-- `$agent-workflow-kit:design`：唯一显式入口；调查真实仓库、持续记录 Design，并在候选 Ready 后派独立只读 subagent 审查成品。探索结论可以在用户确认后以无需实施归档，不强迫制造代码改动。
+- `$agent-workflow-kit:design`：唯一显式入口；调查真实仓库、持续记录 Design，并在候选 Ready 后派独立只读 subagent 审查成品。无需实施时，按用户决定归档或暂缓。
 - `$agent-workflow-kit:act`：用户在最终 Design 的合并审阅门禁中无保留接受后，携带当前 `design.md` 的确切路径直接进入；该授权在同一工作流的 Act↔Design 修订中持续有效，复审通过后自动恢复原 Act，不再请求实施授权。首次授权前，脱离门禁语境的普通实现请求或泛化“继续”不得触发 Act。
 - `$agent-workflow-kit:review`：独立检查实现是否接入真实生产路径、是否满足 Design 的验收标准。一个 reviewer 能审清就由一人完成；适合分工时并行审查，主 agent 等报告齐全后汇总。
 

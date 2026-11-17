@@ -34,7 +34,7 @@ A short intent or scope question can remain one paragraph. When two or more fini
 **Which fits: A — <option title> or B — <option title>?**
 ```
 
-Use the candidate classification in the Design process before choosing this format. Every displayed option satisfies the selected constraints and represents a materially different target on the named axis. Give every option comparable coverage under the Design contract. Present shared context and artifacts once before the options, then place each option's distinctive material under that option. Use a table for short one-line comparisons. Use per-option sections when the illustration contract requires artifacts or the option needs several consequences.
+Show the evidence, code, and diagrams needed to judge the choice in the question itself. Present shared material once, then each option's distinctive mechanism and consequences under its label. When the code is the same, explain the difference in prose. Give the options comparable coverage. A table can compare short differences; use per-option sections for substantial artifacts.
 
 Finite choices use sequential `A`, `B`, `C` labels as reply handles. Present the options before the recommendation; in the closing question, pair every label with the option's short name. Use a domain title rather than internal IDs, numbered cards, or a promised question count. Ask exactly one decision per message and wait for the answer before resolving a dependent decision. Every option set varies on one named decision axis; use the Design contract's independently variable target rule to separate other axes. A label selection confirms only the named axis and the clauses that distinguish the selected option. Selecting one, several, all, or none from an evidence-backed candidate set is one scope decision.
 
@@ -49,12 +49,6 @@ Whenever the turn proposes a concrete target that would change project code, sho
 Investigate the repository before discussing the target. Build the user-facing evidence from concise `path:line` findings. For a decision about an existing symbol or call site, show the excerpt that exposes the interface, data shape, or control flow being chosen, paired with the target excerpt at the same code boundary.
 
 Mechanically repeated call-site changes may be listed once instead of copied in full.
-
-For multiple options, organize the selected evidence and target sketches as follows:
-
-- place each shared excerpt once;
-- give each materially different option only the code that exposes its distinctive behavior or boundary;
-- describe a non-code distinction in prose when the options share the shown code.
 
 Keep current and target blocks visually distinguishable when both are shown. Use localized labels that include the stable parenthetical markers `current code` and `illustrative target`, for example `当前代码（current code）— src/Feature.cs:42` and `目标示意代码（illustrative target）`. Every shown current block must include its `path:line`; do not make the user open the file merely to understand the comparison.
 
