@@ -1,7 +1,7 @@
 interface:
   display_name: "Workflow Review"
-  short_description: "Risk-scaled implementation verification and integration review"
-  default_prompt: "Use $review in the supplied ordinary, claim-verification, or integration mode to inspect the shared working tree and evidence against its authorized Design."
+  short_description: "Independent implementation review against the Design"
+  default_prompt: "Use $review to verify the assigned scope against the authorized Design and production evidence."
 
 policy:
   allow_implicit_invocation: true

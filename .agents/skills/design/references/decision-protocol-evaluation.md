@@ -2,10 +2,10 @@
 
 Use [../scripts/evaluate-decision-protocol.mjs](../scripts/evaluate-decision-protocol.mjs) as the mechanical gate for user-facing Design questions. The same transient transcript is the current-question record across user turns and context compaction. It does not dictate the prose layout, and a pass is not validation of the Design, evidence, recommendation, or target mechanism.
 
-Keep the one current-question record for this Design at the exact path `workflow/.local/<change-name>/design-question.json`. Before sending a question, write the exact active `design.md` path and complete final user-facing message into that record, then run the evaluator against that same file:
+Before sending a question, write the exact active `design.md` path and complete final user-facing message to the current-question record shown below. Use absolute paths: `<design-skill-dir>` is the directory containing the loaded Design skill's `SKILL.md`; `<project-root>` is the initiating checkout that owns this Design.
 
 ```powershell
-node .agents/skills/design/scripts/evaluate-decision-protocol.mjs --allow-pending workflow/.local/<change-name>/design-question.json
+node "<design-skill-dir>/scripts/evaluate-decision-protocol.mjs" --allow-pending "<project-root>/workflow/.local/<change-name>/design-question.json"
 ```
 
 The `design_path` identifies the `design.md` entry for this exact workflow, including its listed area files. The latest agent `content` in this canonical record is the outgoing message. A draft, handoff file, reviewer report, or another `workflow/.local/` file is not a current-question record. After the evaluator passes, send that content verbatim as the final question; if the message changes, update the canonical record and run the evaluator again before sending it. Keep this file while its question awaits or processes a reply.
@@ -39,12 +39,9 @@ Set `option_labels` to sequential `A`, `B`, `C` labels when two or more finite c
 
 Set `proposes_code_change` to `false` for intent or scope selection that does not yet propose a concrete code target. When the dialogue rule selects a current-code excerpt for such a turn, include `current_code_sources`, show every listed repository-relative `path:line`, label the evidence `current code`, and include at least one non-empty fenced current-code block. Introduce an `illustrative target` after the outcome is selected. A turn consisting of repository findings without an excerpt has no `current_code_sources` field.
 
-After the user replies, reread this reference and [design-dialogue.md](design-dialogue.md), then open the current-question record rather than reconstructing the question from recent chat. Bind the reply to its latest agent question, append the `{ "role": "user", "content": "..." }` turn, and run the command again without `--allow-pending`. The mechanical reply check accepts any user text, so apply the Design dialogue contract before treating the choice as resolved.
+On each reply, open the record, pair the reply with its latest question, append the user turn, and validate without `--allow-pending`. A pass confirms turn order and format, not a decision. For both live and recovered replies use [Resolve the turn](design-dialogue.md#resolve-the-turn):
 
-- When the reply resolves the question, update the Design identified by the record's exact `design_path` under the [Design process](design-process.md), then delete `design-question.json` before advancing or presenting another question. The absence of this record means the Design has no unanswered question. Continue from the selected results in the Design; when another decision is ready, create and validate its new record in the same turn so the outgoing response follows the Design process's completion rule.
-- When the reply needs clarification, retain the record, append the validated clarification as its next agent `design-question` turn, and wait for the next reply.
-- When context resumes with a record ending in an agent question, use that question as the current choice. When it ends in a user reply, follow the record's exact `design_path` to reconcile the selected result in its owning section or area file: clear the record when the result is already present, otherwise apply it once and then clear the record. When context resumes without a record, use the Design only for settled results and present the next unresolved question before accepting a new reply label.
+- **Resolved:** apply the selected result once at the recorded `design_path`, checking its owning section first on recovery. Delete the record only after the result is there; continue under the [Design process](design-process.md).
+- **Still open:** answer the follow-up or clarify the same choice. Keep the record, append and validate the clarification as its next question, and await the reply.
 
-The record contains only the current unresolved exchange and is deleted as soon as that choice is applied. It is disposable local state, not Design history or Git content.
-
-The evaluator checks only the mechanical properties stated in this reference and ignores question-like syntax inside code. A pass does not replace the semantic requirements in the dialogue, illustration, or Design contracts.
+On recovery, a record ending in an agent question still awaits its reply; one ending in a user turn takes the same two branches above. Without a record, resume from settled Design content and present the next question before accepting a label.

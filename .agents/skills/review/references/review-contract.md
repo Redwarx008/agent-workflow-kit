@@ -2,25 +2,19 @@
 
 Determine whether the shared working tree fully implements the authorized final Design. Review outcomes and production behavior, not the main agent's confidence or summary. Authorization is enforced by the direct Design-to-Act transition; Review does not reconstruct a hidden authorization or execution record.
 
-## Inputs and modes
+## Inputs and scope
 
-- **Ordinary review:** accept only the exact `design.md`, implementation workspace root, and raw validation entrypoints. Review the whole implementation and issue the overall verdict.
-- **Claim verification:** additionally accept one exact high-consequence implementation question tied to a selected Design outcome and a changed or required production seam. Investigate only that question deeply enough to avoid a local false pass; return evidence and a claim-level result, not the whole-implementation verdict.
-- **Integration review:** additionally accept the exact verification questions and reviewers' verbatim reports. Treat them as performed coverage, not proof that all material claims were selected. Review the whole implementation independently, reconcile the reports, and issue the only overall verdict.
-
-Do not accept the main agent's completion summary, suspected findings, preferred verdict, or rewritten summaries of reviewer reports.
+Accept the exact `design.md`, implementation workspace root, raw validation entrypoints, and any assigned scope. Apply the checks below to that scope (the entire implementation by default), following its complete production paths across boundaries. Establish findings from original evidence, not the author's completion summary or preferred verdict.
 
 ## Rules
 
-Unless a rule explicitly says otherwise, claim verification applies it only within the assigned claim; ordinary and integration review apply it to the whole implementation.
-
 - Work read-only in the current shared working tree. Do not create a worktree and do not fix files.
-- Start from the final Design entry, its listed area files, and actual diff to identify changed behavior, production paths, stable boundaries, and plausible failure consequences. In ordinary and integration modes, cover every listed area, success criterion, and affected path, including cross-area provider and consumer obligations, then scale investigation depth by consequence, reversibility, and boundary stability. In claim-verification mode, follow the assigned claim through its complete relevant production path. Do not manufacture evidence requests or findings for an unaffected dimension merely to complete a fixed checklist.
+- Start from the final Design entry, its area files, and actual diff. Cover the relevant success criteria, providers, consumers, and failure consequences; scale investigation depth to the risk.
 - Apply a semantic relevance gate before reporting any finding: cite the selected Design outcome, criterion, or constraint; identify the changed or required production seam; and explain how the implementation violates that authorized meaning or makes its evidence false. Omit a pre-existing behavior that this change neither alters nor relies on and that no selected outcome explicitly requires changing. Shared files, nearby call paths, broad category words, reviewer preference, or an opportunity noticed while inspecting the diff do not establish relevance; do not expand terms such as `invalid`, `failure`, or `replace` to unselected subcases.
 - Reconstruct requirement-to-production-call-path relationships independently.
 - Treat declarations, selectors, tests, or registration as insufficient unless the real runtime/editor/tooling path consumes them.
-- Verify every final Design success criterion, constraint, contract, failure behavior, and required production integration path has evidence. For a criterion spanning multiple production paths, report path-specific coverage and do not infer whole-criterion completion from one path.
-- When the Design includes several outcomes or independently satisfiable parts, report coverage for each part before the overall verdict. A failed or missing part makes the authorized whole incomplete without invalidating evidence-backed parts that pass. Do not require artificial coupling merely because they share one Design.
+- Verify each assigned criterion, constraint, contract, failure behavior, and required production integration path. For a criterion spanning multiple paths, report evidence for each one.
+- Report separately on outcomes that can succeed independently. Passing one does not prove another.
 - Derive the intended input class and governing invariants only from the final Design, public contracts, inspected project rules, and domain model. Do not silently broaden the feature while reviewing it.
 - Audit implementation and validation for example-specific coupling: fixture or test names, exact names/IDs, incidental order/count/dimensions, visible sample values, current dataset membership, and branches that recognize known cases instead of implementing the governing rule. Consider equivalent inputs with those irrelevant properties changed and trace the production behavior.
 - Treat a fixed value as legitimate when an explicit protocol, schema, resource format, approved requirement, or domain invariant requires it. Report overfitting only when evidence connects an incidental example property to incorrect or unsupported behavior.
@@ -34,7 +28,6 @@ Unless a rule explicitly says otherwise, claim verification applies it only with
 - Separately inspect new or renamed domain types, stable interfaces, ownership/lifecycle boundaries, and symbols central to changed logic for semantic maintainability. Report a naming finding only when evidence traces `name-implied meaning -> actual responsibility or behavior -> concrete risk of misunderstanding, misuse, duplicated vocabulary, or unsafe maintenance`. A compound noun/verb shape is not itself a defect. Exempt incidental locals, personal wording preference, mechanical word/prefix matches, BCL/third-party APIs, framework-mandated signatures, and unchanged pre-existing symbols outside the reviewed scope.
 - Distinguish implementation completeness from external/manual acceptance explicitly delegated by Design. An unavailable validation required to prove a success criterion is blocking unless the final Design explicitly assigned that acceptance outside the agent.
 - Report only evidence-backed findings. Personal style preferences do not block completion. A naming issue becomes a finding only through an explicit applicable project rule or the demonstrated semantic causal chain above.
-- In ordinary and integration modes, review the whole implementation yourself and retain the overall verdict. In integration mode, verify that the supplied questions cover every independently verifiable high-consequence claim created, changed, or relied on by the authorized implementation; reject reports that fail the semantic relevance gate; validate report anchors; deduplicate shared roots; reconcile reports against the same conditions; and directly recheck critical evidence when needed. Agreement is not independent support when reports rely on the same premise or source. If a material claim, conflict, or required expertise remains unresolved, return `BLOCKED` with the exact missing question. Do not select from a fixed reviewer roster or replace whole-implementation judgment with a vote over claim reports.
 
 ## Severity
 
@@ -44,15 +37,12 @@ Unless a rule explicitly says otherwise, claim verification applies it only with
 
 ## Output
 
-For claim verification, return the assigned question, inspected evidence with tight `file:line` anchors, any evidence-backed finding, and exactly one claim-level `PASS`, `FAIL`, or `BLOCKED`.
-
-For ordinary and integration review, return:
+For the reviewed scope, return:
 
 1. A coverage table mapping every success criterion to its Design outcome or part, inspected production evidence, and result.
 2. A generalization audit for each materially changed behavior: intended input class or invariant, irrelevant example properties varied or counterexamples inspected, production evidence, and result.
 3. Evidence-backed findings with severity, concise title, tight `file:line`, the semantic relevance chain, observed evidence, causal mechanism, and violated criterion or constraint. For overfitting, name the incidental property and an equivalent authorized input that takes the wrong path. Omit findings when there are none.
 4. Validation gaps separated from external/manual acceptance explicitly delegated by Design.
-5. In integration mode, claim coverage, deduplication or conflicts, and any exact unresolved question that causes `BLOCKED`.
-6. Exactly one verdict: `PASS`, `FAIL`, or `BLOCKED`.
+5. One verdict: `PASS`, `FAIL`, or `BLOCKED`. State the specific missing evidence or unresolved question for `BLOCKED`.
 
-Final `PASS` requires no P0/P1, no unaccounted success criterion, no implementation beyond final Design scope, no unresolved product or technical decision, and no unresolved verification question. `PASS` may retain disclosed P2 findings, known limitations, or external/manual acceptance explicitly delegated by the final Design; report them distinctly so the main agent can include them in the single commit-authorization request. A claim-level `PASS` resolves only its assigned question. If a finding admits multiple reasonable fixes or changes intent, state the decision needed; the main agent must ask the user rather than choosing it.
+`PASS` requires evidence for every criterion in scope, no P0/P1, no implementation beyond the final Design, and no unresolved decision or verification question. Disclose any P2 findings, known limitations, or external/manual acceptance explicitly delegated by Design. When a fix requires a choice, state what the user needs to decide.

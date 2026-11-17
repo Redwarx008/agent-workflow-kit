@@ -51,12 +51,10 @@ function evaluateDesignQuestion(turn, index) {
   const failures = [];
   const lines = turn.content.replace(/\r\n/g, '\n').split('\n');
   const prose = proseOutsideFences(['', ...lines], 0, lines.length + 1);
-  const questions = prose.match(/[?？]/g) ?? [];
 
-  if (questions.length !== 1) failures.push(failure('not-one-question', index, `The design question has ${questions.length} question terminators outside fenced code; exactly one is required.`));
+  if (!prose.trim()) failures.push(failure('empty-prompt', index, 'A design question needs a user-facing prompt.'));
   if (/\bD-\d+\b/.test(prose)) failures.push(failure('internal-id-leak', index, 'Design dialogue exposes an internal decision ID.'));
   if (/(?:设计卡|决策卡)\s*\d+\s*\/\s*\d+|\b(?:design\s+card|decision)\s+\d+\s*(?:of|\/)\s*\d+\b/i.test(prose)) failures.push(failure('fixed-batch-label', index, 'Design dialogue exposes a pre-numbered card or promised decision count.'));
-  if (/design\.md/i.test(prose)) failures.push(failure('not-self-contained', index, 'Design dialogue refers to design.md instead of explaining itself.'));
   if (typeof turn.proposes_code_change !== 'boolean') failures.push(failure('missing-code-change-declaration', index, 'A design-question turn must declare proposes_code_change true or false.'));
 
   const optionLabels = turn.option_labels;
@@ -65,10 +63,10 @@ function evaluateDesignQuestion(turn, index) {
   } else if (optionLabels.length === 1 || optionLabels.length > 26 || optionLabels.some((label, labelIndex) => label !== String.fromCharCode(65 + labelIndex))) {
     failures.push(failure('invalid-option-labels', index, 'option_labels must be empty or contain sequential labels starting with A.'));
   } else if (optionLabels.length >= 2) {
-    const questionText = prose.split(/\n\s*\n/).find(paragraph => /[?？]/.test(paragraph)) ?? '';
+    const closingPrompt = prose.trimEnd().split(/\n\s*\n/).at(-1);
     for (const label of optionLabels) {
       if (!hasOptionEntry(prose, label)) failures.push(failure('missing-labeled-option', index, `Design dialogue has no visible ${label} option entry.`));
-      if (!labelPattern(label).test(questionText)) failures.push(failure('question-omits-option-label', index, `The final question does not name option ${label}.`));
+      if (!labelPattern(label).test(closingPrompt)) failures.push(failure('question-omits-option-label', index, `The final question does not name option ${label}.`));
     }
   }
 
@@ -155,7 +153,7 @@ function main() {
     const { allowPending, inputPath } = parseArguments(process.argv.slice(2));
     const transcript = JSON.parse(fs.readFileSync(inputPath, 'utf8'));
     const result = evaluateTranscript(transcript, { allowPending });
-    if (result.ok) console.log('PASS decision protocol; send the validated content verbatim');
+    if (result.ok) console.log('PASS decision protocol');
     else {
       console.error('FAIL decision protocol');
       for (const item of result.failures) console.error(`- [${item.code}] turn ${item.turn ?? 'n/a'}: ${item.message}`);

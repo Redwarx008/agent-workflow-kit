@@ -4,7 +4,7 @@ Review the supplied `design.md` and its listed area files as the candidate imple
 
 ## Inputs and independence
 
-For an ordinary review, accept only the exact Design path, project root, and this contract. For an integration review after parallel claim verification, additionally accept only the exact verification questions and the reviewers' verbatim reports. Do not accept the main agent's completion summary, suspected findings, preferred verdict, transient dialogue transcript, or discarded alternatives. Treat the supplied questions as performed coverage, not proof that every material claim was selected. Read the project code and documentation needed to verify the Design's claims and production boundaries. Do not inspect unrelated active workflows to reconstruct missing intent; a Design that needs hidden discussion context is not ready.
+Accept the exact Design path, project root, this contract, and any assigned scope. Apply the checks below to that scope (the entire Design by default), following its dependencies across files. Use the Design and original project evidence, not the author's conclusions or other workflows' discussions.
 
 ## Review
 
@@ -21,8 +21,6 @@ First identify the Design's actual problem claims, selected delivery scope, chan
 9. Check that retained guardrails have a concrete causal failure mechanism and that the Design has not accumulated rejected options, speculative risks, generic advice, or execution-plan detail.
 10. Review proposed names through two evidence standards. Enforce explicit applicable project naming rules with a rule citation; do not generalize their examples. Separately inspect only proposed domain concepts, stable interfaces, and ownership/lifecycle boundaries for a semantic mismatch capable of changing how implementers or callers understand the contract. Require evidence for `name-implied meaning -> designed responsibility or behavior -> materially different interpretation or misuse`. Do not review incidental illustrative-code locals, personal wording taste, mechanical word/prefix patterns, BCL/third-party APIs, or framework-mandated signatures.
 
-Review the whole Design yourself and retain the only overall verdict. In integration mode, check whether the parallel questions cover every independently verifiable high-consequence technical claim; a material omission is a finding, not permission to assume the claim. Validate report anchors, deduplicate shared roots, reconcile reports against the same conditions, and directly recheck evidence when needed. Agreement among reviewers is not independent support when they rely on the same premise or source. If a material conflict or coverage gap cannot be resolved from accessible evidence, return `BLOCKED`. Do not name predetermined reviewer categories or replace whole-Design judgment with a vote over specialist reports.
-
 ## Findings and verdict
 
 Return a compact coverage table that includes each independently variable stable target and its user or unique-evidence source, then evidence-backed findings with Design sections and repository `file:line` references where applicable:
@@ -31,7 +29,7 @@ Return a compact coverage table that includes each independently variable stable
 - `P1`: the Design is not implementation-ready because a required boundary, contract, flow, behavior, fact, or validation obligation is missing, contradictory, unsupported, or materially ambiguous, or because a proposed stable/domain name violates an explicit blocking project rule or has a demonstrated materially misleading contract interpretation;
 - `P2`: a precise non-blocking clarity or relevance issue that cannot materially change implementation.
 
-End with exactly one verdict:
+End with one verdict for the reviewed scope:
 
 - `PASS`: every applicable contract area is accounted for and there is no P0/P1 finding;
 - `FAIL`: at least one P0/P1 finding exists;
@@ -42,4 +40,4 @@ For every P0/P1 finding, emit exactly one disposition:
 - `MECHANICAL`: only for a factual name, signature, citation, spelling, or equivalent correction that cannot change observable behavior or any stable target. State the cited evidence and narrow correction boundary.
 - `USER DECISION`: when two reasonable corrections remain, the target was not previously selected, or the correction would choose or change scope, architecture, a stable interface or domain name, data meaning or format, compatibility, ownership or lifecycle, failure behavior, a performance-quality trade-off, or validation strength. Describe the decision boundary without choosing an option.
 
-If accessible evidence cannot establish uniqueness, use `USER DECISION`. In integration mode, reconcile specialist reports and issue the final disposition; do not silently downgrade a specialist's `USER DECISION` without directly checked counterevidence. Do not turn stylistic preference into a finding and do not apply any fix.
+If accessible evidence cannot establish uniqueness, use `USER DECISION`. Do not apply any fix.

@@ -10,7 +10,7 @@
 
 - `$agent-workflow-kit:design`：唯一显式入口；调查真实仓库、持续记录 Design，并在候选 Ready 后派独立只读 subagent 审查成品。探索结论可以在用户确认后以无需实施归档，不强迫制造代码改动。
 - `$agent-workflow-kit:act`：用户在最终 Design 的合并审阅门禁中无保留接受后，携带当前 `design.md` 的确切路径直接进入；该授权在同一工作流的 Act↔Design 修订中持续有效，复审通过后自动恢复原 Act，不再请求实施授权。首次授权前，脱离门禁语境的普通实现请求或泛化“继续”不得触发 Act。
-- `$agent-workflow-kit:review`：简单改动由一个 reviewer 完成；两个以上独立高影响主张先并行核验，再由一个 reviewer 在同一工作区整合真实调用链与最终结论。
+- `$agent-workflow-kit:review`：独立检查实现是否接入真实生产路径、是否满足 Design 的验收标准。一个 reviewer 能审清就由一人完成；适合分工时并行审查，主 agent 等报告齐全后汇总。
 
 工作流不得按任务特征自动启动；只有用户显式调用 `$agent-workflow-kit:design` 才进入，此后自动推进，不增加 Plan 或同义实施确认。
 
