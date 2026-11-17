@@ -98,23 +98,20 @@ function evaluateDesignQuestion(turn, index) {
   return failures;
 }
 
-function isDesignQuestion(turn) {
-  return turn.kind === 'design-question';
-}
-
 export function evaluateTranscript(transcript, { allowPending = false } = {}) {
   const failures = [];
   const turns = transcript?.turns;
-  if (!Array.isArray(turns)) return { ok: false, failures: [failure('invalid-transcript', null, 'Transcript must contain a turns array.')] };
+  if (!Array.isArray(turns) || turns.length === 0) return { ok: false, failures: [failure('invalid-transcript', null, 'The record must start with a Design question.')] };
 
   let pendingDecisionTurn = null;
   turns.forEach((turn, index) => {
-    if (!turn || typeof turn.content !== 'string' || !['agent', 'user'].includes(turn.role)) {
-      failures.push(failure('invalid-turn', index, 'Each turn needs role agent/user and string content.'));
+    if (!turn || typeof turn.content !== 'string' || !turn.content.trim() || !['agent', 'user'].includes(turn.role)) {
+      failures.push(failure('invalid-turn', index, 'Each turn needs role agent/user and nonempty content.'));
       return;
     }
 
     if (turn.role === 'user') {
+      if (pendingDecisionTurn === null) failures.push(failure('reply-without-question', index, 'No pending Design question for this reply.'));
       pendingDecisionTurn = null;
       return;
     }
@@ -122,11 +119,11 @@ export function evaluateTranscript(transcript, { allowPending = false } = {}) {
     if (pendingDecisionTurn !== null) {
       failures.push(failure('advanced-before-user-reply', index, `Agent turn follows unanswered decision card at turn ${pendingDecisionTurn}.`));
     }
-    if (isDesignQuestion(turn)) {
+    if (turn.kind === 'design-question') {
       failures.push(...evaluateDesignQuestion(turn, index));
       pendingDecisionTurn = index;
-    } else if (['decision-card', 'architecture-decision', 'data-structure-decision', 'data-flow-decision'].includes(turn.kind)) {
-      failures.push(failure('legacy-question-kind', index, 'Use the natural design-question protocol; fixed decision-card kinds are no longer supported.'));
+    } else {
+      failures.push(failure('invalid-question-kind', index, 'An agent turn in this record must be a design-question.'));
     }
   });
 

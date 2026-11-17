@@ -2,7 +2,7 @@ import assert from 'node:assert/strict';
 import fs from 'node:fs';
 import os from 'node:os';
 import path from 'node:path';
-import { execFileSync } from 'node:child_process';
+import { execFileSync, spawnSync } from 'node:child_process';
 import test from 'node:test';
 import { ensureWorkflowIgnore, inspectWorkflowIgnore, workflowIgnoreContract } from '../.agents/skills/design/scripts/preflight.mjs';
 
@@ -20,6 +20,43 @@ test('non-Git project is safe and unchanged', () => {
   assert.equal(result.status, 'non_git');
   assert.equal(result.changed, false);
   assert.deepEqual(fs.readdirSync(root), []);
+});
+
+test('a missing project root fails both CLI modes without creating it', () => {
+  const root = path.join(temp('missing'), 'absent');
+  const script = path.resolve(import.meta.dirname, '../.agents/skills/design/scripts/preflight.mjs');
+  for (const mode of ['check', 'ensure']) {
+    const result = spawnSync(process.execPath, [script, mode, '--project-root', root], { encoding: 'utf8' });
+    assert.equal(result.status, 2);
+    assert.match(result.stderr, /ENOENT/);
+    assert.equal(fs.existsSync(root), false);
+  }
+});
+
+test('Git discovery errors are not classified as non-Git projects', () => {
+  const root = temp('discovery-error');
+  for (const discovery of [
+    { status: null, error: new Error('spawn git ENOENT') },
+    { status: null, error: new Error('spawn git ETIMEDOUT') },
+    { status: 128, stderr: 'fatal: detected dubious ownership in repository' },
+    { status: 0, stdout: 'false' },
+  ]) {
+    assert.throws(() => ensureWorkflowIgnore(root, { runGit: () => discovery }), /Unable to verify a Git working tree/);
+  }
+  assert.deepEqual(fs.readdirSync(root), []);
+});
+
+test('Git discovery failure with an ancestor checkout marker stops ensure', () => {
+  const root = temp('broken-discovery');
+  git(root, 'init');
+  const project = path.join(root, 'project');
+  fs.mkdirSync(project);
+  const script = path.resolve(import.meta.dirname, '../.agents/skills/design/scripts/preflight.mjs');
+  const result = spawnSync(process.execPath, [script, 'ensure', '--project-root', project], {
+    encoding: 'utf8', env: { ...process.env, GIT_OBJECT_DIRECTORY: path.join(root, 'missing-objects') },
+  });
+  assert.equal(result.status, 2);
+  assert.match(result.stderr, /Git could not inspect the checkout/);
 });
 
 test('check is read-only and ensure is idempotent in path with spaces', () => {

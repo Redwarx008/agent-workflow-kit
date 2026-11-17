@@ -12,6 +12,7 @@ const PROBE = 'workflow/.agent-workflow-kit-probe';
 function defaultRunGit(projectRoot, args) {
   return spawnSync('git', ['-C', projectRoot, ...args], {
     encoding: 'utf8',
+    env: { ...process.env, LC_ALL: 'C' },
     timeout: 5000,
     windowsHide: true,
   });
@@ -30,8 +31,18 @@ function gitResult(runGit, projectRoot, args) {
 export function inspectWorkflowIgnore(projectRoot, options = {}) {
   const runGit = options.runGit ?? defaultRunGit;
   const resolvedRoot = path.resolve(projectRoot);
+  if (!fs.statSync(resolvedRoot).isDirectory()) throw new Error(`Project root is not a directory: ${resolvedRoot}`);
   const inside = gitResult(runGit, resolvedRoot, ['rev-parse', '--is-inside-work-tree']);
-  if (inside.error || inside.status !== 0 || inside.stdout !== 'true') {
+  // Git also uses exit 128 for inaccessible or invalid repositories.
+  if (!inside.error && inside.status === 128 && inside.stderr.startsWith('fatal: not a git repository (or any ')) {
+    // A broken object store can produce the same message inside a real checkout.
+    for (let dir = resolvedRoot; ; dir = path.dirname(dir)) {
+      const marker = path.join(dir, '.git');
+      if (fs.lstatSync(marker, { throwIfNoEntry: false })) {
+        throw new Error(`Git could not inspect the checkout at ${marker}: ${inside.stderr}`);
+      }
+      if (dir === path.dirname(dir)) break;
+    }
     return {
       ok: true,
       git: false,
@@ -40,6 +51,9 @@ export function inspectWorkflowIgnore(projectRoot, options = {}) {
       project_root: resolvedRoot,
       message: 'Project is not a Git work tree; no Git ignore state is required.',
     };
+  }
+  if (inside.error || inside.status !== 0 || inside.stdout !== 'true') {
+    throw new Error(`Unable to verify a Git working tree at ${resolvedRoot}: ${inside.error?.message || inside.stderr || inside.stdout || `exit ${inside.status}`}`);
   }
 
   const gitPath = gitResult(runGit, resolvedRoot, ['rev-parse', '--git-path', 'info/exclude']);

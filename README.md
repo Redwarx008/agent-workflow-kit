@@ -96,7 +96,7 @@ npm run test:powershell
 
 - 事实由 agent 从真实项目和适用参考实现调查，无法从证据推导的取舍才交给用户。
 - 当前代码、配置或资源样本、可复现估算、外部事实与目标设计保持清晰边界。
-- Design 自然地一次处理一个真实决定；具体代码目标同时展示带来源的当前代码和紧凑目标示意，受影响的结构关系用必要的树或图说明。
+- Design 一次讨论一个真实决定；代码片段的取舍见[设计对话规范](.agents/skills/design/references/design-dialogue.md#make-code-changes-inspectable)。
 - Design 只保存用户所选交付范围的最小充分最终结果；Act 自行安排不改变设计的机械执行顺序。
 - 实施中的材料冲突或实质选择必须停下询问，不能用默认值、fallback 或替代验证绕过。
 - 独立 Review 从最终 Design 反查真实生产路径和一般规则；长期知识只按目标项目自己的门槛沉淀。

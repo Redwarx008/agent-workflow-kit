@@ -1,57 +1,62 @@
 import assert from 'node:assert/strict';
 import fs from 'node:fs';
-import path from 'node:path';
 import test from 'node:test';
 import { evaluateTranscript } from '../.agents/skills/design/scripts/evaluate-decision-protocol.mjs';
 
-const fixtures = path.resolve(import.meta.dirname, 'fixtures', 'decision-protocol');
+const fixture = new URL('./fixtures/decision-protocol/valid-inline-question-mark.json', import.meta.url);
+const [question, answer] = JSON.parse(fs.readFileSync(fixture, 'utf8')).turns;
+const errors = (turns, allowPending = false) =>
+  evaluateTranscript({ turns }, { allowPending }).failures.map(item => item.code);
 
-function readFixture(name) {
-  return JSON.parse(fs.readFileSync(path.join(fixtures, name), 'utf8'));
-}
-
-test('decision-protocol evaluator accepts a self-contained recommendation-first card after a user reply', () => {
-  const result = evaluateTranscript(readFixture('valid.json'));
-  assert.equal(result.ok, true, JSON.stringify(result.failures));
+test('inline nullable syntax and a design.md reference do not invalidate a choice', () => {
+  assert.deepEqual(errors([question, answer]), []);
 });
 
-test('decision-protocol evaluator requires trees and illustrative code for architecture decisions', () => {
-  const result = evaluateTranscript(readFixture('valid-architecture-illustration.json'));
-  assert.equal(result.ok, true, JSON.stringify(result.failures));
+test('an internal decision ID is still rejected in an otherwise valid choice', () => {
+  assert.deepEqual(errors([{ ...question, content: 'D-003: ' + question.content }, answer]), ['internal-id-leak']);
 });
 
-test('decision-protocol evaluator rejects target artifacts detached before the recommended option', () => {
-  const result = evaluateTranscript(readFixture('invalid-target-before-recommendation.json'));
-  assert.equal(result.ok, false);
-  for (const code of ['missing-structure-tree', 'missing-illustrative-code']) {
-    assert.ok(result.failures.some(item => item.code === code), `missing ${code}`);
+test('a pending question is valid before sending but does not have a reply yet', () => {
+  assert.deepEqual(errors([question], true), []);
+  assert.deepEqual(errors([question]), ['missing-user-reply']);
+});
+
+test('an empty record, an orphan reply and consecutive replies are invalid in either mode', () => {
+  for (const pending of [false, true]) {
+    assert.deepEqual(errors([], pending), ['invalid-transcript']);
+    assert.deepEqual(errors([answer], pending), ['reply-without-question']);
+    assert.deepEqual(errors([question, answer, answer], pending), ['reply-without-question']);
   }
 });
 
-test('decision-protocol evaluator rejects data-flow decisions without their flow tree and illustrative code', () => {
-  const result = evaluateTranscript(readFixture('invalid-missing-data-flow-illustration.json'));
-  assert.equal(result.ok, false);
-  for (const code of ['missing-flow-tree', 'missing-illustrative-code']) {
-    assert.ok(result.failures.some(item => item.code === code), `missing ${code}`);
-  }
+test('only a Design question can open an exchange, and a second question must wait', () => {
+  assert.deepEqual(errors([{ ...question, kind: 'commentary' }, answer]), ['invalid-question-kind', 'reply-without-question']);
+  assert.deepEqual(errors([question, question], true), ['advanced-before-user-reply']);
 });
 
-test('decision-protocol evaluator rejects recommendation after alternatives', () => {
-  const result = evaluateTranscript(readFixture('invalid-recommendation-order.json'));
-  assert.equal(result.ok, false);
-  assert.ok(result.failures.some(item => item.code === 'recommendation-not-first'));
+test('a follow-up is a reply, not necessarily a selection; clarification can keep the same choice open', () => {
+  const followup = { role: 'user', content: 'Why would B reject the root?' };
+  const clarification = { ...question, content: 'Rejecting a root would reject the import.\n\n' + question.content };
+  assert.deepEqual(errors([question, followup]), []);
+  assert.deepEqual(errors([question, followup, clarification], true), []);
+  assert.deepEqual(errors([question, followup, clarification, answer]), []);
 });
 
-test('decision-protocol evaluator rejects internal IDs, document-dependent cards, and multiple questions', () => {
-  const result = evaluateTranscript(readFixture('invalid-internal-id-and-question.json'));
-  assert.equal(result.ok, false);
-  for (const code of ['internal-id-leak', 'not-self-contained', 'not-one-question']) {
-    assert.ok(result.failures.some(item => item.code === code), `missing ${code}`);
-  }
+test('every declared option needs a visible entry and a label in the closing question', () => {
+  const missingEntry = question.content.replace('B. Reject roots during import.', '');
+  const missingLabel = question.content.replace('B (reject roots)?', 'reject roots?');
+  assert.deepEqual(errors([{ ...question, content: missingEntry }, answer]), ['missing-labeled-option']);
+  assert.deepEqual(errors([{ ...question, content: missingLabel }, answer]), ['question-omits-option-label']);
 });
 
-test('decision-protocol evaluator rejects agent progress before the user replies', () => {
-  const result = evaluateTranscript(readFixture('invalid-advanced-before-reply.json'), { allowPending: true });
-  assert.equal(result.ok, false);
-  assert.ok(result.failures.some(item => item.code === 'advanced-before-user-reply'));
+test('a proposed code change requires target code; a declared current excerpt must also be inspectable', () => {
+  const target = { ...question, option_labels: [], proposes_code_change: true,
+    content: 'illustrative target\n```csharp\nNode? Parent { get; }\n```\nWhat must a root import preserve?' };
+  assert.deepEqual(errors([target], true), []);
+  assert.deepEqual(errors([{ ...target, content: 'illustrative target: what should change?' }], true), ['missing-target-code']);
+  const comparing = { ...target, current_code_sources: ['src/Tree.cs:3'],
+    content: 'current code — src/Tree.cs:3\n' + target.content };
+  assert.deepEqual(errors([comparing], true), ['missing-code-comparison']);
+  const withExcerpt = comparing.content.replace('src/Tree.cs:3', 'src/Tree.cs:3\n```csharp\nint ParentId;\n```');
+  assert.deepEqual(errors([{ ...comparing, content: withExcerpt }], true), []);
 });

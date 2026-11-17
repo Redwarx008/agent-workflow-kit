@@ -1,0 +1,15 @@
+{
+  "turns": [
+    {
+      "role": "agent",
+      "kind": "design-question",
+      "proposes_code_change": false,
+      "option_labels": ["A", "B"],
+      "content": "The schema in design.md uses `Node? Parent` for roots. The import contract leaves root handling open.\n\nA. Preserve root nodes during import.\nB. Reject roots during import.\n\nChoose A (preserve roots) or B (reject roots)?"
+    },
+    {
+      "role": "user",
+      "content": "A"
+    }
+  ]
+}

@@ -32,6 +32,8 @@ Until every success criterion is evidenced:
 7. Run applicable validation and retain raw command/output as transient evidence for Review, not a persistent execution ledger.
 8. Mark a criterion covered only after its required evidence exists. Follow the Design-return path above for any deviation from final Design.
 
+Before returning the implementation for review, the worker updates any [durable project documentation](durable-decision-handoff.md) required by the project in the same workspace. Submit the code and those records as one review candidate.
+
 When one Design contains several outcomes or independently satisfiable parts, cover each one's criteria and evidence explicitly. The implementation order may be mechanical, but completing one part never completes the whole authorized Design. Do not manufacture a shared abstraction or lifecycle merely because the outcomes share one Design. Return a proposed removal, deferral, or regrouping to Design for the user's scope decision. After the revised Design passes review, resume the same Act under its existing authorization.
 
 Do not silently add dependencies, change APIs or formats, broaden scope, choose compatibility policy, introduce fallback behavior, skip evidence, or replace validation. Follow the loaded validation guide, required domain skills, and target-project version-control rules.
@@ -41,8 +43,7 @@ Do not silently add dependencies, change APIs or formats, broaden scope, choose 
 1. Follow [independent review dispatch](../../review/references/review-dispatch.md). Invoke `$agent-workflow-kit:review` with the exact `design.md`, implementation workspace root, raw validation entrypoints, and assigned scope. Use the final Design and actual diff to identify required coverage.
 2. Send a uniquely determined P0/P1 or unmet-criterion correction to a worker. Return unresolved choices to Design before editing. Proceed to closure only after independent review passes.
 3. Before requesting commit authorization, list every remaining P2, known limitation, and external/manual acceptance explicitly delegated by final Design, or state `none`. The single commit authorization also accepts this disclosed remainder. If the user requests resolution first, fix it and re-review the affected scope. Never present an unresolved product/technical decision, unmet success criterion, or unavailable Design-required validation as non-blocking; only validation explicitly delegated outside the agent may remain.
-4. Apply the durable-decision handoff under the target project's document types, thresholds, and ownership rules.
-5. At the next user-authorized commit boundary, commit approved project artifacts under repository ownership rules. Never stage `workflow/**` merely to archive it.
-6. Only after the commit succeeds, delete completed local evaluator or Visual Companion state and move the entire `workflow/active/<change>/` directory to `workflow/completed/<change>/`, keeping the Design entry and area files together. If commit is absent or fails, leave Design active and report it ready to commit. Never create an empty commit solely to archive.
+4. At the user-authorized commit boundary, commit the reviewed code and project documents under repository ownership rules. If either changed since its review, return the affected scope for recheck first. Never stage `workflow/**` merely to archive it.
+5. Only after the commit succeeds, delete completed local evaluator or Visual Companion state and move the entire `workflow/active/<change>/` directory to `workflow/completed/<change>/`, keeping the Design entry and area files together. If commit is absent or fails, leave Design active and report it ready to commit. Never create an empty commit solely to archive.
 
 Never claim completion before independent `PASS`.

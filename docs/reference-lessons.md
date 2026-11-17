@@ -10,7 +10,7 @@
 
 ## Superpowers Brainstorming
 
-采用先探索项目、在确有多个有效方向时先比较 2-3 个整体方案，再按依赖关系讨论真正受影响的架构、接入、接口、数据、失败行为和验证。AWK 同样使用自然的一问一答和连贯设计章节，而不是固定或预编号的决策卡；已经由事实与早先选择唯一确定的内容进入章节整体审阅，不再逐维度索要批准。架构、数据结构和数据流使用紧凑树与示意代码，且 AWK 额外要求每个具体代码目标都有对应当前代码和目标语言示意代码。Superpowers 采用作者快速自检 written spec 后再交给用户审阅；AWK 改由最小上下文的独立只读 subagent 检查实际文件。最终审阅的直接接受同时授权 Act；若证据和用户选择得出无需实施，则确认后本地归档。worktree 选择仍作为执行阶段的新决定。保留 Design Ready gate 和 Visual Companion 的 just-in-time 原则，不采用机械 TDD 或自动提交 Design 文档。
+采用先探索项目、在确有多个有效方向时先比较 2-3 个整体方案，再按依赖关系讨论真正受影响的架构、接入、接口、数据、失败行为和验证。AWK 同样使用自然的一问一答和连贯设计章节，而不是固定或预编号的决策卡；已经由事实与早先选择唯一确定的内容进入章节整体审阅，不再逐维度索要批准。代码片段的取舍见[设计对话规范](../.agents/skills/design/references/design-dialogue.md#make-code-changes-inspectable)。Superpowers 采用作者快速自检 written spec 后再交给用户审阅；AWK 改由最小上下文的独立只读 subagent 检查实际文件。最终审阅的直接接受同时授权 Act；若证据和用户选择得出无需实施，则确认后本地归档。worktree 选择仍作为执行阶段的新决定。保留 Design Ready gate 和 Visual Companion 的 just-in-time 原则，不采用机械 TDD 或自动提交 Design 文档。
 
 Design 的“实现方案”指 Act 前必须确定的机制、所有权、状态转换、依赖和生产集成点；文件级顺序由 Act 从真实依赖动态选择，不预写成计划。这样既不让 Act 重新发明架构，也避免维护容易过时的重复 Plan。
 
